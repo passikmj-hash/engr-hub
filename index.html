@@ -432,22 +432,87 @@ function fd(d){return d?new Date(d).toLocaleDateString('ko-KR',{year:'2-digit',m
 function toast(msg,err){const t=document.getElementById('toast');t.textContent=msg;t.className=err?'err':'';t.style.display='block';setTimeout(()=>t.style.display='none',2500);}
 function copyText(text){navigator.clipboard.writeText(text).then(()=>toast('복사됐어요!')).catch(()=>{});}
 
-// ══ CONFIG ══
-function saveConfig(){
+// ══ CONFIG & AUTH ══
+function showCfgMode(mode){
+  document.getElementById('cfg-admin').style.display=mode==='admin'?'block':'none';
+  document.getElementById('cfg-join').style.display=mode==='join'?'block':'none';
+  document.getElementById('cfg-pin').style.display=mode==='pin'?'block':'none';
+  document.getElementById('cfg-choose').style.display=mode==='choose'?'flex':'none';
+}
+
+function adminSave(){
   const d=document.getElementById('c-domain').value.trim();
   const e=document.getElementById('c-email').value.trim();
   const t=document.getElementById('c-token').value.trim();
   const p=document.getElementById('c-project').value.trim();
   const g=document.getElementById('c-gemini').value.trim();
-  if(!d||!e||!t||!p||!g){toast('모든 항목을 입력해주세요',true);return;}
+  const pin=document.getElementById('c-pin').value.trim();
+  if(!d||!e||!t||!p||!g||!pin){toast('모든 항목을 입력해주세요',true);return;}
+  if(pin.length<4){toast('PIN은 4자리 이상이어야 합니다',true);return;}
   CFG={domain:d,email:e,token:t,project:p,gemini:g};
+  const code=btoa(unescape(encodeURIComponent(JSON.stringify(CFG))));
+  const pinHash=simpleHash(pin);
   localStorage.setItem('engr_cfg',JSON.stringify(CFG));
+  localStorage.setItem('engr_pin',pinHash);
+  localStorage.setItem('engr_code',code);
+  // 팀 참여 코드 표시
+  document.getElementById('join-code-box').textContent=code;
+  document.getElementById('join-code-area').style.display='block';
+  toast('설정 완료! 팀 참여 코드를 팀원에게 공유하세요.');
+}
+
+function adminEnter(){
   document.getElementById('cfg').style.display='none';
   document.getElementById('app').style.display='flex';
   syncJira();
 }
+
+function joinSave(){
+  const code=document.getElementById('j-code').value.trim();
+  const pin=document.getElementById('j-pin').value.trim();
+  if(!code||!pin){toast('참여 코드와 PIN을 입력해주세요',true);return;}
+  try{
+    const decoded=JSON.parse(decodeURIComponent(escape(atob(code))));
+    if(!decoded.domain||!decoded.email){throw new Error('잘못된 코드');}
+    // PIN 검증
+    const saved=localStorage.getItem('engr_pin');
+    if(saved&&saved!==simpleHash(pin)){toast('PIN이 올바르지 않습니다',true);return;}
+    if(!saved){
+      // 첫 팀원 — PIN 저장
+      localStorage.setItem('engr_pin',simpleHash(pin));
+    }
+    CFG=decoded;
+    localStorage.setItem('engr_cfg',JSON.stringify(CFG));
+    localStorage.setItem('engr_code',code);
+    document.getElementById('cfg').style.display='none';
+    document.getElementById('app').style.display='flex';
+    syncJira();
+    toast('접속 완료!');
+  }catch(e){toast('참여 코드가 올바르지 않습니다',true);}
+}
+
+function pinLogin(){
+  const pin=document.getElementById('p-pin').value.trim();
+  if(!pin){toast('PIN을 입력해주세요',true);return;}
+  const saved=localStorage.getItem('engr_pin');
+  if(saved!==simpleHash(pin)){toast('PIN이 올바르지 않습니다',true);return;}
+  const cfg=localStorage.getItem('engr_cfg');
+  if(!cfg){toast('설정을 찾을 수 없습니다',true);showCfgMode('choose');return;}
+  CFG=JSON.parse(cfg);
+  document.getElementById('cfg').style.display='none';
+  document.getElementById('app').style.display='flex';
+  syncJira();
+}
+
+function simpleHash(str){
+  let h=0;for(let i=0;i<str.length;i++){h=Math.imul(31,h)+str.charCodeAt(i)|0;}return h.toString(36);
+}
+
 function resetConfig(){
+  if(!confirm('설정을 초기화하면 다시 설정해야 합니다. 계속하시겠어요?'))return;
   localStorage.removeItem('engr_cfg');
+  localStorage.removeItem('engr_pin');
+  localStorage.removeItem('engr_code');
   location.reload();
 }
 
@@ -974,17 +1039,16 @@ function onGlobalSearch(q){
 
 // ══ INIT ══
 window.onload=function(){
-  const saved=localStorage.getItem('engr_cfg');
-  if(saved){
-    CFG=JSON.parse(saved);
-    document.getElementById('c-domain').value=CFG.domain||'';
-    document.getElementById('c-email').value=CFG.email||'';
-    document.getElementById('c-token').value=CFG.token||'';
-    document.getElementById('c-project').value=CFG.project||'ENGR';
-    document.getElementById('c-gemini').value=CFG.gemini||'';
-    document.getElementById('cfg').style.display='none';
-    document.getElementById('app').style.display='flex';
-    syncJira();
+  const cfg=localStorage.getItem('engr_cfg');
+  const pin=localStorage.getItem('engr_pin');
+  if(cfg&&pin){
+    // 재방문 → PIN 입력만
+    showCfgMode('pin');
+  }else if(cfg&&!pin){
+    // 설정은 있는데 PIN 없음 (비정상) → 초기화
+    localStorage.clear();showCfgMode('choose');
+  }else{
+    showCfgMode('choose');
   }
 };
 </script>
