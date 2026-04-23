@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ENGR 백과사전 — ESCARE 보안기술팀</title>
+<title>ENGR AI — ESCARE 보안기술팀</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -14,8 +14,6 @@
 }
 body{font-family:'Malgun Gothic','Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 .hidden{display:none!important}
-
-/* ── LOGIN ── */
 #cfg{position:fixed;inset:0;background:radial-gradient(ellipse at 30% 50%,#0d1f45 0%,#060c18 100%);display:flex;align-items:center;justify-content:center;z-index:1000}
 .cfg-wrap{width:100%;max-width:400px;padding:20px}
 .cfg-logo{text-align:center;margin-bottom:32px}
@@ -32,11 +30,7 @@ body{font-family:'Malgun Gothic','Segoe UI',sans-serif;background:var(--bg);colo
 .cfg-btn:hover{opacity:.9}
 .cfg-btn:disabled{opacity:.5;cursor:not-allowed}
 .cfg-note{font-size:11px;color:var(--text3);text-align:center;margin-top:14px;line-height:1.7}
-
-/* ── APP SHELL ── */
 #app{display:none;height:100vh;flex-direction:row}
-
-/* ── SIDEBAR ── */
 aside{width:220px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;height:100vh;position:sticky;top:0}
 .sb-top{padding:20px 16px 16px}
 .sb-brand{display:flex;align-items:center;gap:10px;margin-bottom:24px}
@@ -61,8 +55,6 @@ aside{width:220px;background:var(--sidebar);border-right:1px solid var(--border)
 .dot-gray{background:var(--text3)}
 .sb-sync-btn{width:100%;margin-top:10px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px;color:var(--text2);font-size:11px;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px}
 .sb-sync-btn:hover{border-color:var(--accent);color:var(--accent)}
-
-/* ── MAIN ── */
 main{flex:1;overflow-y:auto;display:flex;flex-direction:column;background:var(--bg)}
 .topbar{background:var(--sidebar);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;flex-shrink:0}
 .topbar-left h2{font-size:18px;font-weight:700;color:#fff}
@@ -75,12 +67,8 @@ main{flex:1;overflow-y:auto;display:flex;flex-direction:column;background:var(--
 .icon-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);transition:all .2s}
 .icon-btn:hover{border-color:var(--accent);color:var(--accent)}
 .icon-btn svg{width:15px;height:15px}
-
-/* ── CONTENT ── */
 .page{padding:24px;flex:1;display:none}
 .page.active{display:block}
-
-/* ── KPI ── */
 .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:22px}
 .kpi{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px;position:relative;overflow:hidden;transition:border-color .2s}
 .kpi:hover{border-color:var(--border2)}
@@ -90,19 +78,13 @@ main{flex:1;overflow-y:auto;display:flex;flex-direction:column;background:var(--
 .kpi-val{font-size:30px;font-weight:800;color:#fff;line-height:1}
 .kpi-label{font-size:12px;color:var(--text2);margin-top:6px}
 .kpi-sub{font-size:11px;color:var(--text3);margin-top:3px}
-
-/* ── FILTER ── */
 .filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;align-items:center}
 .filter-row input,.filter-row select{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:8px 12px;color:var(--text);font-size:12px;outline:none;transition:all .2s;font-family:inherit}
 .filter-row input:focus,.filter-row select:focus{border-color:var(--accent)}
 .filter-row input{flex:1;min-width:180px}
 .filter-count{font-size:12px;color:var(--text3);margin-left:auto;white-space:nowrap}
-
-/* ── TWO-COL ── */
-.two-col{display:grid;grid-template-columns:1fr 380px;gap:16px;align-items:start}
+.two-col{display:grid;grid-template-columns:1fr 400px;gap:16px;align-items:start}
 @media(max-width:1100px){.two-col{grid-template-columns:1fr}}
-
-/* ── ISSUE LIST ── */
 .issue-list{display:flex;flex-direction:column;gap:6px}
 .irow{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--lc,#4a6380);border-radius:10px;padding:13px 15px;cursor:pointer;transition:all .15s}
 .irow:hover{background:var(--panel);border-color:var(--border2)}
@@ -114,11 +96,8 @@ main{flex:1;overflow-y:auto;display:flex;flex-direction:column;background:var(--
 .irow-bot{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
 .badge{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600;white-space:nowrap}
 .more-hint{text-align:center;padding:12px;font-size:11px;color:var(--text3);background:var(--card);border:1px solid var(--border);border-radius:10px;margin-top:6px}
-
-/* ── RIGHT PANEL ── */
-.rpanel{background:var(--panel);border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:14px;padding:20px;position:sticky;top:72px}
+.rpanel{background:var(--panel);border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:14px;padding:20px;position:sticky;top:72px;max-height:calc(100vh - 100px);overflow-y:auto}
 .rp-empty{text-align:center;padding:40px 20px;color:var(--text3)}
-.rp-empty svg{width:40px;height:40px;opacity:.3;margin-bottom:12px}
 .rp-title{font-size:15px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:14px}
 .rp-badges{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
 .rp-meta{display:flex;flex-direction:column;gap:0;margin-bottom:14px;border:1px solid var(--border);border-radius:10px;overflow:hidden}
@@ -126,7 +105,7 @@ main{flex:1;overflow-y:auto;display:flex;flex-direction:column;background:var(--
 .rp-row:last-child{border-bottom:none}
 .rp-row span:first-child{color:var(--text3);width:72px;flex-shrink:0}
 .rp-row span:last-child{color:var(--text);flex:1}
-.rp-desc{font-size:12px;color:var(--text2);line-height:1.75;background:var(--bg);border-radius:8px;padding:12px;margin-bottom:14px;max-height:140px;overflow-y:auto;white-space:pre-wrap}
+.rp-desc{font-size:12px;color:var(--text2);line-height:1.75;background:var(--bg);border-radius:8px;padding:12px;margin-bottom:14px;max-height:160px;overflow-y:auto;white-space:pre-wrap}
 .btn-group{display:flex;flex-direction:column;gap:6px}
 .btn{border:none;border-radius:9px;padding:9px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;width:100%}
 .btn svg{width:13px;height:13px}
@@ -140,28 +119,20 @@ main{flex:1;overflow-y:auto;display:flex;flex-direction:column;background:var(--
 .btn-orange:hover{opacity:.9}
 .btn-ghost{background:var(--card);border:1px solid var(--border);color:var(--text2)}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
-
-/* ── SECTION TITLE ── */
 .sec-title{font-size:13px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .sec-title::after{content:'';flex:1;height:1px;background:var(--border)}
-
-/* ── AI / RESULT ── */
-.result-box{background:var(--bg);border:1px solid var(--border2);border-radius:12px;padding:18px;margin-top:14px;font-size:13px;line-height:1.85;color:var(--text);white-space:pre-wrap;max-height:500px;overflow-y:auto}
+.result-box{background:var(--bg);border:1px solid var(--border2);border-radius:12px;padding:18px;margin-top:10px;font-size:13px;line-height:1.85;color:var(--text);white-space:pre-wrap;max-height:400px;overflow-y:auto}
 .loading{display:flex;align-items:center;gap:10px;color:var(--text3);font-size:13px;padding:16px}
 .loading::before{content:'';width:16px;height:16px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* ── REPORT ── */
 .rpt-wrap{background:#f8f7f4;color:#1a1a1a;border-radius:12px;padding:28px;font-family:'Malgun Gothic',Arial,sans-serif;font-size:12px;margin-top:14px}
 .rpt-title{font-size:17px;font-weight:700;color:#185FA5;text-align:center;border-bottom:2.5px solid #185FA5;padding-bottom:12px;margin-bottom:16px}
 .rpt-table{width:100%;border-collapse:collapse;margin-bottom:14px}
-.rpt-table td{border:1px solid #444;padding:5px 9px}
-.rpt-th{background:#185FA5;color:#fff;font-weight:700;text-align:center;width:80px}
+.rpt-table td{border:1px solid #444;padding:5px 9px;font-size:11px}
+.rpt-th{background:#185FA5;color:#fff;font-weight:700;text-align:center}
 .rpt-sh{background:#E8EEF7;font-weight:700;width:72px}
 .rpt-sec{font-size:13px;font-weight:700;color:#185FA5;border-bottom:2px solid #185FA5;padding-bottom:4px;margin:18px 0 8px}
 .rpt-body{font-size:12px;line-height:1.85;white-space:pre-wrap}
-
-/* ── CHART ── */
 .chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:20px}
 .chart-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px}
 .chart-card h4{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px}
@@ -170,22 +141,19 @@ main{flex:1;overflow-y:auto;display:flex;flex-direction:column;background:var(--
 .bar-track{flex:1;background:var(--bg);border-radius:5px;height:20px;overflow:hidden}
 .bar-fill{height:100%;border-radius:5px;display:flex;align-items:center;padding-left:8px;transition:width .6s ease}
 .bar-n{font-size:10px;color:#fff;font-weight:700}
-
-/* ── META INPUTS ── */
 .meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
 .mf label{display:block;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
 .mf input,.mf select{width:100%;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 11px;color:var(--text);font-size:12px;outline:none;font-family:inherit;transition:all .2s}
 .mf input:focus,.mf select:focus{border-color:var(--accent)}
-
 .copy{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:3px 9px;font-size:10px;color:var(--text3);cursor:pointer;margin-left:6px;transition:all .2s}
 .copy:hover{border-color:var(--accent);color:var(--accent)}
 input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:pointer}
-
-/* ── TOAST ── */
 #toast{position:fixed;bottom:24px;right:24px;background:#10b981;color:#fff;padding:12px 22px;border-radius:12px;font-size:13px;font-weight:700;z-index:9999;display:none;box-shadow:0 8px 30px rgba(0,0,0,.4);animation:slideUp .3s ease}
 @keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
 #toast.err{background:#ef4444}
-
+.audit-row{display:flex;align-items:center;gap:10px;padding:8px 12px;border-bottom:1px solid var(--border);font-size:12px}
+.audit-row:last-child{border-bottom:none}
+.audit-type{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
@@ -195,7 +163,7 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
 <body>
 <div id="toast"></div>
 
-<!-- ══ LOGIN ══ -->
+<!-- LOGIN -->
 <div id="cfg">
   <div class="cfg-wrap">
     <div class="cfg-logo">
@@ -204,8 +172,8 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
           <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
         </svg>
       </div>
-      <h1>ENGR</h1>
-      <p>ESCARE 보안기술팀 백과사전</p>
+      <h1>ENGR AI</h1>
+      <p>ESCARE 보안기술팀</p>
     </div>
     <div class="cfg-card">
       <div class="cfg-field">
@@ -217,14 +185,13 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
         <input id="l-pin" type="password" placeholder="팀 공용 PIN" onkeydown="if(event.key==='Enter')login()">
       </div>
       <button class="cfg-btn" id="login-btn" onclick="login()">접속하기</button>
-      <p class="cfg-note">ENGR Hub 팀 전용 접속<br>이름과 팀 공용 PIN을 입력하세요</p>
+      <p class="cfg-note">ENGR AI 팀 전용 접속<br>이름과 팀 공용 PIN을 입력하세요</p>
     </div>
   </div>
 </div>
 
-<!-- ══ APP ══ -->
+<!-- APP -->
 <div id="app">
-  <!-- SIDEBAR -->
   <aside>
     <div class="sb-top">
       <div class="sb-brand">
@@ -233,7 +200,7 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
           </svg>
         </div>
-        <div><div class="sb-name">ENGR</div><div class="sb-sub">Security KB</div></div>
+        <div><div class="sb-name">ENGR AI</div><div class="sb-sub">Security Hub</div></div>
       </div>
       <div class="sb-section">메뉴</div>
       <div class="sb-nav">
@@ -245,10 +212,6 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
           이슈 관리
         </button>
-        <button class="sb-btn" onclick="showPage('kb',this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
-          KB 생성
-        </button>
         <button class="sb-btn" onclick="showPage('report',this)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
           리포트 생성
@@ -256,6 +219,10 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
         <button class="sb-btn" onclick="showPage('ai',this)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
           AI 분석
+        </button>
+        <button class="sb-btn" id="audit-menu" onclick="showPage('audit',this)" style="display:none">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg>
+          감사 로그
         </button>
       </div>
     </div>
@@ -265,7 +232,7 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
         <div style="font-size:11px;font-weight:700;color:var(--text2);margin-bottom:6px">연결 상태</div>
         <div class="sb-status-row"><span>접속자</span><span id="user-label" style="color:var(--accent2);font-weight:700">-</span></div>
         <div class="sb-status-row"><span>Jira</span><span id="jira-dot"><span class="dot dot-gray"></span>대기중</span></div>
-        <div class="sb-status-row"><span>Gemini AI</span><span id="gem-dot"><span class="dot dot-gray"></span>대기중</span></div>
+        <div class="sb-status-row"><span>AI</span><span id="ai-dot"><span class="dot dot-gray"></span>대기중</span></div>
         <div class="sb-status-row"><span>이슈</span><span id="issue-count" style="color:var(--text2)">-</span></div>
       </div>
       <button class="sb-sync-btn" onclick="syncJira()">
@@ -278,12 +245,11 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
     </div>
   </aside>
 
-  <!-- MAIN -->
   <main>
     <div class="topbar">
       <div class="topbar-left">
         <h2 id="page-title">대시보드</h2>
-        <p id="page-desc">Jira 이슈 기반 보안기술팀 허브</p>
+        <p id="page-desc">Jira 이슈 기반 보안기술팀 허브 (최근 3개월)</p>
       </div>
       <div class="topbar-right">
         <div class="search-box">
@@ -298,8 +264,8 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
 
     <!-- DASHBOARD -->
     <div class="page active" id="page-dash">
-      <div class="kpi-grid" id="kpi-grid">
-        <div class="kpi" style="--kpi-c1:#1d4ed8;--kpi-c2:#3b82f6"><div class="kpi-icon" style="color:#3b82f6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div><div class="kpi-val" id="k-total">-</div><div class="kpi-label">전체 이슈</div><div class="kpi-sub">ENGR 프로젝트</div></div>
+      <div class="kpi-grid">
+        <div class="kpi" style="--kpi-c1:#1d4ed8;--kpi-c2:#3b82f6"><div class="kpi-icon" style="color:#3b82f6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div><div class="kpi-val" id="k-total">-</div><div class="kpi-label">전체 이슈</div><div class="kpi-sub">최근 3개월</div></div>
         <div class="kpi" style="--kpi-c1:#059669;--kpi-c2:#10b981"><div class="kpi-icon" style="color:#10b981"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div class="kpi-val" id="k-done">-</div><div class="kpi-label">완료</div><div class="kpi-sub">처리 완료 건</div></div>
         <div class="kpi" style="--kpi-c1:#1d4ed8;--kpi-c2:#60a5fa"><div class="kpi-icon" style="color:#60a5fa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="kpi-val" id="k-prog">-</div><div class="kpi-label">진행중</div><div class="kpi-sub">처리 중인 건</div></div>
         <div class="kpi" style="--kpi-c1:#b45309;--kpi-c2:#f59e0b"><div class="kpi-icon" style="color:#f59e0b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div class="kpi-val" id="k-high">-</div><div class="kpi-label">High+</div><div class="kpi-sub">높은 우선순위</div></div>
@@ -331,34 +297,20 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
       </div>
     </div>
 
-    <!-- KB -->
-    <div class="page" id="page-kb">
-      <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:10px;padding:12px 16px;font-size:12px;color:#6ee7b7;margin-bottom:16px">
-        ✅ 이슈를 선택하면 Broadcom KB 양식으로 문서 초안이 자동 생성됩니다.
-      </div>
-      <div class="filter-row">
-        <input id="kb-q" placeholder="이슈 검색..." oninput="renderKBList()">
-        <select id="kb-stat" onchange="renderKBList()"><option value="">전체 상태</option><option>완료</option><option>진행 중</option></select>
-        <span class="filter-count" id="kb-count">0건</span>
-      </div>
-      <div class="two-col">
-        <div id="kb-list" class="issue-list"></div>
-        <div id="kb-right">
-          <div class="rpanel"><div class="rp-empty" style="color:var(--text3);text-align:center;padding:30px"><p style="font-size:13px">이슈를 클릭하여<br>KB 초안을 생성하세요</p></div></div>
-        </div>
-      </div>
-    </div>
-
     <!-- REPORT -->
     <div class="page" id="page-report">
       <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:12px 16px;font-size:12px;color:#fcd34d;margin-bottom:16px">
-        ✋ 이슈를 체크박스로 선택 후 리포트를 생성하세요.
+        ✋ 이슈를 체크박스로 선택 후 AI 리포트를 생성하세요. 라이나생명 이슈보고서 양식으로 출력됩니다.
       </div>
       <div class="meta-grid">
         <div class="mf"><label>작성자</label><input id="m-author" placeholder="박민준" value="박민준"></div>
-        <div class="mf"><label>직함</label><input id="m-title" placeholder="부장" value="부장"></div>
-        <div class="mf"><label>고객사 담당자</label><input id="m-cust" placeholder="고객사 담당자명"></div>
-        <div class="mf"><label>제품명</label><input id="m-prod" placeholder="Broadcom SEP" value="Broadcom / Symantec Endpoint Protection"></div>
+        <div class="mf"><label>직함</label><input id="m-title-input" placeholder="부장" value="부장"></div>
+        <div class="mf"><label>에스케어 담당자2</label><input id="m-author2" placeholder="김민지"></div>
+        <div class="mf"><label>담당자2 직함</label><input id="m-title2" placeholder="주임"></div>
+        <div class="mf"><label>고객사명</label><input id="m-company" placeholder="라이나생명"></div>
+        <div class="mf"><label>고객사 담당자</label><input id="m-cust" placeholder="오경민"></div>
+        <div class="mf"><label>고객사 직함</label><input id="m-cust-title" placeholder="차장"></div>
+        <div class="mf"><label>제품명</label><input id="m-prod" value="Broadcom / Symantec Endpoint Protection"></div>
         <div class="mf"><label>리포트 제목</label><input id="m-rptitle" placeholder="SEPM 장애 이슈보고서"></div>
         <div class="mf"><label>대상</label><input id="m-target" placeholder="대상 서버/시스템"></div>
         <div class="mf"><label>보안등급</label><select id="m-sec"><option>내부용</option><option>대외비</option><option>기밀</option></select></div>
@@ -368,31 +320,30 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
         <button onclick="toggleAllReport()" style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 14px;color:var(--text2);font-size:12px;cursor:pointer;font-family:inherit">전체 선택/해제</button>
         <span class="filter-count" id="rp-sel">0건 선택</span>
       </div>
-      <div id="rp-list" class="issue-list" style="max-height:300px;overflow-y:auto;margin-bottom:14px;border:1px solid var(--border);border-radius:10px;padding:8px"></div>
+      <div id="rp-list" class="issue-list" style="max-height:280px;overflow-y:auto;margin-bottom:14px;border:1px solid var(--border);border-radius:10px;padding:8px"></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
-        <button class="btn btn-orange" onclick="genReport()" id="rp-gen-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-          AI 리포트 생성
-        </button>
-        <button class="btn btn-blue" onclick="downloadReport()" style="width:auto;padding:9px 20px">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Word 다운로드
-        </button>
+        <button class="btn btn-orange" onclick="genReport()" id="rp-gen-btn" style="width:auto;padding:9px 20px">AI 리포트 생성</button>
+        <button class="btn btn-blue" onclick="downloadReport()" style="width:auto;padding:9px 20px">Word 다운로드</button>
         <button class="btn btn-ghost" onclick="togglePreview()" style="width:auto;padding:9px 18px" id="prev-btn">미리보기</button>
       </div>
       <div id="rp-ai-result" style="display:none"></div>
       <div id="rp-preview" style="display:none"></div>
     </div>
 
-    <!-- AI -->
+    <!-- AI 분석 -->
     <div class="page" id="page-ai">
       <div style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:10px;padding:12px 16px;font-size:12px;color:#c4b5fd;margin-bottom:16px">
-        🤖 이슈를 선택하면 Gemini AI가 기술적 분석과 조치 방안을 제안합니다.
+        🤖 이슈를 선택하면 AI가 전체 내용을 분석합니다. 기술 분석 / 고객사 메일 / 유사 이슈 / 월간 동향 요약을 지원합니다.
       </div>
       <div class="filter-row">
         <input id="ai-q" placeholder="이슈 검색..." oninput="renderAIList()">
         <span class="filter-count" id="ai-count">0건</span>
       </div>
+      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+        <button class="btn btn-purple" onclick="runMonthly()" style="width:auto;padding:8px 16px;font-size:11px">📊 월간 동향 요약</button>
+        <button class="btn btn-ghost" onclick="runPattern()" style="width:auto;padding:8px 16px;font-size:11px">🔍 고객사 패턴 분석</button>
+      </div>
+      <div id="ai-monthly-result" style="display:none;margin-bottom:16px"></div>
       <div class="two-col">
         <div id="ai-list" class="issue-list"></div>
         <div id="ai-right">
@@ -400,16 +351,25 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
         </div>
       </div>
     </div>
+
+    <!-- AUDIT -->
+    <div class="page" id="page-audit">
+      <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:12px 16px;font-size:12px;color:#fca5a5;margin-bottom:16px">
+        🔒 관리자 전용 감사 로그입니다. 팀원 접속 및 AI 사용 이력을 확인할 수 있습니다.
+      </div>
+      <div id="audit-list" style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden"></div>
+    </div>
   </main>
 </div>
 
 <script>
-// ══ WORKERS URL ══
 const WORKERS = 'https://engr-hub-proxy.mj-park.workers.dev';
+const ADMIN_USER = '박민준'; // 감사 로그 열람 가능 계정
 
-// ══ STATE ══
-let ISSUES = [], SEL = null, RP_SEL = new Set(), KB_SEL = null, AI_SEL = null;
+let ISSUES = [], SEL = null, RP_SEL = new Set(), AI_SEL = null;
 let rpAiText = '', showPreview = false;
+let CURRENT_USER = '';
+
 const SC = {'완료':'#10b981','진행 중':'#3b82f6','미해결':'#94a3b8','보류':'#f59e0b'};
 const PC = {'Highest':'#ef4444','High':'#f97316','Medium':'#f59e0b','Low':'#10b981'};
 const LC = {'DLP':'#ef4444','PP':'#3b82f6','SEP':'#10b981'};
@@ -418,46 +378,56 @@ function fd(d){return d?new Date(d).toLocaleDateString('ko-KR',{year:'2-digit',m
 function toast(msg,err){const t=document.getElementById('toast');t.textContent=msg;t.className=err?'err':'';t.style.display='block';setTimeout(()=>t.style.display='none',2800);}
 function copyText(text){navigator.clipboard.writeText(text).then(()=>toast('복사됐어요!')).catch(()=>{});}
 
-// ══ AUTH ══
+// ── AUTH ──────────────────────────────────────────
 async function login(){
   const name = document.getElementById('l-name').value.trim();
   const pin = document.getElementById('l-pin').value.trim();
-  if(!name || !pin){toast('이름과 PIN을 입력해주세요',true);return;}
-
+  if(!name||!pin){toast('이름과 PIN을 입력해주세요',true);return;}
   const btn = document.getElementById('login-btn');
-  btn.disabled = true;
-  btn.textContent = '확인 중...';
-
+  btn.disabled=true;btn.textContent='확인 중...';
   try{
     const r = await fetch(`${WORKERS}/auth/login`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({name, pin})
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({name,pin})
     });
     const d = await r.json();
     if(!d.ok){toast('이름 또는 PIN이 올바르지 않습니다',true);btn.disabled=false;btn.textContent='접속하기';return;}
-
-    localStorage.setItem('engr_user', name);
-    localStorage.setItem('engr_pin', pin);
-    document.getElementById('user-label').textContent = name;
-    document.getElementById('m-author').value = name;
-    document.getElementById('cfg').style.display = 'none';
-    document.getElementById('app').style.display = 'flex';
-    syncJira();
+    CURRENT_USER = name;
+    localStorage.setItem('engr_user',name);
+    localStorage.setItem('engr_pin',pin);
+    enterApp(name);
   }catch(e){
-    toast('서버 연결 실패. Workers가 배포되었는지 확인하세요.',true);
-    btn.disabled=false;btn.textContent='접속하기';
+    toast('서버 연결 실패',true);btn.disabled=false;btn.textContent='접속하기';
   }
+}
+
+function enterApp(name){
+  CURRENT_USER = name;
+  document.getElementById('user-label').textContent = name;
+  document.getElementById('m-author').value = name;
+  document.getElementById('cfg').style.display='none';
+  document.getElementById('app').style.display='flex';
+  document.getElementById('ai-dot').innerHTML='<span class="dot dot-green"></span><span style="color:#10b981">준비됨</span>';
+  if(name === ADMIN_USER){
+    document.getElementById('audit-menu').style.display='flex';
+  }
+  syncJira();
 }
 
 function logout(){
   if(!confirm('로그아웃 하시겠어요?'))return;
-  localStorage.removeItem('engr_user');
+  localStorage.removeItem('engr_user');localStorage.removeItem('engr_pin');
   location.reload();
 }
 
-// ══ PAGE NAV ══
-const pageTitles={dash:['대시보드','Jira 이슈 기반 보안기술팀 허브'],issues:['이슈 관리','전체 이슈 목록 및 상세 조회'],kb:['KB 생성','이슈 기반 Knowledge Base 자동 생성'],report:['리포트 생성','고객사 기술지원 이슈 보고서'],ai:['AI 분석','Gemini AI 기술 분석 및 조치 방안']};
+// ── PAGE NAV ──────────────────────────────────────
+const pageTitles={
+  dash:['대시보드','Jira 이슈 기반 보안기술팀 허브 (최근 3개월)'],
+  issues:['이슈 관리','전체 이슈 목록 및 상세 조회'],
+  report:['리포트 생성','고객사 기술지원 이슈 보고서'],
+  ai:['AI 분석','AI 기술 분석 및 인사이트'],
+  audit:['감사 로그','접속 및 AI 사용 이력']
+};
 function showPage(id,btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
@@ -467,22 +437,21 @@ function showPage(id,btn){
   document.getElementById('page-title').textContent=t[0];
   document.getElementById('page-desc').textContent=t[1];
   if(id==='issues')renderIssues();
-  if(id==='kb')renderKBList();
   if(id==='report')renderReportList();
   if(id==='ai')renderAIList();
+  if(id==='audit')loadAudit();
 }
-
 function onGlobalSearch(q){
   document.querySelectorAll('.sb-btn')[1].click();
-  document.getElementById('f-q').value=q;
-  renderIssues();
+  document.getElementById('f-q').value=q;renderIssues();
 }
 
-// ══ JIRA SYNC (via Workers) ══
+// ── JIRA SYNC ─────────────────────────────────────
 async function syncJira(){
   document.getElementById('jira-dot').innerHTML='<span class="dot" style="background:#f59e0b"></span>동기화중...';
+  document.getElementById('issue-count').textContent='로딩중...';
   try{
-    const url = WORKERS + '/jira/search?jql=' + encodeURIComponent('project=ENGR ORDER BY created DESC') + '&maxResults=100&fields=summary,status,priority,assignee,reporter,created,updated,description,labels,issuetype';
+    const url = WORKERS + '/jira/search';
     const r = await fetch(url);
     if(!r.ok) throw new Error('응답 오류: '+r.status);
     const d = await r.json();
@@ -499,12 +468,12 @@ async function syncJira(){
       date:i.fields.created?i.fields.created.slice(0,10):'',
       updated:i.fields.updated?i.fields.updated.slice(0,10):'',
       desc:extractDesc(i.fields.description),
+      comments:extractComments(i.fields.comment),
       type:i.fields.issuetype?i.fields.issuetype.name:'작업',
       customer:extractCustomer(i.fields.summary)
     }));
 
     document.getElementById('jira-dot').innerHTML='<span class="dot dot-green"></span><span style="color:#10b981">연결됨</span>';
-    document.getElementById('gem-dot').innerHTML='<span class="dot dot-green"></span><span style="color:#10b981">준비됨</span>';
     document.getElementById('issue-count').textContent=ISSUES.length+'건';
     renderDash();
     toast('Jira 동기화 완료! '+ISSUES.length+'건');
@@ -519,24 +488,20 @@ function extractDesc(desc){
   const texts=[];
   function walk(nodes){if(!nodes)return;nodes.forEach(n=>{if(n.type==='text'&&n.text)texts.push(n.text);if(n.content)walk(n.content);});}
   walk(desc.content);
-  return texts.join(' ').slice(0,600);
+  return texts.join(' ').slice(0,1000);
+}
+function extractComments(comment){
+  if(!comment||!comment.comments)return '';
+  return comment.comments.slice(-5).map(c=>{
+    const texts=[];
+    function walk(nodes){if(!nodes)return;nodes.forEach(n=>{if(n.type==='text'&&n.text)texts.push(n.text);if(n.content)walk(n.content);});}
+    if(c.body&&c.body.content)walk(c.body.content);
+    return '['+c.author.displayName+'] '+texts.join(' ');
+  }).join('\n');
 }
 function extractCustomer(title){const m=title.match(/\[([^\]]+)\]/);return m?m[1]:'';}
 
-// ══ GEMINI (via Workers) ══
-async function callGemini(prompt){
-  const r = await fetch(`${WORKERS}/ai/generate`,{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({contents:[{parts:[{text:prompt}]}]})
-  });
-  if(!r.ok) throw new Error('AI 응답 오류: '+r.status);
-  const d = await r.json();
-  if(d.error) throw new Error(d.error.message||'AI 오류');
-  return d.candidates?.[0]?.content?.parts?.[0]?.text || '응답을 받지 못했습니다.';
-}
-
-// ══ DASHBOARD ══
+// ── DASHBOARD ─────────────────────────────────────
 function renderDash(){
   const total=ISSUES.length;
   const done=ISSUES.filter(i=>i.status==='완료').length;
@@ -558,7 +523,7 @@ function renderDash(){
 
   document.getElementById('chart-section').innerHTML=`
   <div class="chart-card"><h4>고객사별 분포</h4>
-  ${Object.entries(cusCnt).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([k,v])=>`
+  ${Object.entries(cusCnt).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,v])=>`
   <div class="bar-row"><div class="bar-lbl" title="${k}">${k}</div>
   <div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/maxC*100)}%;background:linear-gradient(90deg,#1d4ed8,#3b82f6)"><span class="bar-n">${v}</span></div></div></div>`).join('')}
   </div>
@@ -570,7 +535,7 @@ function renderDash(){
   <div class="chart-card"><h4>우선순위별</h4>
   ${['Highest','High','Medium','Low'].map(p=>{const v=priCnt[p]||0;return`
   <div class="bar-row"><div class="bar-lbl">${p}</div>
-  <div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/Math.max(1,...Object.values(priCnt))*100)}%;background:${PC[p]||'#94a3b8'}88"><span class="bar-n">${v}</span></div></div></div>`;}).join('')}
+  <div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/Math.max(1,...Object.values(priCnt))* 100)}%;background:${PC[p]||'#94a3b8'}88"><span class="bar-n">${v}</span></div></div></div>`;}).join('')}
   </div>`;
 
   const dl=document.getElementById('dash-list');
@@ -578,7 +543,7 @@ function renderDash(){
   dl.querySelectorAll('.irow').forEach((el,idx)=>{el.onclick=()=>{showPage('issues',document.querySelectorAll('.sb-btn')[1]);SEL=ISSUES[idx];renderIssues();renderRightPanel();};});
 }
 
-// ══ ISSUES ══
+// ── ISSUES ────────────────────────────────────────
 function filteredIssues(){
   const q=(document.getElementById('f-q')||{}).value?.toLowerCase()||'';
   const st=(document.getElementById('f-stat')||{}).value||'';
@@ -598,7 +563,7 @@ function renderIssues(){
   document.getElementById('f-count').textContent=fi.length+'건';
   const wrap=document.getElementById('issue-list-wrap');
   wrap.innerHTML=fi.map(i=>issueRowHTML(i,true,SEL&&SEL.key===i.key)).join('');
-  if(fi.length>20)wrap.innerHTML+=`<div class="more-hint">+${fi.length-20}건 더 있어요 — 필터로 범위를 좁혀주세요</div>`;
+  if(fi.length>30)wrap.innerHTML+=`<div class="more-hint">+${fi.length-30}건 더 있어요 — 필터로 범위를 좁혀주세요</div>`;
   wrap.querySelectorAll('.irow').forEach((el,idx)=>{el.onclick=()=>{SEL=fi[idx];renderIssues();renderRightPanel();};});
 }
 
@@ -643,98 +608,63 @@ function renderRightPanel(){
     </div>
     ${i.desc?`<div class="rp-desc">${i.desc}</div>`:''}
     <div class="btn-group">
-      <button class="btn btn-blue" onclick="goKB('${i.key}')">KB 문서 생성</button>
+      <button class="btn btn-blue" id="summary-btn" onclick="runSummary()">📋 내용 요약</button>
       <button class="btn btn-green" onclick="goReport('${i.key}')">리포트 생성</button>
       <button class="btn btn-purple" onclick="goAI('${i.key}')">AI 분석</button>
       <a href="https://escare-engr.atlassian.net/browse/${i.key}" target="_blank" style="text-decoration:none">
         <button class="btn btn-ghost">Jira에서 보기 →</button>
       </a>
     </div>
+    <div id="summary-result"></div>
   </div>`;
 }
 
-function goKB(key){KB_SEL=ISSUES.find(i=>i.key===key);showPage('kb',document.querySelectorAll('.sb-btn')[2]);renderKBList();renderKBRight();}
-function goReport(key){RP_SEL=new Set([key]);showPage('report',document.querySelectorAll('.sb-btn')[3]);renderReportList();}
-function goAI(key){AI_SEL=ISSUES.find(i=>i.key===key);showPage('ai',document.querySelectorAll('.sb-btn')[4]);renderAIList();renderAIRight();}
-
-// ══ KB ══
-function renderKBList(){
-  const q=(document.getElementById('kb-q')||{}).value?.toLowerCase()||'';
-  const st=(document.getElementById('kb-stat')||{}).value||'';
-  const fi=ISSUES.filter(i=>{
-    if(q&&!i.title.toLowerCase().includes(q))return false;
-    if(st&&i.status!==st)return false;
-    return true;
-  });
-  document.getElementById('kb-count').textContent=fi.length+'건';
-  const wrap=document.getElementById('kb-list');
-  wrap.innerHTML=fi.map(i=>issueRowHTML(i,true,KB_SEL&&KB_SEL.key===i.key)).join('');
-  wrap.querySelectorAll('.irow').forEach((el,idx)=>{el.onclick=()=>{KB_SEL=fi[idx];renderKBList();renderKBRight();};});
-}
-
-function renderKBRight(){
-  if(!KB_SEL)return;
-  const i=KB_SEL;
-  document.getElementById('kb-right').innerHTML=`
-  <div class="rpanel">
-    <div class="rp-title">${i.title}</div>
-    <div class="rp-badges">
-      <span class="badge" style="background:rgba(37,99,235,.12);color:var(--accent2)">${i.key}</span>
-      <span class="badge" style="background:${(SC[i.status]||'#94a3b8')}22;color:${SC[i.status]||'#94a3b8'}">${i.status}</span>
-    </div>
-    ${i.desc?`<div class="rp-desc">${i.desc}</div>`:''}
-    <button class="btn btn-green" id="kb-gen-btn" onclick="genKB()">KB 초안 생성</button>
-    <div id="kb-result"></div>
-  </div>`;
-}
-
-async function genKB(){
-  if(!KB_SEL)return;
-  const btn=document.getElementById('kb-gen-btn');
-  const res=document.getElementById('kb-result');
-  btn.disabled=true;btn.textContent='생성 중...';
-  res.innerHTML='<div class="loading">Gemini AI가 KB 초안을 작성하고 있어요...</div>';
+async function runSummary(){
+  if(!SEL)return;
+  const i=SEL;
+  const btn=document.getElementById('summary-btn');
+  const res=document.getElementById('summary-result');
+  btn.disabled=true;btn.textContent='요약 중...';
+  res.innerHTML='<div class="loading">AI가 이슈 전체 내용을 요약하고 있어요...</div>';
   try{
-    const text=await callGemini(`당신은 Broadcom/Symantec 보안 솔루션 전문가입니다. 아래 Jira 이슈를 Broadcom Knowledge Base 스타일로 KB 문서 초안을 한국어로 작성하세요.
+    const fullContent = `제목: ${i.title}
+고객사: ${i.customer||'-'} | 상태: ${i.status} | 우선순위: ${i.pri}
+레이블: ${i.labels.join(', ')||'-'}
+담당자: ${i.assignee} | 접수일: ${i.date}
 
-반드시 아래 섹션 구조를 따르세요:
-Article ID: ${KB_SEL.key}
-Title: [이슈 제목 기반 KB 제목]
+[이슈 내용]
+${i.desc||'(내용 없음)'}
 
-## 증상 (Symptom)
-[문제 현상 설명]
+[최근 코멘트]
+${i.comments||'(코멘트 없음)'}`;
 
-## 원인 (Cause)
-[원인 분석]
+    const text = await callAI(`아래 Jira 이슈 전체 내용을 분석하여 다음 4가지 항목으로 간결하게 요약해주세요:
 
-## 해결 방법 (Resolution)
-[단계별 해결 방법]
+1. 핵심 문제 (1-2줄)
+2. 현재 상태
+3. 취한 조치
+4. 남은 과제
 
-## 추가 정보 (Additional Information)
-[참고사항, 관련 KB, 재발방지]
-
-이슈 정보:
-키: ${KB_SEL.key}
-제목: ${KB_SEL.title}
-고객사: ${KB_SEL.customer}
-레이블: ${KB_SEL.labels.join(',')}
-상태: ${KB_SEL.status}
-내용: ${KB_SEL.desc}`);
+이슈 내용:
+${fullContent}`);
 
     res.innerHTML=`
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;margin-bottom:6px">
-      <span style="font-size:11px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.5px">KB 초안</span>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;margin-bottom:6px">
+      <span style="font-size:11px;color:var(--text3);font-weight:700">AI 요약</span>
       <button class="copy" onclick="copyText(this.dataset.t)" data-t="${text.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">복사</button>
     </div>
-    <div class="result-box">${text}</div>`;
+    <div class="result-box" style="max-height:250px">${text}</div>`;
   }catch(e){res.innerHTML=`<div style="color:#ef4444;font-size:12px;margin-top:10px">오류: ${e.message}</div>`;}
-  btn.disabled=false;btn.textContent='KB 초안 생성';
+  btn.disabled=false;btn.textContent='📋 내용 요약';
 }
 
-// ══ REPORT ══
+function goReport(key){RP_SEL=new Set([key]);showPage('report',document.querySelectorAll('.sb-btn')[2]);renderReportList();}
+function goAI(key){AI_SEL=ISSUES.find(i=>i.key===key);showPage('ai',document.querySelectorAll('.sb-btn')[3]);renderAIList();renderAIRight();}
+
+// ── REPORT ────────────────────────────────────────
 function renderReportList(){
   const q=(document.getElementById('rp-q')||{}).value?.toLowerCase()||'';
-  const fi=ISSUES.filter(i=>!q||(i.title.toLowerCase().includes(q)||i.customer.toLowerCase().includes(q)||i.desc.toLowerCase().includes(q)));
+  const fi=ISSUES.filter(i=>!q||(i.title.toLowerCase().includes(q)||i.customer.toLowerCase().includes(q)));
   document.getElementById('rp-sel').textContent=RP_SEL.size+'건 선택';
   document.getElementById('rp-list').innerHTML=fi.map(i=>`
   <div class="irow" style="--lc:${SC[i.status]||'#94a3b8'};cursor:default">
@@ -759,30 +689,36 @@ async function genReport(){
   btn.disabled=true;btn.textContent='생성 중...';
   const res=document.getElementById('rp-ai-result');
   res.style.display='block';
-  res.innerHTML='<div class="loading">Gemini AI가 리포트를 작성하고 있어요...</div>';
-  const list=sel.map((i,n)=>`${n+1}. [${i.key}] ${i.title}\n - 고객사: ${i.customer} | 일자: ${i.date} | 상태: ${i.status}\n - 내용: ${i.desc}`).join('\n\n');
-  try{
-    rpAiText=await callGemini(`당신은 ESCARE 보안기술팀의 이슈보고서 작성 전문가입니다. 아래 이슈 목록으로 공식 이슈보고서의 세 섹션을 한국어로 작성하세요.
+  res.innerHTML='<div class="loading">AI가 이슈보고서를 작성하고 있어요...</div>';
 
-반드시 아래 형식 그대로 출력하세요:
+  const list=sel.map((i,n)=>`${n+1}. [${i.key}] ${i.title}
+   고객사: ${i.customer||'-'} | 일자: ${i.date} | 상태: ${i.status} | 담당자: ${i.assignee}
+   내용: ${i.desc}
+   코멘트: ${i.comments||'-'}`).join('\n\n');
+
+  try{
+    rpAiText=await callAI(`당신은 ESCARE 보안기술팀의 이슈보고서 작성 전문가입니다.
+아래 이슈 목록의 전체 내용을 분석하여 공식 이슈보고서를 한국어로 작성하세요.
+
+반드시 아래 형식 그대로 출력하세요 (섹션 제목 포함):
 
 이슈 사항
-1. [첫 번째 이슈 요약]
-2. [두 번째 이슈 요약]
+${sel.map((i,n)=>`${n+1}. [${i.key}] ${i.title} 관련 이슈`).join('\n')}
 
 확인 내용
-1. [첫 번째 이슈 확인 내용 - 날짜, 증상, 분석, 조치 내용, 결과 포함]
-2. [두 번째 이슈 확인 내용]
+${sel.map((i,n)=>`${n+1}. ${i.title}
+- 접수일시: ${i.date} | 고객사: ${i.customer||'-'} | 담당자: ${i.assignee}
+- [이슈 내용과 코멘트를 분석하여 증상, 원인, 조치 내용, 결과를 상세히 작성]`).join('\n\n')}
 
 추후 진행안
-1. [추후 조치 또는 완료 기재]
+${sel.map((i,n)=>`${n+1}. [상태 ${i.status} 기준으로 추후 조치 또는 완료 기재]`).join('\n')}
 
-이슈 목록 (${sel.length}건):
+이슈 목록 (전체 내용 분석):
 ${list}`);
 
     res.innerHTML=`
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-      <span style="font-size:11px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.5px">AI 생성 내용</span>
+      <span style="font-size:11px;color:var(--text3);font-weight:700">AI 생성 내용</span>
       <button class="copy" onclick="copyText(this.dataset.t)" data-t="${rpAiText.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">복사</button>
     </div>
     <div class="result-box">${rpAiText}</div>`;
@@ -797,22 +733,30 @@ function togglePreview(){
   if(!showPreview){pv.style.display='none';return;}
   const sel=ISSUES.filter(i=>RP_SEL.has(i.key));
   const today=new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'});
-  const customers=[...new Set(sel.map(i=>i.customer).filter(Boolean))].join(', ');
-  const rptTitle=document.getElementById('m-rptitle').value||sel.map(i=>i.title).slice(0,2).join(' / ');
-  const secs=rpAiText?rpAiText.split(/\n\n(?=이슈 사항|확인 내용|추후 진행안)/):['이슈 사항\n(AI 리포트 생성 버튼을 클릭하세요)','확인 내용\n','추후 진행안\n'];
+  const rptTitle=document.getElementById('m-rptitle').value||'이슈보고서';
+  const author=document.getElementById('m-author').value;
+  const authorTitle=document.getElementById('m-title-input').value;
+  const author2=document.getElementById('m-author2').value;
+  const title2=document.getElementById('m-title2').value;
+  const company=document.getElementById('m-company').value||'고객사';
+  const cust=document.getElementById('m-cust').value||'담당자';
+  const custTitle=document.getElementById('m-cust-title').value;
+  const target=document.getElementById('m-target').value||sel.map(i=>i.customer).filter(Boolean).join(', ');
+  const secs=rpAiText?rpAiText.split(/\n\n(?=이슈 사항|확인 내용|추후 진행안)/):['이슈 사항\n(AI 리포트 생성 후 내용이 채워집니다)','확인 내용\n','추후 진행안\n'];
+
   pv.style.display='block';
   pv.innerHTML=`<div class="rpt-wrap">
-  <div class="rpt-title">${rptTitle||'이슈보고서'}</div>
+  <div class="rpt-title">${rptTitle}</div>
   <table class="rpt-table">
-    <tr><td class="rpt-th">회사명</td><td class="rpt-th">담당자</td><td class="rpt-th">확인</td></tr>
-    <tr><td style="text-align:center">에스케어</td><td style="text-align:center">${document.getElementById('m-author').value} ${document.getElementById('m-title').value}</td><td rowspan="2" style="text-align:center;font-size:10px;color:#999">(서명)</td></tr>
-    <tr><td style="text-align:center">${customers||'고객사'}</td><td style="text-align:center">${document.getElementById('m-cust').value||'담당자'}</td></tr>
+    <tr><td class="rpt-th" style="width:80px">회사명</td><td class="rpt-th">담당자</td><td class="rpt-th" style="width:80px">확인</td></tr>
+    <tr><td style="text-align:center">에스케어</td><td style="text-align:center">${author} ${authorTitle}${author2?' / '+author2+' '+title2:''}</td><td rowspan="2" style="text-align:center;color:#999;font-size:10px">(서명)</td></tr>
+    <tr><td style="text-align:center">${company}</td><td style="text-align:center">${cust} ${custTitle}</td></tr>
   </table>
   <table class="rpt-table">
-    <tr><td class="rpt-sh">작성자</td><td>${document.getElementById('m-author').value} ${document.getElementById('m-title').value}</td><td class="rpt-sh">작성일</td><td>${today}</td></tr>
+    <tr><td class="rpt-sh">작성자</td><td>${author} ${authorTitle}</td><td class="rpt-sh">작성일</td><td>${today}</td></tr>
     <tr><td class="rpt-sh">제품명</td><td colspan="3">${document.getElementById('m-prod').value}</td></tr>
     <tr><td class="rpt-sh">제목</td><td colspan="3">${rptTitle}</td></tr>
-    <tr><td class="rpt-sh">대상</td><td colspan="3">${document.getElementById('m-target').value||customers}</td></tr>
+    <tr><td class="rpt-sh">대상</td><td colspan="3">${target}</td></tr>
   </table>
   ${secs.map(s=>{const lines=s.trim().split('\n');return`<div class="rpt-sec">${lines[0]}</div><div class="rpt-body">${lines.slice(1).join('\n')}</div>`;}).join('')}
   <p style="margin-top:24px;font-size:10px;color:#999;text-align:right">※ 본 문서는 ${document.getElementById('m-sec').value}이며 무단 배포를 금합니다.</p>
@@ -823,9 +767,17 @@ function downloadReport(){
   const sel=ISSUES.filter(i=>RP_SEL.has(i.key));
   if(!sel.length){toast('이슈를 선택해주세요',true);return;}
   const today=new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'});
-  const customers=[...new Set(sel.map(i=>i.customer).filter(Boolean))].join(', ');
-  const rptTitle=document.getElementById('m-rptitle').value||sel.map(i=>i.title).slice(0,2).join(' / ');
-  const secs=rpAiText?rpAiText.split(/\n\n(?=이슈 사항|확인 내용|추후 진행안)/):['이슈 사항\n(AI 리포트 생성 후 내용이 채워집니다)','확인 내용\n','추후 진행안\n'];
+  const rptTitle=document.getElementById('m-rptitle').value||'이슈보고서';
+  const author=document.getElementById('m-author').value;
+  const authorTitle=document.getElementById('m-title-input').value;
+  const author2=document.getElementById('m-author2').value;
+  const title2=document.getElementById('m-title2').value;
+  const company=document.getElementById('m-company').value||'고객사';
+  const cust=document.getElementById('m-cust').value||'담당자';
+  const custTitle=document.getElementById('m-cust-title').value;
+  const target=document.getElementById('m-target').value||sel.map(i=>i.customer).filter(Boolean).join(', ');
+  const secs=rpAiText?rpAiText.split(/\n\n(?=이슈 사항|확인 내용|추후 진행안)/):['이슈 사항\n내용을 입력하세요','확인 내용\n','추후 진행안\n'];
+
   const html=`<!DOCTYPE html><html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word"><head><meta charset="utf-8"><style>
   @page{size:A4;margin:2cm}body{font-family:'맑은 고딕',Arial,sans-serif;font-size:10pt;line-height:1.6}
   table{border-collapse:collapse;width:100%;margin-bottom:14px}td{border:1px solid #333;padding:5px 8px;font-size:9.5pt}
@@ -835,24 +787,29 @@ function downloadReport(){
   p{white-space:pre-wrap;font-size:10pt;line-height:1.85}
   </style></head><body>
   <div class="title">${rptTitle}</div>
-  <table><tr><td class="th">회사명</td><td class="th">담당자</td><td class="th">확인</td></tr>
-  <tr><td style="text-align:center">에스케어</td><td style="text-align:center">${document.getElementById('m-author').value} ${document.getElementById('m-title').value}</td><td rowspan="2" style="text-align:center;color:#999">(서명)</td></tr>
-  <tr><td style="text-align:center">${customers}</td><td style="text-align:center">${document.getElementById('m-cust').value||''}</td></tr></table>
-  <table><tr><td class="sh">작성자</td><td>${document.getElementById('m-author').value} ${document.getElementById('m-title').value}</td><td class="sh">작성일</td><td>${today}</td></tr>
-  <tr><td class="sh">제품명</td><td colspan="3">${document.getElementById('m-prod').value}</td></tr>
-  <tr><td class="sh">제목</td><td colspan="3">${rptTitle}</td></tr>
-  <tr><td class="sh">대상</td><td colspan="3">${document.getElementById('m-target').value||customers}</td></tr></table>
+  <table>
+    <tr><td class="th" style="width:80px">회사명</td><td class="th">담당자</td><td class="th" style="width:80px">확인</td></tr>
+    <tr><td style="text-align:center">에스케어</td><td style="text-align:center">${author} ${authorTitle}${author2?' / '+author2+' '+title2:''}</td><td rowspan="2" style="text-align:center;color:#999">(서명)</td></tr>
+    <tr><td style="text-align:center">${company}</td><td style="text-align:center">${cust} ${custTitle}</td></tr>
+  </table>
+  <table>
+    <tr><td class="sh">작성자</td><td>${author} ${authorTitle}</td><td class="sh">작성일</td><td>${today}</td></tr>
+    <tr><td class="sh">제품명</td><td colspan="3">${document.getElementById('m-prod').value}</td></tr>
+    <tr><td class="sh">제목</td><td colspan="3">${rptTitle}</td></tr>
+    <tr><td class="sh">대상</td><td colspan="3">${target}</td></tr>
+  </table>
   ${secs.map(s=>{const lines=s.trim().split('\n');return`<h2>${lines[0]}</h2><p>${lines.slice(1).join('\n')}</p>`;}).join('')}
   <p style="margin-top:30px;font-size:9pt;color:#999;text-align:right">※ 본 문서는 ${document.getElementById('m-sec').value}이며 무단 배포를 금합니다.</p>
   </body></html>`;
+
   const blob=new Blob(['\ufeff'+html],{type:'application/msword'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);
-  a.download='이슈보고서_'+customers+'_'+today.replace(/\./g,'')+'.doc';
+  a.download='이슈보고서_'+company+'_'+today.replace(/\./g,'')+'.doc';
   document.body.appendChild(a);a.click();document.body.removeChild(a);
   toast('Word 파일 다운로드 완료!');
 }
 
-// ══ AI ══
+// ── AI 분석 ───────────────────────────────────────
 function renderAIList(){
   const q=(document.getElementById('ai-q')||{}).value?.toLowerCase()||'';
   const fi=ISSUES.filter(i=>!q||(i.title.toLowerCase().includes(q)||i.desc.toLowerCase().includes(q)));
@@ -875,8 +832,9 @@ function renderAIRight(){
     </div>
     ${i.desc?`<div class="rp-desc">${i.desc}</div>`:''}
     <div class="btn-group">
-      <button class="btn btn-purple" id="ai-analyze-btn" onclick="runAI('analyze')">기술 분석 요청</button>
-      <button class="btn btn-orange" id="ai-mail-btn" onclick="runAI('mail')">고객사 메일 작성</button>
+      <button class="btn btn-purple" id="ai-analyze-btn" onclick="runAI('analyze')">🔍 기술 분석</button>
+      <button class="btn btn-orange" id="ai-mail-btn" onclick="runAI('mail')">✉ 고객사 메일</button>
+      <button class="btn btn-blue" id="ai-similar-btn" onclick="runAI('similar')">🔗 유사 이슈 탐색</button>
     </div>
     <div id="ai-result-box"></div>
   </div>`;
@@ -885,59 +843,84 @@ function renderAIRight(){
 async function runAI(mode){
   if(!AI_SEL)return;
   const i=AI_SEL;
-  const btn=document.getElementById(mode==='analyze'?'ai-analyze-btn':'ai-mail-btn');
+  const btnId = mode==='analyze'?'ai-analyze-btn':mode==='mail'?'ai-mail-btn':'ai-similar-btn';
+  const btn=document.getElementById(btnId);
   const res=document.getElementById('ai-result-box');
   btn.disabled=true;
   res.innerHTML='<div class="loading">AI가 분석하고 있어요...</div>';
+
+  const fullContent = `제목: ${i.title}
+키: ${i.key} | 고객사: ${i.customer||'-'} | 솔루션: ${i.labels.join(',')||'-'}
+우선순위: ${i.pri} | 상태: ${i.status} | 담당자: ${i.assignee}
+접수일: ${i.date}
+
+[이슈 전체 내용]
+${i.desc||'(내용 없음)'}
+
+[최근 코멘트/진행 내역]
+${i.comments||'(코멘트 없음)'}`;
+
   try{
     let prompt='';
     if(mode==='analyze'){
       prompt=`당신은 ESCARE 보안기술팀의 Symantec/Broadcom 보안 솔루션 전문가입니다.
-아래 이슈를 분석하여 4개 섹션으로 한국어 기술 분석을 제공하세요:
+아래 이슈의 전체 내용(본문 + 코멘트 포함)을 분석하여 4개 섹션으로 기술 분석을 제공하세요:
 
 **🔍 상황 분석**
-(이슈 성격, 심각도, 기술적 배경)
+(이슈 성격, 심각도, 기술적 배경, 발생 경위)
 
 **🧩 원인 및 기술 포인트**
-(추정 원인, 핵심 기술 이슈, 관련 컴포넌트)
+(추정 원인, 핵심 기술 이슈, 관련 컴포넌트, 로그 키워드)
 
 **⚡ 권장 조치**
-(우선순위별 구체적 조치 방법)
+(우선순위별 구체적 조치 방법, 단계별 절차)
 
 **🛡 재발 방지**
 (정책 개선, 모니터링 항목, 예방 방안)
 
-이슈 정보:
-키: ${i.key} | 제목: ${i.title}
-고객사: ${i.customer} | 솔루션: ${i.labels.join(',')}
-우선순위: ${i.pri} | 상태: ${i.status}
-내용: ${i.desc}`;
-    }else{
+${fullContent}`;
+    }else if(mode==='mail'){
       prompt=`당신은 ESCARE 보안기술팀의 고객 커뮤니케이션 전문가입니다.
-아래 이슈에 대해 고객사에 전달할 공식 이메일을 한국어로 작성하세요.
+아래 이슈의 전체 내용을 분석하여 고객사에 전달할 공식 이메일을 한국어로 작성하세요.
 
 형식:
-수신: [고객사 담당자]님
-발신: 에스케어 보안기술팀 ${document.getElementById('user-label').textContent}
-제목: [이슈 제목] 관련 지원 내역 공유
+수신: ${i.customer||'고객사'} 담당자님
+발신: 에스케어 보안기술팀 ${CURRENT_USER}
+제목: [${i.key}] ${i.title} 관련 지원 내역 공유
 
 [정중한 인사]
-[지원 일시, 방식, 담당자]
-[이슈 내용 요약]
-[조치/확인 내용]
-[향후 계획 또는 완료 안내]
+[지원 경위 및 일시]
+[이슈 내용 요약 — 기술 용어를 이해하기 쉽게]
+[조치/확인 내용 상세]
+[현재 상태 및 향후 계획]
 [맺음말]
 
-이슈 정보:
-키: ${i.key} | 제목: ${i.title}
-고객사: ${i.customer} | 상태: ${i.status}
-내용: ${i.desc}`;
+${fullContent}`;
+    }else{
+      const similar = ISSUES.filter(x=>x.key!==i.key&&(
+        x.labels.some(l=>i.labels.includes(l))||
+        x.customer===i.customer
+      )).slice(0,10);
+      prompt=`당신은 ESCARE 보안기술팀의 전문가입니다.
+아래 현재 이슈와 유사 이슈 목록을 비교 분석하여, 패턴과 시사점을 찾아주세요.
+
+현재 이슈:
+${fullContent}
+
+유사 이슈 목록:
+${similar.map((x,n)=>`${n+1}. [${x.key}] ${x.title} (${x.date}, ${x.status})\n${x.desc}`).join('\n\n')}
+
+분석 항목:
+1. 현재 이슈와 유사한 케이스 및 공통점
+2. 반복 발생 패턴 분석
+3. 과거 케이스에서 적용된 해결책 중 참고할 사항
+4. 종합 시사점`;
     }
 
-    const text=await callGemini(prompt);
+    const text=await callAI(prompt);
     res.innerHTML=`
     <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;margin-bottom:6px">
-      <span style="font-size:11px;color:var(--text3);font-weight:700">${mode==='analyze'?'기술 분석':'메일 초안'}</span>
+      <span style="font-size:11px;color:var(--text3);font-weight:700">${mode==='analyze'?'기술 분석':mode==='mail'?'메일 초안':'유사 이슈 분석'}</span>
       <button class="copy" onclick="copyText(this.dataset.t)" data-t="${text.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">복사</button>
     </div>
     <div class="result-box">${text}</div>`;
@@ -945,19 +928,109 @@ async function runAI(mode){
   btn.disabled=false;
 }
 
-// ══ INIT ══
+async function runMonthly(){
+  const res=document.getElementById('ai-monthly-result');
+  res.style.display='block';
+  res.innerHTML='<div class="loading">AI가 월간 동향을 분석하고 있어요...</div>';
+  const list=ISSUES.slice(0,50).map(i=>`[${i.key}] ${i.title} | ${i.customer||'-'} | ${i.status} | ${i.labels.join(',')} | ${i.date}`).join('\n');
+  try{
+    const text=await callAI(`당신은 ESCARE 보안기술팀의 분석 전문가입니다.
+아래 최근 이슈 목록을 분석하여 월간 동향 보고서를 작성해주세요.
+
+분석 항목:
+1. 이슈 유형별 현황 (솔루션/레이블 기준)
+2. 고객사별 이슈 현황 (상위 5개사)
+3. 주요 반복 이슈 패턴
+4. 이번 기간 특이사항
+5. 다음 기간 주의 사항 및 권고
+
+이슈 목록:
+${list}`);
+
+    res.innerHTML=`
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span style="font-size:13px;font-weight:700;color:var(--text2)">📊 월간 동향 분석</span>
+        <button class="copy" onclick="copyText(this.dataset.t)" data-t="${text.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">복사</button>
+      </div>
+      <div class="result-box" style="max-height:300px">${text}</div>
+    </div>`;
+  }catch(e){res.innerHTML=`<div style="color:#ef4444;font-size:12px">오류: ${e.message}</div>`;}
+}
+
+async function runPattern(){
+  const res=document.getElementById('ai-monthly-result');
+  res.style.display='block';
+  res.innerHTML='<div class="loading">AI가 고객사 패턴을 분석하고 있어요...</div>';
+  const cusCnt={};
+  ISSUES.forEach(i=>{if(i.customer)cusCnt[i.customer]=(cusCnt[i.customer]||0)+1;});
+  const topCus=Object.entries(cusCnt).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([k])=>k);
+  const filtered=ISSUES.filter(i=>topCus.includes(i.customer));
+  const list=filtered.map(i=>`[${i.customer}] ${i.title} | ${i.status} | ${i.labels.join(',')} | ${i.date}`).join('\n');
+  try{
+    const text=await callAI(`당신은 ESCARE 보안기술팀의 분석 전문가입니다.
+상위 5개 고객사의 이슈 패턴을 분석해주세요.
+
+분석 항목:
+1. 고객사별 주요 이슈 유형
+2. 반복 발생 문제점
+3. 고객사별 관리 포인트 및 리스크
+4. 예방 조치 권고사항
+
+이슈 목록:
+${list}`);
+
+    res.innerHTML=`
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span style="font-size:13px;font-weight:700;color:var(--text2)">🔍 고객사 패턴 분석</span>
+        <button class="copy" onclick="copyText(this.dataset.t)" data-t="${text.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">복사</button>
+      </div>
+      <div class="result-box" style="max-height:300px">${text}</div>
+    </div>`;
+  }catch(e){res.innerHTML=`<div style="color:#ef4444;font-size:12px">오류: ${e.message}</div>`;}
+}
+
+// ── AUDIT ─────────────────────────────────────────
+async function loadAudit(){
+  const wrap=document.getElementById('audit-list');
+  wrap.innerHTML='<div class="loading">로딩 중...</div>';
+  try{
+    const r=await fetch(`${WORKERS}/kv/audit`);
+    const items=await r.json();
+    if(!items.length){wrap.innerHTML='<div style="padding:20px;text-align:center;color:var(--text3);font-size:13px">로그 없음</div>';return;}
+    wrap.innerHTML=items.map(a=>`
+    <div class="audit-row">
+      <span class="audit-type" style="background:${a.type==='LOGIN'?'rgba(16,185,129,.15)':'rgba(139,92,246,.15)'};color:${a.type==='LOGIN'?'#10b981':'#8b5cf6'}">${a.type}</span>
+      <span style="color:var(--accent2);font-weight:700;width:70px">${a.user}</span>
+      <span style="color:var(--text2);flex:1">${a.type==='AI_REQUEST'?'AI 요청 ('+a.promptLen+'자)':''}</span>
+      <span style="color:var(--text3)">${new Date(a.ts).toLocaleString('ko-KR')}</span>
+    </div>`).join('');
+  }catch(e){wrap.innerHTML=`<div style="padding:20px;color:#ef4444;font-size:12px">로드 실패: ${e.message}</div>`;}
+}
+
+// ── AI CALL ───────────────────────────────────────
+async function callAI(prompt){
+  const r=await fetch(`${WORKERS}/ai/generate`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json','X-User':CURRENT_USER},
+    body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})
+  });
+  if(!r.ok) throw new Error('AI 응답 오류: '+r.status);
+  const d=await r.json();
+  return d.candidates?.[0]?.content?.parts?.[0]?.text||'응답을 받지 못했습니다.';
+}
+
+// ── INIT ──────────────────────────────────────────
 (function init(){
-  const savedUser = localStorage.getItem('engr_user');
-  const savedPin = localStorage.getItem('engr_pin');
-  if(savedUser && savedPin){
-    // 저장된 세션 자동 복원
-    document.getElementById('user-label').textContent = savedUser;
-    document.getElementById('m-author').value = savedUser;
-    document.getElementById('cfg').style.display = 'none';
-    document.getElementById('app').style.display = 'flex';
-    syncJira();
-  } else if(savedUser){
-    document.getElementById('l-name').value = savedUser;
+  const savedUser=localStorage.getItem('engr_user');
+  const savedPin=localStorage.getItem('engr_pin');
+  if(savedUser&&savedPin){
+    document.getElementById('l-name').value=savedUser;
+    document.getElementById('l-pin').value=savedPin;
+    login();
+  }else if(savedUser){
+    document.getElementById('l-name').value=savedUser;
     document.getElementById('l-pin').focus();
   }
 })();
