@@ -438,6 +438,7 @@ async function login(){
     if(!d.ok){toast('이름 또는 PIN이 올바르지 않습니다',true);btn.disabled=false;btn.textContent='접속하기';return;}
 
     localStorage.setItem('engr_user', name);
+    localStorage.setItem('engr_pin', pin);
     document.getElementById('user-label').textContent = name;
     document.getElementById('m-author').value = name;
     document.getElementById('cfg').style.display = 'none';
@@ -946,10 +947,17 @@ async function runAI(mode){
 
 // ══ INIT ══
 (function init(){
-  const saved=localStorage.getItem('engr_user');
-  if(saved){
-    // 저장된 사용자 있으면 바로 PIN 재인증
-    document.getElementById('l-name').value=saved;
+  const savedUser = localStorage.getItem('engr_user');
+  const savedPin = localStorage.getItem('engr_pin');
+  if(savedUser && savedPin){
+    // 저장된 세션 자동 복원
+    document.getElementById('user-label').textContent = savedUser;
+    document.getElementById('m-author').value = savedUser;
+    document.getElementById('cfg').style.display = 'none';
+    document.getElementById('app').style.display = 'flex';
+    syncJira();
+  } else if(savedUser){
+    document.getElementById('l-name').value = savedUser;
     document.getElementById('l-pin').focus();
   }
 })();
