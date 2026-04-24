@@ -7,177 +7,259 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
---bg:#0b1120;--sidebar:#0d1526;--panel:#111c2e;--card:#162035;
---border:#1e2d45;--border2:#243450;--accent:#2563eb;--accent2:#3b82f6;
---success:#10b981;--warn:#f59e0b;--danger:#ef4444;--purple:#8b5cf6;
---text:#e2e8f0;--text2:#94a3b8;--text3:#4a6380;
+  --bg:#0f1117;
+  --sidebar:#13161f;
+  --panel:#1a1d2e;
+  --card:#1e2235;
+  --card2:#232740;
+  --border:#2a2f4a;
+  --border2:#343960;
+  --accent:#6366f1;
+  --accent2:#818cf8;
+  --accent3:#a5b4fc;
+  --success:#22d3a5;
+  --warn:#fbbf24;
+  --danger:#f87171;
+  --purple:#a78bfa;
+  --pink:#f472b6;
+  --cyan:#22d3ee;
+  --text:#f1f5f9;
+  --text2:#94a3b8;
+  --text3:#475569;
 }
 body{font-family:'Malgun Gothic','Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
-#cfg{position:fixed;inset:0;background:radial-gradient(ellipse at 30% 50%,#0d1f45 0%,#060c18 100%);display:flex;align-items:center;justify-content:center;z-index:1000}
-.cfg-wrap{width:100%;max-width:400px;padding:20px}
+
+/* LOGIN */
+#cfg{position:fixed;inset:0;background:radial-gradient(ellipse at 30% 40%,#1a1040 0%,#050810 100%);display:flex;align-items:center;justify-content:center;z-index:1000}
+.cfg-wrap{width:100%;max-width:420px;padding:20px}
 .cfg-logo{text-align:center;margin-bottom:32px}
-.cfg-logo .mark{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;background:linear-gradient(135deg,#1d4ed8,#2563eb);border-radius:16px;margin-bottom:14px;box-shadow:0 0 40px rgba(37,99,235,0.4)}
-.cfg-logo .mark svg{width:32px;height:32px}
-.cfg-logo h1{font-size:26px;font-weight:800;letter-spacing:3px;color:#fff}
-.cfg-logo p{font-size:13px;color:var(--text3);margin-top:6px}
-.cfg-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:28px}
-.cfg-field{margin-bottom:14px}
-.cfg-field label{display:block;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:7px}
-.cfg-field input{width:100%;background:#0a1120;border:1px solid var(--border);border-radius:10px;padding:11px 14px;color:var(--text);font-size:13px;outline:none;transition:all .2s;font-family:inherit}
-.cfg-field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.15)}
-.cfg-btn{width:100%;background:linear-gradient(135deg,#1d4ed8,#2563eb);border:none;border-radius:10px;padding:13px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;margin-top:6px;transition:opacity .2s;font-family:inherit}
-.cfg-btn:hover{opacity:.9}
-.cfg-btn:disabled{opacity:.5;cursor:not-allowed}
+.cfg-logo .mark{display:inline-flex;align-items:center;justify-content:center;width:68px;height:68px;background:linear-gradient(135deg,#4f46e5,#7c3aed);border-radius:20px;margin-bottom:16px;box-shadow:0 0 50px rgba(99,102,241,0.5)}
+.cfg-logo .mark svg{width:34px;height:34px}
+.cfg-logo h1{font-size:28px;font-weight:800;letter-spacing:4px;color:#fff;text-shadow:0 0 30px rgba(129,140,248,0.5)}
+.cfg-logo p{font-size:13px;color:var(--text3);margin-top:8px;letter-spacing:.5px}
+.cfg-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:28px;backdrop-filter:blur(20px)}
+.cfg-field{margin-bottom:16px}
+.cfg-field label{display:block;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.cfg-field input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 16px;color:var(--text);font-size:14px;outline:none;transition:all .2s;font-family:inherit}
+.cfg-field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(99,102,241,.2);background:rgba(99,102,241,.08)}
+.cfg-btn{width:100%;background:linear-gradient(135deg,#4f46e5,#7c3aed);border:none;border-radius:12px;padding:14px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;transition:all .2s;font-family:inherit;letter-spacing:.3px}
+.cfg-btn:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 8px 25px rgba(99,102,241,.4)}
+.cfg-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
 .cfg-note{font-size:11px;color:var(--text3);text-align:center;margin-top:14px;line-height:1.7}
+
+/* APP */
 #app{display:none;height:100vh;flex-direction:row}
-aside{width:220px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;height:100vh;position:sticky;top:0}
-.sb-top{padding:20px 16px 16px}
-.sb-brand{display:flex;align-items:center;gap:10px;margin-bottom:24px}
-.sb-icon{width:36px;height:36px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.sb-icon svg{width:18px;height:18px}
-.sb-name{font-size:16px;font-weight:800;letter-spacing:2px;color:#fff}
-.sb-sub{font-size:10px;color:var(--text3)}
-.sb-section{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;padding:0 12px;margin-bottom:6px}
-.sb-nav{display:flex;flex-direction:column;gap:2px;padding:0 8px}
-.sb-btn{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;border:none;background:none;color:var(--text2);font-size:13px;cursor:pointer;transition:all .2s;font-family:inherit;width:100%;text-align:left}
-.sb-btn svg{width:16px;height:16px;flex-shrink:0;opacity:.7}
+
+/* SIDEBAR */
+aside{width:230px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;height:100vh;position:sticky;top:0}
+.sb-top{padding:20px 16px 14px}
+.sb-brand{display:flex;align-items:center;gap:10px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.sb-icon{width:38px;height:38px;background:linear-gradient(135deg,#4f46e5,#7c3aed);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 15px rgba(99,102,241,.3)}
+.sb-icon svg{width:20px;height:20px}
+.sb-name{font-size:17px;font-weight:800;letter-spacing:2px;color:#fff}
+.sb-sub{font-size:10px;color:var(--text3);margin-top:1px}
+.sb-section{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1.2px;padding:0 12px;margin-bottom:6px;margin-top:4px}
+.sb-nav{display:flex;flex-direction:column;gap:2px}
+.sb-btn{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;border:none;background:none;color:var(--text2);font-size:13px;cursor:pointer;transition:all .18s;font-family:inherit;width:100%;text-align:left}
+.sb-btn svg{width:16px;height:16px;flex-shrink:0;opacity:.6}
 .sb-btn:hover{background:var(--card);color:var(--text)}
-.sb-btn.active{background:rgba(37,99,235,.15);color:var(--accent2)}
+.sb-btn.active{background:linear-gradient(135deg,rgba(99,102,241,.2),rgba(124,58,237,.15));color:var(--accent3);border:1px solid rgba(99,102,241,.25)}
 .sb-btn.active svg{opacity:1}
-.sb-divider{height:1px;background:var(--border);margin:14px 16px}
+.sb-divider{height:1px;background:var(--border);margin:12px 16px}
 .sb-bottom{padding:12px 16px;margin-top:auto}
-.sb-status{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+
+/* AI 사용량 카드 */
+.ai-usage-card{background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(124,58,237,.08));border:1px solid rgba(99,102,241,.2);border-radius:14px;padding:12px 14px;margin-bottom:10px}
+.ai-usage-title{font-size:10px;font-weight:700;color:var(--accent2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.ai-usage-row{display:flex;justify-content:space-between;align-items:center;font-size:11px;margin-bottom:5px}
+.ai-usage-row span:first-child{color:var(--text3)}
+.ai-usage-val{color:var(--text);font-weight:700}
+.ai-usage-bar{height:4px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden}
+.ai-usage-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#6366f1,#a78bfa);transition:width .6s ease}
+
+.sb-status{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin-bottom:10px}
 .sb-status-row{display:flex;justify-content:space-between;align-items:center;font-size:11px;padding:3px 0}
 .sb-status-row span:first-child{color:var(--text3)}
-.dot{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:4px}
+.dot{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:5px}
 .dot-green{background:var(--success)}
 .dot-gray{background:var(--text3)}
-.sb-sync-btn{width:100%;margin-top:10px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px;color:var(--text2);font-size:11px;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px}
-.sb-sync-btn:hover{border-color:var(--accent);color:var(--accent)}
+.sb-sync-btn{width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:9px;color:var(--text2);font-size:11px;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px}
+.sb-sync-btn:hover{border-color:var(--accent);color:var(--accent3);background:rgba(99,102,241,.08)}
+
+/* MAIN */
 main{flex:1;overflow-y:auto;display:flex;flex-direction:column;background:var(--bg)}
-.topbar{background:var(--sidebar);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;flex-shrink:0}
-.topbar-left h2{font-size:18px;font-weight:700;color:#fff}
-.topbar-left p{font-size:12px;color:var(--text3);margin-top:1px}
+.topbar{background:rgba(19,22,31,.8);border-bottom:1px solid var(--border);padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;flex-shrink:0;backdrop-filter:blur(20px)}
+.topbar-left h2{font-size:18px;font-weight:700;color:var(--text)}
+.topbar-left p{font-size:11px;color:var(--text3);margin-top:2px}
 .topbar-right{display:flex;align-items:center;gap:10px}
-.search-box{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:7px 14px;width:240px}
+.search-box{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:8px 14px;width:240px;transition:all .2s}
+.search-box:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(99,102,241,.15)}
 .search-box input{background:none;border:none;outline:none;color:var(--text);font-size:12px;width:100%;font-family:inherit}
 .search-box input::placeholder{color:var(--text3)}
 .search-box svg{width:14px;height:14px;color:var(--text3);flex-shrink:0}
-.icon-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);transition:all .2s}
-.icon-btn:hover{border-color:var(--accent);color:var(--accent)}
+.icon-btn{background:var(--card);border:1px solid var(--border);border-radius:10px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);transition:all .2s}
+.icon-btn:hover{border-color:var(--accent);color:var(--accent3)}
 .icon-btn svg{width:15px;height:15px}
+
+/* PAGES */
 .page{padding:24px;flex:1;display:none}
 .page.active{display:block}
+
+/* KPI */
 .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:22px}
-.kpi{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px;position:relative;overflow:hidden}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;position:relative;overflow:hidden;transition:all .2s}
+.kpi:hover{border-color:var(--border2);transform:translateY(-2px)}
 .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--kpi-c1),var(--kpi-c2))}
-.kpi-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;background:rgba(255,255,255,.05)}
-.kpi-icon svg{width:18px;height:18px}
-.kpi-val{font-size:30px;font-weight:800;color:#fff;line-height:1}
-.kpi-label{font-size:12px;color:var(--text2);margin-top:6px}
+.kpi::after{content:'';position:absolute;top:0;right:0;width:80px;height:80px;background:radial-gradient(circle,var(--kpi-c2)22 0%,transparent 70%);opacity:.12}
+.kpi-val{font-size:32px;font-weight:800;color:#fff;line-height:1;margin-bottom:6px}
+.kpi-label{font-size:13px;color:var(--text2);font-weight:500}
 .kpi-sub{font-size:11px;color:var(--text3);margin-top:3px}
+
+/* FILTERS */
 .filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;align-items:center}
-.filter-row input,.filter-row select{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:8px 12px;color:var(--text);font-size:12px;outline:none;transition:all .2s;font-family:inherit}
-.filter-row input:focus,.filter-row select:focus{border-color:var(--accent)}
+.filter-row input,.filter-row select{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 12px;color:var(--text);font-size:12px;outline:none;transition:all .2s;font-family:inherit}
+.filter-row input:focus,.filter-row select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(99,102,241,.12)}
 .filter-row input{flex:1;min-width:180px}
 .filter-count{font-size:12px;color:var(--text3);margin-left:auto;white-space:nowrap}
+
+/* LAYOUT */
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
 @media(max-width:1200px){.two-col{grid-template-columns:1fr}}
+
+/* ISSUE LIST */
 .issue-list{display:flex;flex-direction:column;gap:6px}
-.irow{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--lc,#4a6380);border-radius:10px;padding:13px 15px;cursor:pointer;transition:all .15s}
-.irow:hover{background:var(--panel);border-color:var(--border2)}
-.irow.selected{background:rgba(37,99,235,.08);border-color:var(--accent)}
+.irow{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--lc,#475569);border-radius:12px;padding:13px 15px;cursor:pointer;transition:all .15s}
+.irow:hover{background:var(--card2);border-color:var(--border2);transform:translateX(2px)}
+.irow.selected{background:rgba(99,102,241,.1);border-color:var(--accent)}
 .irow-top{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-.ikey{font-size:10px;font-weight:800;color:var(--accent2);background:rgba(37,99,235,.12);padding:2px 8px;border-radius:8px;white-space:nowrap}
+.ikey{font-size:10px;font-weight:800;color:var(--accent3);background:rgba(99,102,241,.15);padding:2px 9px;border-radius:20px;white-space:nowrap}
 .ititle{flex:1;font-size:13px;font-weight:500;color:var(--text);min-width:80px}
 .imeta{font-size:11px;color:var(--text3);white-space:nowrap}
-.irow-bot{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
-.badge{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600;white-space:nowrap}
-.rpanel{background:var(--panel);border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:14px;padding:20px;position:sticky;top:72px;max-height:calc(100vh - 100px);overflow-y:auto}
+.irow-bot{margin-top:7px;display:flex;gap:6px;flex-wrap:wrap}
+.badge{font-size:10px;padding:2px 9px;border-radius:20px;font-weight:600;white-space:nowrap}
+
+/* RIGHT PANEL */
+.rpanel{background:var(--panel);border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:16px;padding:20px;position:sticky;top:70px;max-height:calc(100vh - 100px);overflow-y:auto}
 .rp-empty{text-align:center;padding:40px 20px;color:var(--text3)}
-.rp-title{font-size:15px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:14px}
+.rp-title{font-size:14px;font-weight:700;color:var(--text);line-height:1.5;margin-bottom:14px}
 .rp-badges{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
-.rp-meta{display:flex;flex-direction:column;margin-bottom:14px;border:1px solid var(--border);border-radius:10px;overflow:hidden}
-.rp-row{display:flex;padding:7px 12px;border-bottom:1px solid var(--border);font-size:12px}
+.rp-meta{display:flex;flex-direction:column;margin-bottom:14px;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.rp-row{display:flex;padding:8px 12px;border-bottom:1px solid var(--border);font-size:12px}
 .rp-row:last-child{border-bottom:none}
 .rp-row span:first-child{color:var(--text3);width:72px;flex-shrink:0}
 .rp-row span:last-child{color:var(--text);flex:1}
-.rp-desc{font-size:12px;color:var(--text2);line-height:1.75;background:var(--bg);border-radius:8px;padding:12px;margin-bottom:14px;max-height:160px;overflow-y:auto;white-space:pre-wrap}
+.rp-desc{font-size:12px;color:var(--text2);line-height:1.75;background:rgba(255,255,255,.02);border-radius:10px;padding:12px;margin-bottom:14px;max-height:160px;overflow-y:auto;white-space:pre-wrap;border:1px solid var(--border)}
+
+/* BUTTONS */
 .btn-group{display:flex;flex-direction:column;gap:6px}
-.btn{border:none;border-radius:9px;padding:9px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;width:100%}
-.btn-blue{background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff}.btn-blue:hover{opacity:.9}
-.btn-green{background:linear-gradient(135deg,#059669,#10b981);color:#fff}.btn-green:hover{opacity:.9}
-.btn-purple{background:linear-gradient(135deg,#6d28d9,#8b5cf6);color:#fff}.btn-purple:hover{opacity:.9}
-.btn-orange{background:linear-gradient(135deg,#b45309,#f59e0b);color:#fff}.btn-orange:hover{opacity:.9}
-.btn-red{background:linear-gradient(135deg,#991b1b,#ef4444);color:#fff}.btn-red:hover{opacity:.9}
-.btn-ghost{background:var(--card);border:1px solid var(--border);color:var(--text2)}.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
-.sec-title{font-size:13px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.btn{border:none;border-radius:10px;padding:10px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;width:100%;letter-spacing:.2px}
+.btn:hover{transform:translateY(-1px)}
+.btn-indigo{background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;box-shadow:0 4px 15px rgba(99,102,241,.3)}
+.btn-green{background:linear-gradient(135deg,#059669,#10b981);color:#fff;box-shadow:0 4px 15px rgba(16,185,129,.2)}
+.btn-purple{background:linear-gradient(135deg,#7c3aed,#a78bfa);color:#fff;box-shadow:0 4px 15px rgba(167,139,250,.2)}
+.btn-orange{background:linear-gradient(135deg,#d97706,#fbbf24);color:#fff;box-shadow:0 4px 15px rgba(251,191,36,.2)}
+.btn-pink{background:linear-gradient(135deg,#be185d,#f472b6);color:#fff;box-shadow:0 4px 15px rgba(244,114,182,.2)}
+.btn-red{background:linear-gradient(135deg,#991b1b,#f87171);color:#fff}
+.btn-ghost{background:var(--card);border:1px solid var(--border);color:var(--text2)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent3);background:rgba(99,102,241,.08)}
+
+/* SECTION TITLE */
+.sec-title{font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .sec-title::after{content:'';flex:1;height:1px;background:var(--border)}
-.result-box{background:var(--bg);border:1px solid var(--border2);border-radius:12px;padding:18px;margin-top:10px;font-size:13px;line-height:1.85;color:var(--text);white-space:pre-wrap;max-height:400px;overflow-y:auto}
+
+/* AI RESULT */
+.result-box{background:rgba(255,255,255,.02);border:1px solid var(--border2);border-radius:12px;padding:16px;margin-top:10px;font-size:13px;line-height:1.85;color:var(--text);white-space:pre-wrap;max-height:400px;overflow-y:auto}
 .loading{display:flex;align-items:center;gap:10px;color:var(--text3);font-size:13px;padding:16px}
 .loading::before{content:'';width:16px;height:16px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* CHARTS */
 .chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:20px}
-.chart-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px}
-.chart-card h4{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px}
+.chart-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px}
+.chart-card h4{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px}
 .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .bar-lbl{font-size:11px;color:var(--text2);width:90px;text-align:right;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bar-track{flex:1;background:var(--bg);border-radius:5px;height:20px;overflow:hidden}
+.bar-track{flex:1;background:var(--bg);border-radius:5px;height:22px;overflow:hidden}
 .bar-fill{height:100%;border-radius:5px;display:flex;align-items:center;padding-left:8px;transition:width .6s ease}
 .bar-n{font-size:10px;color:#fff;font-weight:700}
-.meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
-.mf label{display:block;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
-.mf input,.mf select{width:100%;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 11px;color:var(--text);font-size:12px;outline:none;font-family:inherit;transition:all .2s}
-.mf input:focus,.mf select:focus{border-color:var(--accent)}
-.copy{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:3px 9px;font-size:10px;color:var(--text3);cursor:pointer;margin-left:6px;transition:all .2s}
-.copy:hover{border-color:var(--accent);color:var(--accent)}
-input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:pointer}
-#toast{position:fixed;bottom:24px;right:24px;background:#10b981;color:#fff;padding:12px 22px;border-radius:12px;font-size:13px;font-weight:700;z-index:9999;display:none;box-shadow:0 8px 30px rgba(0,0,0,.4);animation:slideUp .3s ease}
+
+/* META INPUTS */
+.meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+.mf label{display:block;font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px}
+.mf input,.mf select{width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:9px 12px;color:var(--text);font-size:12px;outline:none;font-family:inherit;transition:all .2s}
+.mf input:focus,.mf select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(99,102,241,.12)}
+
+.copy{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:3px 10px;font-size:10px;color:var(--text3);cursor:pointer;transition:all .2s}
+.copy:hover{border-color:var(--accent);color:var(--accent3)}
+input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:pointer}
+
+/* TOAST */
+#toast{position:fixed;bottom:24px;right:24px;background:var(--success);color:#052e16;padding:12px 22px;border-radius:12px;font-size:13px;font-weight:700;z-index:9999;display:none;box-shadow:0 8px 30px rgba(0,0,0,.4);animation:slideUp .3s ease}
 @keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
-#toast.err{background:#ef4444}
-/* 리포트 미리보기 */
-.rpt-wrap{background:#fff;color:#1a1a1a;border-radius:12px;padding:32px;font-family:'맑은 고딕','Malgun Gothic',Arial,sans-serif;font-size:11pt;margin-top:14px;box-shadow:0 4px 20px rgba(0,0,0,.3)}
-.rpt-header{display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #185FA5;padding-bottom:14px;margin-bottom:20px}
-.rpt-header-left{display:flex;align-items:center;gap:12px}
-.rpt-logo{width:44px;height:44px;background:linear-gradient(135deg,#185FA5,#2563eb);border-radius:10px;display:flex;align-items:center;justify-content:center}
-.rpt-logo svg{width:24px;height:24px}
-.rpt-company{font-size:13pt;font-weight:800;color:#185FA5;letter-spacing:1px}
-.rpt-company-sub{font-size:9pt;color:#666;margin-top:2px}
-.rpt-sec-badge{background:#185FA5;color:#fff;font-size:9pt;padding:4px 12px;border-radius:20px;font-weight:700}
-.rpt-title{font-size:16pt;font-weight:800;color:#185FA5;text-align:center;margin:20px 0 24px;padding:14px;background:#f0f5ff;border-radius:8px;border-left:4px solid #185FA5}
-.rpt-info-table{width:100%;border-collapse:collapse;margin-bottom:20px}
-.rpt-info-table td{border:1px solid #ccd;padding:7px 12px;font-size:10pt}
-.rpt-info-table .rpt-th{background:#185FA5;color:#fff;font-weight:700;text-align:center;width:80px}
-.rpt-info-table .rpt-sh{background:#e8eef7;font-weight:700;color:#185FA5;width:72px}
-.rpt-sign-table{width:100%;border-collapse:collapse;margin-bottom:20px}
-.rpt-sign-table td{border:1px solid #ccd;padding:10px 14px;font-size:10pt;text-align:center}
-.rpt-sign-table .rpt-th{background:#185FA5;color:#fff;font-weight:700}
-.rpt-sign-box{min-height:40px;border:1px dashed #aaa;border-radius:4px;margin-top:6px;display:flex;align-items:center;justify-content:center;color:#aaa;font-size:9pt}
-.rpt-section{margin-bottom:20px}
-.rpt-sec-title{font-size:12pt;font-weight:800;color:#fff;background:#185FA5;padding:8px 14px;border-radius:6px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.rpt-sec-content{font-size:10pt;line-height:1.9;white-space:pre-wrap;padding:12px 16px;background:#f8f9fc;border-radius:6px;border-left:3px solid #185FA5;color:#222}
-.rpt-footer{border-top:1px solid #dde;padding-top:10px;margin-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:9pt;color:#888}
+#toast.err{background:var(--danger);color:#fff}
+
+/* ══ REPORT STYLES ══════════════════════════════ */
+/* 표지 */
+.rpt-cover{background:linear-gradient(160deg,#1e1040 0%,#0d0821 40%,#0a1628 100%);color:#fff;border-radius:16px;padding:48px;margin-top:14px;position:relative;overflow:hidden;min-height:420px;display:flex;flex-direction:column;justify-content:space-between}
+.rpt-cover::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(99,102,241,.25) 0%,transparent 70%);pointer-events:none}
+.rpt-cover::after{content:'';position:absolute;bottom:-40px;left:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(124,58,237,.2) 0%,transparent 70%);pointer-events:none}
+.rpt-cover-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px}
+.rpt-cover-logo{display:flex;align-items:center;gap:12px}
+.rpt-cover-logo-icon{width:44px;height:44px;background:linear-gradient(135deg,#4f46e5,#7c3aed);border-radius:12px;display:flex;align-items:center;justify-content:center}
+.rpt-cover-logo-icon svg{width:22px;height:22px}
+.rpt-cover-logo-name{font-size:18px;font-weight:800;letter-spacing:2px;color:#fff}
+.rpt-cover-logo-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:1px}
+.rpt-cover-badge{padding:6px 16px;border-radius:20px;font-size:11px;font-weight:700;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);background:rgba(255,255,255,.05)}
+.rpt-cover-center{flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1}
+.rpt-cover-type{font-size:12px;font-weight:700;color:rgba(167,139,250,.8);text-transform:uppercase;letter-spacing:2px;margin-bottom:16px}
+.rpt-cover-title{font-size:28px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:24px;text-shadow:0 2px 20px rgba(99,102,241,.3)}
+.rpt-cover-divider{width:60px;height:3px;background:linear-gradient(90deg,#6366f1,#a78bfa);border-radius:2px;margin-bottom:24px}
+.rpt-cover-meta{display:flex;gap:32px}
+.rpt-cover-meta-item label{font-size:10px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:3px}
+.rpt-cover-meta-item span{font-size:13px;color:rgba(255,255,255,.85);font-weight:600}
+.rpt-cover-footer{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;position:relative;z-index:1}
+.rpt-cover-party{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px}
+.rpt-cover-party-label{font-size:10px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.rpt-cover-party-name{font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
+.rpt-cover-party-person{font-size:12px;color:rgba(255,255,255,.55)}
+.rpt-cover-sign{margin-top:8px;height:32px;border:1px dashed rgba(255,255,255,.2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:rgba(255,255,255,.2)}
+
+/* 본문 */
+.rpt-body-wrap{background:#fafbff;color:#1e293b;border-radius:16px;padding:36px;margin-top:10px;font-family:'맑은 고딕','Malgun Gothic',Arial,sans-serif}
+.rpt-info-table{width:100%;border-collapse:collapse;margin-bottom:24px;border-radius:10px;overflow:hidden}
+.rpt-info-table td{border:1px solid #e2e8f0;padding:9px 14px;font-size:11pt}
+.rpt-info-th{background:#6366f1;color:#fff;font-weight:700;width:80px;text-align:center;font-size:10pt}
+.rpt-info-sh{background:#eef0ff;font-weight:700;color:#4f46e5;width:80px;font-size:10pt}
+.rpt-body-section{margin-bottom:24px}
+.rpt-body-sec-title{display:flex;align-items:center;gap:10px;font-size:14pt;font-weight:800;color:#4f46e5;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #e0e7ff}
+.rpt-body-sec-num{width:28px;height:28px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:800;flex-shrink:0}
+.rpt-body-content{font-size:11pt;line-height:1.9;white-space:pre-wrap;background:#f8faff;border-left:3px solid #c7d2fe;padding:14px 18px;border-radius:0 8px 8px 0;color:#334155}
+
 /* 감사로그 */
 .audit-table{width:100%;border-collapse:collapse}
-.audit-table th{background:var(--panel);color:var(--text2);font-size:11px;font-weight:700;padding:10px 14px;text-align:left;border-bottom:2px solid var(--border)}
+.audit-table th{background:var(--panel);color:var(--text3);font-size:11px;font-weight:700;padding:11px 14px;text-align:left;border-bottom:2px solid var(--border)}
 .audit-table td{padding:10px 14px;font-size:12px;border-bottom:1px solid var(--border);vertical-align:middle}
 .audit-table tr:hover td{background:var(--card)}
 .audit-type-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap;display:inline-block}
+
 /* 관리자 설정 */
-.admin-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
-.admin-card h3{font-size:13px;font-weight:700;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.admin-list-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--panel);border:1px solid var(--border);border-radius:8px;margin-bottom:8px}
+.admin-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:16px}
+.admin-card h3{font-size:13px;font-weight:700;color:var(--text);margin-bottom:14px}
+.admin-list-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--panel);border:1px solid var(--border);border-radius:10px;margin-bottom:8px}
 .admin-add-row{display:flex;gap:8px;margin-top:12px}
-.admin-add-row input{flex:1;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-size:13px;outline:none;font-family:inherit}
+.admin-add-row input{flex:1;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:9px 12px;color:var(--text);font-size:13px;outline:none;font-family:inherit}
 .admin-add-row input:focus{border-color:var(--accent)}
+
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--text3)}
 </style>
 </head>
 <body>
 <div id="toast"></div>
 
+<!-- LOGIN -->
 <div id="cfg">
   <div class="cfg-wrap">
     <div class="cfg-logo">
@@ -189,13 +271,14 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
     </div>
     <div class="cfg-card">
       <div class="cfg-field"><label>이름</label><input id="l-name" placeholder="홍길동" onkeydown="if(event.key==='Enter')document.getElementById('l-pin').focus()"></div>
-      <div class="cfg-field"><label>팀 PIN</label><input id="l-pin" type="password" placeholder="팀 공용 PIN" onkeydown="if(event.key==='Enter')login()"></div>
-      <button class="cfg-btn" id="login-btn" onclick="login()">접속하기</button>
+      <div class="cfg-field"><label>팀 PIN</label><input id="l-pin" type="password" placeholder="••••••" onkeydown="if(event.key==='Enter')login()"></div>
+      <button class="cfg-btn" id="login-btn" onclick="login()">접속하기 →</button>
       <p class="cfg-note">ENGR AI 팀 전용 접속</p>
     </div>
   </div>
 </div>
 
+<!-- APP -->
 <div id="app">
   <aside>
     <div class="sb-top">
@@ -206,7 +289,7 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
       <div class="sb-section">메뉴</div>
       <div class="sb-nav">
         <button class="sb-btn active" onclick="showPage('dash',this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>대시보드
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>대시보드
         </button>
         <button class="sb-btn" onclick="showPage('issues',this)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>이슈 관리
@@ -227,19 +310,31 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
     </div>
     <div class="sb-divider"></div>
     <div class="sb-bottom">
+      <!-- AI 사용량 -->
+      <div class="ai-usage-card">
+        <div class="ai-usage-title">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          AI 사용량
+        </div>
+        <div class="ai-usage-row"><span>오늘</span><span class="ai-usage-val" id="ai-today">-</span></div>
+        <div class="ai-usage-row"><span>이번 달</span><span class="ai-usage-val" id="ai-month">-</span></div>
+        <div class="ai-usage-row"><span>일 한도</span><span style="color:var(--text3)">10,000 뉴런</span></div>
+        <div class="ai-usage-bar"><div class="ai-usage-fill" id="ai-usage-fill" style="width:0%"></div></div>
+      </div>
+      <!-- 연결 상태 -->
       <div class="sb-status">
-        <div style="font-size:11px;font-weight:700;color:var(--text2);margin-bottom:6px">연결 상태</div>
-        <div class="sb-status-row"><span>접속자</span><span id="user-label" style="color:var(--accent2);font-weight:700">-</span></div>
+        <div style="font-size:10px;font-weight:700;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.8px">연결 상태</div>
+        <div class="sb-status-row"><span>접속자</span><span id="user-label" style="color:var(--accent3);font-weight:700">-</span></div>
         <div class="sb-status-row"><span>Jira</span><span id="jira-dot"><span class="dot dot-gray"></span>대기중</span></div>
         <div class="sb-status-row"><span>AI</span><span id="ai-dot"><span class="dot dot-gray"></span>대기중</span></div>
         <div class="sb-status-row"><span>이슈</span><span id="issue-count" style="color:var(--text2)">-</span></div>
       </div>
-      <button class="sb-sync-btn" onclick="syncJira()">
+      <button class="sb-sync-btn" onclick="syncJira()" style="margin-top:8px">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
         Jira 새로고침
       </button>
-      <div style="margin-top:10px;text-align:center">
-        <button onclick="logout()" style="background:none;border:none;font-size:10px;color:var(--text3);cursor:pointer;font-family:inherit">⚙ 로그아웃</button>
+      <div style="margin-top:8px;text-align:center">
+        <button onclick="logout()" style="background:none;border:none;font-size:10px;color:var(--text3);cursor:pointer;font-family:inherit">로그아웃</button>
       </div>
     </div>
   </aside>
@@ -248,7 +343,7 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
     <div class="topbar">
       <div class="topbar-left">
         <h2 id="page-title">대시보드</h2>
-        <p id="page-desc">Jira 이슈 기반 보안기술팀 허브 (최근 3개월)</p>
+        <p id="page-desc">Jira 이슈 기반 보안기술팀 허브 · 최근 3개월</p>
       </div>
       <div class="topbar-right">
         <div class="search-box">
@@ -264,10 +359,10 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
     <!-- DASHBOARD -->
     <div class="page active" id="page-dash">
       <div class="kpi-grid">
-        <div class="kpi" style="--kpi-c1:#1d4ed8;--kpi-c2:#3b82f6"><div class="kpi-icon" style="color:#3b82f6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div><div class="kpi-val" id="k-total">-</div><div class="kpi-label">전체 이슈</div><div class="kpi-sub">최근 3개월</div></div>
-        <div class="kpi" style="--kpi-c1:#059669;--kpi-c2:#10b981"><div class="kpi-icon" style="color:#10b981"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div class="kpi-val" id="k-done">-</div><div class="kpi-label">완료</div><div class="kpi-sub">처리 완료 건</div></div>
-        <div class="kpi" style="--kpi-c1:#1d4ed8;--kpi-c2:#60a5fa"><div class="kpi-icon" style="color:#60a5fa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="kpi-val" id="k-prog">-</div><div class="kpi-label">진행중</div><div class="kpi-sub">처리 중인 건</div></div>
-        <div class="kpi" style="--kpi-c1:#b45309;--kpi-c2:#f59e0b"><div class="kpi-icon" style="color:#f59e0b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div class="kpi-val" id="k-high">-</div><div class="kpi-label">High+</div><div class="kpi-sub">높은 우선순위</div></div>
+        <div class="kpi" style="--kpi-c1:#4f46e5;--kpi-c2:#818cf8"><div class="kpi-val" id="k-total">-</div><div class="kpi-label">전체 이슈</div><div class="kpi-sub">최근 3개월</div></div>
+        <div class="kpi" style="--kpi-c1:#059669;--kpi-c2:#22d3a5"><div class="kpi-val" id="k-done">-</div><div class="kpi-label">완료</div><div class="kpi-sub">처리 완료 건</div></div>
+        <div class="kpi" style="--kpi-c1:#2563eb;--kpi-c2:#60a5fa"><div class="kpi-val" id="k-prog">-</div><div class="kpi-label">진행중</div><div class="kpi-sub">처리 중인 건</div></div>
+        <div class="kpi" style="--kpi-c1:#d97706;--kpi-c2:#fbbf24"><div class="kpi-val" id="k-high">-</div><div class="kpi-label">High+</div><div class="kpi-sub">높은 우선순위</div></div>
       </div>
       <div class="chart-grid" id="chart-section"></div>
       <div class="sec-title">최근 이슈 (10건)</div>
@@ -286,39 +381,46 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
       <div class="two-col">
         <div><div id="issue-list-wrap" class="issue-list"></div></div>
         <div id="right-panel">
-          <div class="rpanel"><div class="rp-empty"><p style="font-size:13px;margin-top:8px">이슈를 선택하면<br>상세 내용이 표시됩니다</p></div></div>
+          <div class="rpanel"><div class="rp-empty"><p style="font-size:13px;margin-top:8px;color:var(--text3)">이슈를 선택하면<br>상세 내용이 표시됩니다</p></div></div>
         </div>
       </div>
     </div>
 
     <!-- REPORT -->
     <div class="page" id="page-report">
-      <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:12px 16px;font-size:12px;color:#fcd34d;margin-bottom:16px">
-        ✋ 이슈를 선택하고 AI 리포트를 생성하세요. ESCARE 공식 이슈보고서 양식으로 출력됩니다.
+      <!-- 기본 정보 입력 -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:16px">
+        <div class="sec-title" style="margin-bottom:14px">📋 리포트 기본 정보</div>
+        <div class="meta-grid">
+          <div class="mf"><label>에스케어 담당자1</label><input id="m-author" value="박민준"></div>
+          <div class="mf"><label>직함1</label><input id="m-title-input" value="부장"></div>
+          <div class="mf"><label>에스케어 담당자2</label><input id="m-author2" placeholder="김민지"></div>
+          <div class="mf"><label>직함2</label><input id="m-title2" placeholder="주임"></div>
+          <div class="mf"><label>고객사명</label><input id="m-company" placeholder="고객사명"></div>
+          <div class="mf"><label>고객사 담당자</label><input id="m-cust" placeholder="담당자명"></div>
+          <div class="mf"><label>고객사 직함</label><input id="m-cust-title" placeholder="차장"></div>
+          <div class="mf"><label>제품명</label><input id="m-prod" value="Broadcom / Symantec Endpoint Protection"></div>
+          <div class="mf"><label>리포트 제목</label><input id="m-rptitle" placeholder="SEPM 장애 이슈보고서"></div>
+          <div class="mf"><label>대상 시스템</label><input id="m-target" placeholder="업무망 SEPM 서버"></div>
+          <div class="mf"><label>보안등급</label><select id="m-sec"><option>내부용</option><option>대외비</option><option>기밀</option></select></div>
+        </div>
       </div>
-      <div class="meta-grid">
-        <div class="mf"><label>에스케어 담당자1</label><input id="m-author" value="박민준"></div>
-        <div class="mf"><label>직함1</label><input id="m-title-input" value="부장"></div>
-        <div class="mf"><label>에스케어 담당자2</label><input id="m-author2" placeholder="김민지"></div>
-        <div class="mf"><label>직함2</label><input id="m-title2" placeholder="주임"></div>
-        <div class="mf"><label>고객사명</label><input id="m-company" placeholder="고객사명"></div>
-        <div class="mf"><label>고객사 담당자</label><input id="m-cust" placeholder="담당자명"></div>
-        <div class="mf"><label>고객사 직함</label><input id="m-cust-title" placeholder="차장"></div>
-        <div class="mf"><label>제품명</label><input id="m-prod" value="Broadcom / Symantec Endpoint Protection"></div>
-        <div class="mf"><label>리포트 제목</label><input id="m-rptitle" placeholder="SEPM 장애 이슈보고서"></div>
-        <div class="mf"><label>대상 시스템</label><input id="m-target" placeholder="업무망 SEPM 서버"></div>
-        <div class="mf"><label>보안등급</label><select id="m-sec"><option>내부용</option><option>대외비</option><option>기밀</option></select></div>
+      <!-- 이슈 선택 -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:16px">
+        <div class="sec-title" style="margin-bottom:10px">📌 리포트에 포함할 이슈 선택</div>
+        <div style="font-size:11px;color:var(--text3);margin-bottom:12px">아래 목록에서 리포트에 포함할 이슈를 체크하세요.</div>
+        <div class="filter-row" style="margin-bottom:10px">
+          <input id="rp-q" placeholder="이슈 검색..." oninput="renderReportList()">
+          <button onclick="toggleAllReport()" style="background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:7px 14px;color:var(--text2);font-size:12px;cursor:pointer;font-family:inherit;white-space:nowrap">전체 선택/해제</button>
+          <span class="filter-count" id="rp-sel">0건 선택</span>
+        </div>
+        <div id="rp-list" class="issue-list" style="max-height:260px;overflow-y:auto;border:1px solid var(--border);border-radius:10px;padding:8px"></div>
       </div>
-      <div class="filter-row">
-        <input id="rp-q" placeholder="이슈 검색..." oninput="renderReportList()">
-        <button onclick="toggleAllReport()" style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 14px;color:var(--text2);font-size:12px;cursor:pointer;font-family:inherit">전체 선택/해제</button>
-        <span class="filter-count" id="rp-sel">0건 선택</span>
-      </div>
-      <div id="rp-list" class="issue-list" style="max-height:260px;overflow-y:auto;margin-bottom:14px;border:1px solid var(--border);border-radius:10px;padding:8px"></div>
+      <!-- 액션 버튼 -->
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
-        <button class="btn btn-orange" onclick="genReport()" id="rp-gen-btn" style="width:auto;padding:9px 20px">🤖 AI 리포트 생성</button>
-        <button class="btn btn-blue" onclick="downloadReport()" style="width:auto;padding:9px 20px">⬇ Word 다운로드</button>
-        <button class="btn btn-ghost" onclick="togglePreview()" style="width:auto;padding:9px 18px" id="prev-btn">👁 미리보기</button>
+        <button class="btn btn-purple" onclick="genReport()" id="rp-gen-btn" style="width:auto;padding:10px 22px">🤖 AI 리포트 생성</button>
+        <button class="btn btn-indigo" onclick="downloadReport()" style="width:auto;padding:10px 22px">⬇ Word 다운로드</button>
+        <button class="btn btn-ghost" onclick="togglePreview()" style="width:auto;padding:10px 20px" id="prev-btn">👁 미리보기</button>
       </div>
       <div id="rp-ai-result" style="display:none"></div>
       <div id="rp-preview" style="display:none"></div>
@@ -326,7 +428,7 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
 
     <!-- AI -->
     <div class="page" id="page-ai">
-      <div style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:10px;padding:12px 16px;font-size:12px;color:#c4b5fd;margin-bottom:16px">
+      <div style="background:linear-gradient(135deg,rgba(99,102,241,.08),rgba(167,139,250,.05));border:1px solid rgba(99,102,241,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:var(--accent3);margin-bottom:16px">
         🤖 이슈 전체 내용(본문+코멘트)을 분석합니다. 기술 분석 / 고객사 메일 / 유사 이슈 탐색을 지원합니다.
       </div>
       <div class="filter-row">
@@ -341,14 +443,14 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
       <div class="two-col">
         <div id="ai-list" class="issue-list"></div>
         <div id="ai-right">
-          <div class="rpanel"><div class="rp-empty" style="text-align:center;padding:30px"><p style="font-size:13px">이슈를 클릭하여<br>AI 분석을 요청하세요</p></div></div>
+          <div class="rpanel"><div class="rp-empty" style="text-align:center;padding:30px"><p style="font-size:13px;color:var(--text3)">이슈를 클릭하여<br>AI 분석을 요청하세요</p></div></div>
         </div>
       </div>
     </div>
 
     <!-- AUDIT -->
     <div class="page" id="page-audit">
-      <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:12px 16px;font-size:12px;color:#fca5a5;margin-bottom:16px">
+      <div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:#fca5a5;margin-bottom:16px">
         🔒 관리자 전용 감사 로그 — 팀원 접속 및 AI 사용 이력
       </div>
       <div style="display:flex;gap:8px;margin-bottom:14px;align-items:center">
@@ -358,7 +460,7 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
         <button onclick="loadAudit()" style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 14px;color:var(--text2);font-size:12px;cursor:pointer;font-family:inherit">새로고침</button>
         <span id="audit-count" style="font-size:12px;color:var(--text3);margin-left:auto"></span>
       </div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden">
         <table class="audit-table">
           <thead><tr><th>유형</th><th>사용자</th><th>상세</th><th>IP</th><th>일시</th></tr></thead>
           <tbody id="audit-tbody"></tbody>
@@ -368,23 +470,23 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
 
     <!-- SETTINGS -->
     <div class="page" id="page-settings">
-      <div style="background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);border-radius:10px;padding:12px 16px;font-size:12px;color:#93c5fd;margin-bottom:16px">
-        ⚙ 최상위 관리자(박민준) 전용 설정 — 관리자 권한 부여/회수
+      <div style="background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:var(--accent3);margin-bottom:16px">
+        ⚙ 최상위 관리자(박민준) 전용 — 관리자 권한 부여/회수
       </div>
       <div class="admin-card">
         <h3>👑 현재 관리자 목록</h3>
         <div id="admin-list-wrap"></div>
         <div class="admin-add-row">
-          <input id="admin-add-input" placeholder="팀원 이름 입력 (TEAM_NAMES에 등록된 이름)" onkeydown="if(event.key==='Enter')addAdmin()">
-          <button class="btn btn-blue" onclick="addAdmin()" style="width:auto;padding:9px 16px">+ 관리자 추가</button>
+          <input id="admin-add-input" placeholder="팀원 이름 입력" onkeydown="if(event.key==='Enter')addAdmin()">
+          <button class="btn btn-indigo" onclick="addAdmin()" style="width:auto;padding:9px 16px">+ 추가</button>
         </div>
       </div>
       <div class="admin-card">
-        <h3>ℹ 관리자 권한 안내</h3>
-        <div style="font-size:12px;color:var(--text2);line-height:1.8">
-          <div>• <strong style="color:var(--text)">일반 사용자</strong> — 대시보드, 이슈 관리, 리포트 생성, AI 분석</div>
+        <h3>ℹ 권한 안내</h3>
+        <div style="font-size:12px;color:var(--text2);line-height:2">
+          <div>• <strong style="color:var(--text)">일반 사용자</strong> — 대시보드, 이슈, 리포트, AI 분석</div>
           <div>• <strong style="color:var(--warn)">관리자</strong> — 일반 기능 + 감사 로그 열람</div>
-          <div>• <strong style="color:var(--accent2)">최상위 관리자 (박민준)</strong> — 모든 기능 + 관리자 설정</div>
+          <div>• <strong style="color:var(--accent3)">최상위 관리자</strong> — 모든 기능 + 관리자 설정</div>
         </div>
       </div>
     </div>
@@ -392,22 +494,21 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
 </div>
 
 <script>
-const WORKERS = 'https://engr-hub-proxy.mj-park.workers.dev';
-const SUPER_ADMIN = '박민준';
+const WORKERS='https://engr-hub-proxy.mj-park.workers.dev';
+const SUPER_ADMIN='박민준';
+let ISSUES=[],SEL=null,RP_SEL=new Set(),AI_SEL=null;
+let rpAiText='',showPreview=false;
+let CURRENT_USER='',IS_ADMIN=false,IS_SUPER=false;
 
-let ISSUES=[], SEL=null, RP_SEL=new Set(), AI_SEL=null;
-let rpAiText='', showPreview=false;
-let CURRENT_USER='', IS_ADMIN=false, IS_SUPER=false;
-
-const SC={'완료':'#10b981','진행 중':'#3b82f6','미해결':'#94a3b8','보류':'#f59e0b'};
-const PC={'Highest':'#ef4444','High':'#f97316','Medium':'#f59e0b','Low':'#10b981'};
-const LC={'DLP':'#ef4444','PP':'#3b82f6','SEP':'#10b981'};
+const SC={'완료':'#22d3a5','진행 중':'#818cf8','미해결':'#94a3b8','보류':'#fbbf24'};
+const PC={'Highest':'#f87171','High':'#fb923c','Medium':'#fbbf24','Low':'#4ade80'};
+const LC={'DLP':'#f87171','PP':'#818cf8','SEP':'#22d3a5'};
 
 function fd(d){return d?new Date(d).toLocaleDateString('ko-KR',{year:'2-digit',month:'2-digit',day:'2-digit'}):'-';}
 function fdt(d){return d?new Date(d).toLocaleString('ko-KR',{year:'2-digit',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}):'-';}
 function toast(msg,err){const t=document.getElementById('toast');t.textContent=msg;t.className=err?'err':'';t.style.display='block';setTimeout(()=>t.style.display='none',2800);}
 function copyText(text){navigator.clipboard.writeText(text).then(()=>toast('복사됐어요!')).catch(()=>{});}
-function encUser(name){return btoa(unescape(encodeURIComponent(name)));}
+function encUser(name){try{return btoa(unescape(encodeURIComponent(name)));}catch{return btoa(name);}}
 
 // ── AUTH ──────────────────────────────────────────
 async function login(){
@@ -417,17 +518,13 @@ async function login(){
   const btn=document.getElementById('login-btn');
   btn.disabled=true;btn.textContent='확인 중...';
   try{
-    const r=await fetch(`${WORKERS}/auth/login`,{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({name,pin})
-    });
+    const r=await fetch(`${WORKERS}/auth/login`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,pin})});
     const d=await r.json();
-    if(!d.ok){toast('이름 또는 PIN이 올바르지 않습니다',true);btn.disabled=false;btn.textContent='접속하기';return;}
+    if(!d.ok){toast('이름 또는 PIN이 올바르지 않습니다',true);btn.disabled=false;btn.textContent='접속하기 →';return;}
     CURRENT_USER=name;IS_ADMIN=d.isAdmin;IS_SUPER=d.isSuperAdmin;
-    localStorage.setItem('engr_user',name);
-    localStorage.setItem('engr_pin',pin);
+    localStorage.setItem('engr_user',name);localStorage.setItem('engr_pin',pin);
     enterApp();
-  }catch(e){toast('서버 연결 실패',true);btn.disabled=false;btn.textContent='접속하기';}
+  }catch(e){toast('서버 연결 실패',true);btn.disabled=false;btn.textContent='접속하기 →';}
 }
 
 function enterApp(){
@@ -435,21 +532,39 @@ function enterApp(){
   document.getElementById('m-author').value=CURRENT_USER;
   document.getElementById('cfg').style.display='none';
   document.getElementById('app').style.display='flex';
-  document.getElementById('ai-dot').innerHTML='<span class="dot dot-green"></span><span style="color:#10b981">준비됨</span>';
+  document.getElementById('ai-dot').innerHTML='<span class="dot dot-green"></span><span style="color:var(--success)">준비됨</span>';
   if(IS_ADMIN||IS_SUPER) document.getElementById('audit-menu').style.display='flex';
   if(IS_SUPER) document.getElementById('settings-menu').style.display='flex';
   syncJira();
+  loadAIUsage();
 }
 
 function logout(){
   if(!confirm('로그아웃 하시겠어요?'))return;
-  localStorage.removeItem('engr_user');localStorage.removeItem('engr_pin');
-  location.reload();
+  localStorage.removeItem('engr_user');localStorage.removeItem('engr_pin');location.reload();
+}
+
+// ── AI 사용량 ──────────────────────────────────────
+async function loadAIUsage(){
+  try{
+    const r=await fetch(`${WORKERS}/kv/audit`,{headers:{'X-User':encUser(CURRENT_USER)}});
+    if(!r.ok)return;
+    const items=await r.json();
+    const now=new Date();
+    const todayStr=now.toISOString().slice(0,10);
+    const monthStr=now.toISOString().slice(0,7);
+    const todayCount=items.filter(a=>a.type==='AI_REQUEST'&&a.ts?.startsWith(todayStr)).length;
+    const monthCount=items.filter(a=>a.type==='AI_REQUEST'&&a.ts?.startsWith(monthStr)).length;
+    document.getElementById('ai-today').textContent=todayCount+'회';
+    document.getElementById('ai-month').textContent=monthCount+'회';
+    const pct=Math.min(Math.round(todayCount/100*100),100);
+    document.getElementById('ai-usage-fill').style.width=pct+'%';
+  }catch{}
 }
 
 // ── PAGE NAV ──────────────────────────────────────
 const pageTitles={
-  dash:['대시보드','Jira 이슈 기반 보안기술팀 허브 (최근 3개월)'],
+  dash:['대시보드','Jira 이슈 기반 보안기술팀 허브 · 최근 3개월'],
   issues:['이슈 관리','전체 이슈 목록 및 상세 조회'],
   report:['리포트 생성','고객사 기술지원 이슈 보고서'],
   ai:['AI 분석','AI 기술 분석 및 인사이트'],
@@ -467,20 +582,20 @@ function showPage(id,btn){
   if(id==='issues')renderIssues();
   if(id==='report')renderReportList();
   if(id==='ai')renderAIList();
-  if(id==='audit')loadAudit();
+  if(id==='audit'){loadAudit();loadAIUsage();}
   if(id==='settings')loadSettings();
 }
 function onGlobalSearch(q){document.querySelectorAll('.sb-btn')[1].click();document.getElementById('f-q').value=q;renderIssues();}
 
 // ── JIRA ──────────────────────────────────────────
 async function syncJira(){
-  document.getElementById('jira-dot').innerHTML='<span class="dot" style="background:#f59e0b"></span>동기화중...';
+  document.getElementById('jira-dot').innerHTML='<span class="dot" style="background:var(--warn)"></span>동기화중...';
   document.getElementById('issue-count').textContent='로딩중...';
   try{
     const r=await fetch(`${WORKERS}/jira/search`);
-    if(!r.ok) throw new Error('응답 오류: '+r.status);
+    if(!r.ok)throw new Error('응답 오류: '+r.status);
     const d=await r.json();
-    if(!d.issues) throw new Error('이슈 데이터 없음');
+    if(!d.issues)throw new Error('이슈 데이터 없음');
     ISSUES=d.issues.map(i=>({
       key:i.key,title:i.fields.summary,status:i.fields.status.name,
       pri:i.fields.priority?i.fields.priority.name:'Medium',
@@ -494,11 +609,11 @@ async function syncJira(){
       type:i.fields.issuetype?i.fields.issuetype.name:'작업',
       customer:extractCustomer(i.fields.summary)
     }));
-    document.getElementById('jira-dot').innerHTML='<span class="dot dot-green"></span><span style="color:#10b981">연결됨</span>';
+    document.getElementById('jira-dot').innerHTML='<span class="dot dot-green"></span><span style="color:var(--success)">연결됨</span>';
     document.getElementById('issue-count').textContent=ISSUES.length+'건';
     renderDash();toast('Jira 동기화 완료! '+ISSUES.length+'건');
   }catch(e){
-    document.getElementById('jira-dot').innerHTML='<span class="dot" style="background:#ef4444"></span><span style="color:#ef4444">오류</span>';
+    document.getElementById('jira-dot').innerHTML='<span class="dot" style="background:var(--danger)"></span><span style="color:var(--danger)">오류</span>';
     toast('Jira 연결 실패: '+e.message,true);
   }
 }
@@ -538,17 +653,17 @@ function renderDash(){
   <div class="chart-card"><h4>고객사별 분포</h4>
   ${Object.entries(cusCnt).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,v])=>`
   <div class="bar-row"><div class="bar-lbl" title="${k}">${k}</div>
-  <div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/maxC*100)}%;background:linear-gradient(90deg,#1d4ed8,#3b82f6)"><span class="bar-n">${v}</span></div></div></div>`).join('')}
+  <div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/maxC*100)}%;background:linear-gradient(90deg,#4f46e5,#818cf8)"><span class="bar-n">${v}</span></div></div></div>`).join('')}
   </div>
   <div class="chart-card"><h4>레이블별 분포</h4>
   ${Object.entries(labCnt).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`
   <div class="bar-row"><div class="bar-lbl">${k}</div>
-  <div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/maxL*100)}%;background:${LC[k]||'#3b82f6'}88"><span class="bar-n">${v}</span></div></div></div>`).join('')}
+  <div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/maxL*100)}%;background:${LC[k]||'#818cf8'}88"><span class="bar-n">${v}</span></div></div></div>`).join('')}
   </div>
   <div class="chart-card"><h4>우선순위별</h4>
   ${['Highest','High','Medium','Low'].map(p=>{const v=priCnt[p]||0;return`
   <div class="bar-row"><div class="bar-lbl">${p}</div>
-  <div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/Math.max(1,...Object.values(priCnt))*100)}%;background:${PC[p]||'#94a3b8'}88"><span class="bar-n">${v}</span></div></div></div>`;}).join('')}
+  <div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/Math.max(1,...Object.values(priCnt))*100)}%;background:${PC[p]||'#94a3b8'}aa"><span class="bar-n">${v}</span></div></div></div>`;}).join('')}
   </div>`;
   const dl=document.getElementById('dash-list');
   dl.innerHTML=ISSUES.slice(0,10).map(i=>issueRowHTML(i,false)).join('');
@@ -588,7 +703,7 @@ function issueRowHTML(i,clickable,selected){
   </div>
   <div class="irow-bot">
     ${i.labels.map(l=>`<span class="badge" style="background:${(LC[l]||'#94a3b8')}22;color:${LC[l]||'#94a3b8'}">${l}</span>`).join('')}
-    ${i.customer?`<span class="badge" style="background:rgba(37,99,235,.12);color:var(--accent2)">${i.customer}</span>`:''}
+    ${i.customer?`<span class="badge" style="background:rgba(99,102,241,.15);color:var(--accent3)">${i.customer}</span>`:''}
     ${i.assignee&&i.assignee!=='-'?`<span class="imeta">@${i.assignee}</span>`:''}
   </div></div>`;
 }
@@ -604,7 +719,7 @@ function renderRightPanel(){
       ${i.labels.map(l=>`<span class="badge" style="background:${(LC[l]||'#94a3b8')}22;color:${LC[l]||'#94a3b8'}">${l}</span>`).join('')}
     </div>
     <div class="rp-meta">
-      <div class="rp-row"><span>이슈키</span><span style="color:var(--accent2);font-weight:700">${i.key}</span></div>
+      <div class="rp-row"><span>이슈키</span><span style="color:var(--accent3);font-weight:700">${i.key}</span></div>
       <div class="rp-row"><span>담당자</span><span>${i.assignee}</span></div>
       <div class="rp-row"><span>고객사</span><span>${i.customer||'-'}</span></div>
       <div class="rp-row"><span>접수일</span><span>${fd(i.date)}</span></div>
@@ -612,7 +727,7 @@ function renderRightPanel(){
     </div>
     ${i.desc?`<div class="rp-desc">${i.desc}</div>`:''}
     <div class="btn-group">
-      <button class="btn btn-blue" id="summary-btn" onclick="runSummary()">📋 내용 요약</button>
+      <button class="btn btn-indigo" id="summary-btn" onclick="runSummary()">📋 내용 요약</button>
       <button class="btn btn-green" onclick="goReport('${i.key}')">📄 리포트 생성</button>
       <button class="btn btn-purple" onclick="goAI('${i.key}')">🤖 AI 분석</button>
       <a href="https://escare-engr.atlassian.net/browse/${i.key}" target="_blank" style="text-decoration:none">
@@ -644,7 +759,7 @@ async function runSummary(){
       <button class="copy" onclick="copyText(this.dataset.t)" data-t="${text.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">복사</button>
     </div>
     <div class="result-box" style="max-height:250px">${text}</div>`;
-  }catch(e){res.innerHTML=`<div style="color:#ef4444;font-size:12px;margin-top:10px">오류: ${e.message}</div>`;}
+  }catch(e){res.innerHTML=`<div style="color:var(--danger);font-size:12px;margin-top:10px">오류: ${e.message}</div>`;}
   btn.disabled=false;btn.textContent='📋 내용 요약';
 }
 
@@ -663,7 +778,7 @@ function renderReportList(){
       <span class="ikey">${i.key}</span>
       <span class="badge" style="background:${(SC[i.status]||'#94a3b8')}22;color:${SC[i.status]||'#94a3b8'}">${i.status}</span>
       <span class="ititle">${i.title}</span>
-      ${i.customer?`<span class="badge" style="background:rgba(37,99,235,.12);color:var(--accent2)">${i.customer}</span>`:''}
+      ${i.customer?`<span class="badge" style="background:rgba(99,102,241,.15);color:var(--accent3)">${i.customer}</span>`:''}
       <span class="imeta">${fd(i.date)}</span>
     </div>
   </div>`).join('');
@@ -685,9 +800,9 @@ async function genReport(){
    코멘트: ${i.comments||'-'}`).join('\n\n');
   try{
     rpAiText=await callAI(`당신은 ESCARE 보안기술팀의 이슈보고서 작성 전문가입니다.
-아래 이슈 목록의 전체 내용(본문+코멘트)을 분석하여 공식 이슈보고서를 한국어로 작성하세요.
+아래 이슈 목록의 전체 내용(본문+코멘트)을 분석하여 공식 이슈보고서를 작성하세요.
 
-반드시 아래 섹션 제목을 포함하여 출력하세요:
+반드시 아래 3개 섹션 제목을 포함하여 출력하세요:
 
 이슈 사항
 ${sel.map((i,n)=>`${n+1}. [${i.key}] ${i.title}`).join('\n')}
@@ -695,7 +810,7 @@ ${sel.map((i,n)=>`${n+1}. [${i.key}] ${i.title}`).join('\n')}
 확인 내용
 ${sel.map((i,n)=>`${n+1}. ${i.title}
 - 접수일시: ${i.date} | 고객사: ${i.customer||'-'} | 담당자: ${i.assignee}
-- 이슈 내용과 코멘트를 분석하여 증상, 원인, 조치 내용, 결과를 상세히 작성`).join('\n\n')}
+- 이슈 내용과 코멘트를 분석하여 증상, 원인, 조치 내용, 결과를 상세히 작성하세요`).join('\n\n')}
 
 추후 진행안
 ${sel.map((i,n)=>`${n+1}. 상태(${i.status}) 기준으로 추후 조치 또는 완료 기재`).join('\n')}
@@ -708,7 +823,7 @@ ${list}`, 'report');
       <button class="copy" onclick="copyText(this.dataset.t)" data-t="${rpAiText.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">복사</button>
     </div>
     <div class="result-box">${rpAiText}</div>`;
-  }catch(e){res.innerHTML=`<div style="color:#ef4444;font-size:12px">오류: ${e.message}</div>`;}
+  }catch(e){res.innerHTML=`<div style="color:var(--danger);font-size:12px">오류: ${e.message}</div>`;}
   btn.disabled=false;btn.textContent='🤖 AI 리포트 생성';
 }
 
@@ -729,9 +844,8 @@ function getReportMeta(){
     sec:document.getElementById('m-sec').value,
   };
 }
-
 function parseSections(text){
-  if(!text) return {issues:'(AI 리포트를 먼저 생성하세요)',confirm:'',future:''};
+  if(!text)return{issues:'(AI 리포트를 먼저 생성하세요)',confirm:'',future:''};
   const s={issues:'',confirm:'',future:''};
   const parts=text.split(/(?=이슈 사항|확인 내용|추후 진행안)/);
   parts.forEach(p=>{
@@ -742,64 +856,79 @@ function parseSections(text){
   return s;
 }
 
+function buildPreviewHTML(m,secs){
+  const a2=m.author2?`<div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:3px">${m.author2} ${m.title2}</div>`:'';
+  return `
+  <!-- 표지 -->
+  <div class="rpt-cover">
+    <div class="rpt-cover-header">
+      <div class="rpt-cover-logo">
+        <div class="rpt-cover-logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <div><div class="rpt-cover-logo-name">ESCARE</div><div class="rpt-cover-logo-sub">보안기술팀</div></div>
+      </div>
+      <div class="rpt-cover-badge">${m.sec}</div>
+    </div>
+    <div class="rpt-cover-center">
+      <div class="rpt-cover-type">이슈보고서</div>
+      <div class="rpt-cover-title">${m.rptTitle}</div>
+      <div class="rpt-cover-divider"></div>
+      <div class="rpt-cover-meta">
+        <div class="rpt-cover-meta-item"><label>제품</label><span>${m.prod}</span></div>
+        <div class="rpt-cover-meta-item"><label>대상</label><span>${m.target||'-'}</span></div>
+        <div class="rpt-cover-meta-item"><label>작성일</label><span>${m.today}</span></div>
+      </div>
+    </div>
+    <div class="rpt-cover-footer">
+      <div class="rpt-cover-party">
+        <div class="rpt-cover-party-label">발행</div>
+        <div class="rpt-cover-party-name">에스케어</div>
+        <div class="rpt-cover-party-person">${m.author} ${m.authorTitle}</div>
+        ${a2}
+        <div class="rpt-cover-sign">(서명)</div>
+      </div>
+      <div class="rpt-cover-party">
+        <div class="rpt-cover-party-label">수신</div>
+        <div class="rpt-cover-party-name">${m.company}</div>
+        <div class="rpt-cover-party-person">${m.cust} ${m.custTitle}</div>
+        <div class="rpt-cover-sign">(서명)</div>
+      </div>
+    </div>
+  </div>
+  <!-- 본문 -->
+  <div class="rpt-body-wrap">
+    <table class="rpt-info-table">
+      <tr><td class="rpt-info-th">작성자</td><td>${m.author} ${m.authorTitle}${m.author2?' / '+m.author2+' '+m.title2:''}</td><td class="rpt-info-th">작성일</td><td>${m.today}</td></tr>
+      <tr><td class="rpt-info-th">제품명</td><td colspan="3">${m.prod}</td></tr>
+      <tr><td class="rpt-info-th">제목</td><td colspan="3" style="font-weight:700;color:#4f46e5">${m.rptTitle}</td></tr>
+      <tr><td class="rpt-info-th">대상</td><td colspan="3">${m.target||'-'}</td></tr>
+    </table>
+    <div class="rpt-body-section">
+      <div class="rpt-body-sec-title"><div class="rpt-body-sec-num">1</div>이슈 사항</div>
+      <div class="rpt-body-content">${secs.issues||'(내용 없음)'}</div>
+    </div>
+    <div class="rpt-body-section">
+      <div class="rpt-body-sec-title"><div class="rpt-body-sec-num">2</div>확인 내용</div>
+      <div class="rpt-body-content">${secs.confirm||'(내용 없음)'}</div>
+    </div>
+    <div class="rpt-body-section">
+      <div class="rpt-body-sec-title"><div class="rpt-body-sec-num">3</div>추후 진행안</div>
+      <div class="rpt-body-content">${secs.future||'(내용 없음)'}</div>
+    </div>
+    <div style="border-top:1px solid #e2e8f0;padding-top:12px;margin-top:20px;display:flex;justify-content:space-between;font-size:9pt;color:#94a3b8">
+      <span>에스케어 보안기술팀</span>
+      <span>※ 본 문서는 ${m.sec}이며 무단 배포를 금합니다.</span>
+      <span>${m.today}</span>
+    </div>
+  </div>`;
+}
+
 function togglePreview(){
   const pv=document.getElementById('rp-preview');
   showPreview=!showPreview;
   document.getElementById('prev-btn').textContent=showPreview?'👁 미리보기 닫기':'👁 미리보기';
   if(!showPreview){pv.style.display='none';return;}
-  const m=getReportMeta();
-  const secs=parseSections(rpAiText);
   pv.style.display='block';
-  pv.innerHTML=buildReportHTML(m,secs,true);
-}
-
-function buildReportHTML(m,secs,isPreview){
-  const author2Cell=m.author2?` / ${m.author2} ${m.title2}`:'';
-  return `<div class="rpt-wrap">
-  <div class="rpt-header">
-    <div class="rpt-header-left">
-      <div class="rpt-logo"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-      <div><div class="rpt-company">ESCARE</div><div class="rpt-company-sub">보안기술팀 이슈보고서</div></div>
-    </div>
-    <div class="rpt-sec-badge">${m.sec}</div>
-  </div>
-  <div class="rpt-title">${m.rptTitle}</div>
-  <table class="rpt-sign-table">
-    <tr><td class="rpt-th" style="width:25%">회사명</td><td class="rpt-th" style="width:40%">담당자</td><td class="rpt-th" style="width:35%">확인</td></tr>
-    <tr>
-      <td><div style="font-weight:700">에스케어</div></td>
-      <td><div style="font-weight:700">${m.author} ${m.authorTitle}${author2Cell}</div></td>
-      <td rowspan="2"><div class="rpt-sign-box">(서명)</div></td>
-    </tr>
-    <tr>
-      <td><div style="font-weight:700">${m.company}</div></td>
-      <td><div style="font-weight:700">${m.cust} ${m.custTitle}</div></td>
-    </tr>
-  </table>
-  <table class="rpt-info-table">
-    <tr><td class="rpt-sh">작성자</td><td>${m.author} ${m.authorTitle}</td><td class="rpt-sh">작성일</td><td>${m.today}</td></tr>
-    <tr><td class="rpt-sh">제품명</td><td colspan="3">${m.prod}</td></tr>
-    <tr><td class="rpt-sh">제목</td><td colspan="3" style="font-weight:700;color:#185FA5">${m.rptTitle}</td></tr>
-    <tr><td class="rpt-sh">대상</td><td colspan="3">${m.target||'-'}</td></tr>
-  </table>
-  <div class="rpt-section">
-    <div class="rpt-sec-title">📋 이슈 사항</div>
-    <div class="rpt-sec-content">${secs.issues||'(내용 없음)'}</div>
-  </div>
-  <div class="rpt-section">
-    <div class="rpt-sec-title">🔍 확인 내용</div>
-    <div class="rpt-sec-content">${secs.confirm||'(내용 없음)'}</div>
-  </div>
-  <div class="rpt-section">
-    <div class="rpt-sec-title">📌 추후 진행안</div>
-    <div class="rpt-sec-content">${secs.future||'(내용 없음)'}</div>
-  </div>
-  <div class="rpt-footer">
-    <span>에스케어 보안기술팀</span>
-    <span>※ 본 문서는 ${m.sec}이며 무단 배포를 금합니다.</span>
-    <span>${m.today}</span>
-  </div>
-</div>`;
+  pv.innerHTML=buildPreviewHTML(getReportMeta(),parseSections(rpAiText));
 }
 
 function downloadReport(){
@@ -807,42 +936,52 @@ function downloadReport(){
   if(!sel.length){toast('이슈를 선택해주세요',true);return;}
   const m=getReportMeta();
   const secs=parseSections(rpAiText);
-  const author2Cell=m.author2?` / ${m.author2} ${m.title2}`:'';
+  const a2=m.author2?` / ${m.author2} ${m.title2}`:'';
   const html=`<!DOCTYPE html><html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word"><head><meta charset="utf-8"><style>
   @page{size:A4;margin:2cm}
-  body{font-family:'맑은 고딕',Arial,sans-serif;font-size:10pt;line-height:1.6;color:#1a1a1a}
+  body{font-family:'맑은 고딕',Arial,sans-serif;font-size:10pt;line-height:1.6;color:#1e293b}
+  .cover{page-break-after:always;background:#1e1040;color:white;min-height:26cm;padding:40px;display:flex;flex-direction:column}
+  .cover-logo{font-size:20pt;font-weight:800;color:white;letter-spacing:2px;margin-bottom:60px}
+  .cover-badge{display:inline-block;border:1px solid rgba(255,255,255,.3);padding:4px 14px;border-radius:20px;font-size:9pt;color:rgba(255,255,255,.6);margin-bottom:auto}
+  .cover-type{font-size:10pt;color:rgba(167,139,250,.8);text-transform:uppercase;letter-spacing:2px;margin-bottom:14px}
+  .cover-title{font-size:24pt;font-weight:800;color:white;line-height:1.3;margin-bottom:20px}
+  .cover-divider{width:50px;height:3px;background:#6366f1;margin-bottom:20px}
+  .cover-meta{font-size:10pt;color:rgba(255,255,255,.6);margin-bottom:40px}
+  .cover-meta span{margin-right:24px}
+  .cover-parties{display:flex;gap:20px;margin-top:auto}
+  .cover-party{flex:1;border:1px solid rgba(255,255,255,.15);padding:16px;border-radius:8px}
+  .cover-party-label{font-size:8pt;color:rgba(255,255,255,.35);text-transform:uppercase;margin-bottom:6px}
+  .cover-party-name{font-size:13pt;font-weight:700;color:white}
+  .cover-party-person{font-size:10pt;color:rgba(255,255,255,.6);margin-top:2px}
+  .cover-sign{height:28px;border:1px dashed rgba(255,255,255,.2);border-radius:4px;margin-top:8px}
   table{border-collapse:collapse;width:100%;margin-bottom:16px}
-  td{border:1px solid #9ab;padding:7px 12px;font-size:9.5pt}
-  .th{background:#185FA5;color:white;font-weight:bold;text-align:center}
-  .sh{background:#e8eef7;font-weight:bold;color:#185FA5;width:70px}
-  .header{display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #185FA5;padding-bottom:12px;margin-bottom:18px}
-  .company{font-size:15pt;font-weight:800;color:#185FA5}
-  .sec-badge{background:#185FA5;color:white;padding:3px 12px;border-radius:20px;font-size:9pt;font-weight:700}
-  .rpt-title{font-size:15pt;font-weight:800;color:#185FA5;text-align:center;padding:12px;background:#f0f5ff;border-radius:6px;border-left:4px solid #185FA5;margin-bottom:18px}
-  .sign-box{height:36px;border:1px dashed #aaa;border-radius:4px;text-align:center;color:#aaa;font-size:9pt;padding-top:10px}
-  .sec-title{font-size:11pt;font-weight:800;color:white;background:#185FA5;padding:8px 14px;border-radius:6px;margin-top:18px;margin-bottom:8px}
-  .sec-content{font-size:10pt;line-height:1.9;white-space:pre-wrap;padding:12px 16px;background:#f8f9fc;border-radius:6px;border-left:3px solid #185FA5}
-  .footer{border-top:1px solid #dde;padding-top:10px;margin-top:24px;font-size:9pt;color:#888;display:flex;justify-content:space-between}
+  td{border:1px solid #cbd5e1;padding:8px 12px;font-size:9.5pt}
+  .th{background:#6366f1;color:white;font-weight:bold;text-align:center;width:80px}
+  h2{font-size:13pt;font-weight:800;color:#4f46e5;border-bottom:2px solid #e0e7ff;padding-bottom:6px;margin-top:20px;margin-bottom:10px}
+  .content{font-size:10pt;line-height:1.9;white-space:pre-wrap;background:#f8faff;border-left:3px solid #c7d2fe;padding:12px 16px;border-radius:0 6px 6px 0;color:#334155}
+  .footer{margin-top:24px;padding-top:10px;border-top:1px solid #e2e8f0;font-size:9pt;color:#94a3b8;display:flex;justify-content:space-between}
   </style></head><body>
-  <div class="header"><div class="company">ESCARE 보안기술팀 이슈보고서</div><div class="sec-badge">${m.sec}</div></div>
-  <div class="rpt-title">${m.rptTitle}</div>
+  <div class="cover">
+    <div class="cover-logo">ESCARE</div>
+    <div class="cover-badge">${m.sec}</div>
+    <div class="cover-type">이슈보고서</div>
+    <div class="cover-title">${m.rptTitle}</div>
+    <div class="cover-divider"></div>
+    <div class="cover-meta"><span>제품: ${m.prod}</span><span>대상: ${m.target||'-'}</span><span>작성일: ${m.today}</span></div>
+    <div class="cover-parties">
+      <div class="cover-party"><div class="cover-party-label">발행</div><div class="cover-party-name">에스케어</div><div class="cover-party-person">${m.author} ${m.authorTitle}${a2}</div><div class="cover-sign"></div></div>
+      <div class="cover-party"><div class="cover-party-label">수신</div><div class="cover-party-name">${m.company}</div><div class="cover-party-person">${m.cust} ${m.custTitle}</div><div class="cover-sign"></div></div>
+    </div>
+  </div>
   <table>
-    <tr><td class="th" style="width:25%">회사명</td><td class="th" style="width:40%">담당자</td><td class="th" style="width:35%">확인</td></tr>
-    <tr><td style="text-align:center;font-weight:700">에스케어</td><td style="text-align:center;font-weight:700">${m.author} ${m.authorTitle}${author2Cell}</td><td rowspan="2"><div class="sign-box">(서명)</div></td></tr>
-    <tr><td style="text-align:center;font-weight:700">${m.company}</td><td style="text-align:center;font-weight:700">${m.cust} ${m.custTitle}</td></tr>
+    <tr><td class="th">작성자</td><td>${m.author} ${m.authorTitle}${a2}</td><td class="th">작성일</td><td>${m.today}</td></tr>
+    <tr><td class="th">제품명</td><td colspan="3">${m.prod}</td></tr>
+    <tr><td class="th">제목</td><td colspan="3" style="font-weight:700;color:#4f46e5">${m.rptTitle}</td></tr>
+    <tr><td class="th">대상</td><td colspan="3">${m.target||'-'}</td></tr>
   </table>
-  <table>
-    <tr><td class="sh">작성자</td><td>${m.author} ${m.authorTitle}</td><td class="sh">작성일</td><td>${m.today}</td></tr>
-    <tr><td class="sh">제품명</td><td colspan="3">${m.prod}</td></tr>
-    <tr><td class="sh">제목</td><td colspan="3" style="font-weight:700;color:#185FA5">${m.rptTitle}</td></tr>
-    <tr><td class="sh">대상</td><td colspan="3">${m.target||'-'}</td></tr>
-  </table>
-  <div class="sec-title">📋 이슈 사항</div>
-  <div class="sec-content">${secs.issues||'(내용 없음)'}</div>
-  <div class="sec-title">🔍 확인 내용</div>
-  <div class="sec-content">${secs.confirm||'(내용 없음)'}</div>
-  <div class="sec-title">📌 추후 진행안</div>
-  <div class="sec-content">${secs.future||'(내용 없음)'}</div>
+  <h2>1. 이슈 사항</h2><div class="content">${secs.issues||'(내용 없음)'}</div>
+  <h2>2. 확인 내용</h2><div class="content">${secs.confirm||'(내용 없음)'}</div>
+  <h2>3. 추후 진행안</h2><div class="content">${secs.future||'(내용 없음)'}</div>
   <div class="footer"><span>에스케어 보안기술팀</span><span>※ 본 문서는 ${m.sec}이며 무단 배포를 금합니다.</span><span>${m.today}</span></div>
   </body></html>`;
   const blob=new Blob(['\ufeff'+html],{type:'application/msword'});
@@ -852,7 +991,7 @@ function downloadReport(){
   toast('Word 파일 다운로드 완료!');
 }
 
-// ── AI 분석 ───────────────────────────────────────
+// ── AI ────────────────────────────────────────────
 function renderAIList(){
   const q=(document.getElementById('ai-q')||{}).value?.toLowerCase()||'';
   const fi=ISSUES.filter(i=>!q||(i.title.toLowerCase().includes(q)||i.desc.toLowerCase().includes(q)));
@@ -861,7 +1000,6 @@ function renderAIList(){
   wrap.innerHTML=fi.map(i=>issueRowHTML(i,true,AI_SEL&&AI_SEL.key===i.key)).join('');
   wrap.querySelectorAll('.irow').forEach((el,idx)=>{el.onclick=()=>{AI_SEL=fi[idx];renderAIList();renderAIRight();};});
 }
-
 function renderAIRight(){
   if(!AI_SEL)return;
   const i=AI_SEL;
@@ -869,7 +1007,7 @@ function renderAIRight(){
   <div class="rpanel">
     <div class="rp-title">${i.title}</div>
     <div class="rp-badges">
-      <span class="badge" style="background:rgba(37,99,235,.12);color:var(--accent2)">${i.key}</span>
+      <span class="badge" style="background:rgba(99,102,241,.15);color:var(--accent3)">${i.key}</span>
       <span class="badge" style="background:${(SC[i.status]||'#94a3b8')}22;color:${SC[i.status]||'#94a3b8'}">${i.status}</span>
       ${i.labels.map(l=>`<span class="badge" style="background:${(LC[l]||'#94a3b8')}22;color:${LC[l]||'#94a3b8'}">${l}</span>`).join('')}
     </div>
@@ -877,12 +1015,11 @@ function renderAIRight(){
     <div class="btn-group">
       <button class="btn btn-purple" id="ai-analyze-btn" onclick="runAI('analyze')">🔍 기술 분석</button>
       <button class="btn btn-orange" id="ai-mail-btn" onclick="runAI('mail')">✉ 고객사 메일</button>
-      <button class="btn btn-blue" id="ai-similar-btn" onclick="runAI('similar')">🔗 유사 이슈</button>
+      <button class="btn btn-indigo" id="ai-similar-btn" onclick="runAI('similar')">🔗 유사 이슈</button>
     </div>
     <div id="ai-result-box"></div>
   </div>`;
 }
-
 async function runAI(mode){
   if(!AI_SEL)return;
   const i=AI_SEL;
@@ -901,10 +1038,10 @@ ${i.comments||'(없음)'}`;
   try{
     let prompt='';
     if(mode==='analyze'){
-      prompt=`당신은 ESCARE 보안기술팀의 Symantec/Broadcom 전문가입니다. 아래 이슈 전체 내용(본문+코멘트)을 분석하여 4개 섹션으로 답변하세요:
-**🔍 상황 분석** (이슈 성격, 심각도, 기술적 배경)
+      prompt=`당신은 ESCARE 보안기술팀의 Symantec/Broadcom 전문가입니다. 아래 이슈 전체(본문+코멘트)를 분석하여 4개 섹션으로 답변하세요:
+**🔍 상황 분석** (이슈 성격, 심각도, 기술 배경)
 **🧩 원인 및 기술 포인트** (추정 원인, 핵심 기술, 로그 키워드)
-**⚡ 권장 조치** (우선순위별 단계 절차)
+**⚡ 권장 조치** (우선순위별 단계별 절차)
 **🛡 재발 방지** (정책, 모니터링, 예방)
 ${fc}`;
     }else if(mode==='mail'){
@@ -925,8 +1062,9 @@ ${fc}`;
       <button class="copy" onclick="copyText(this.dataset.t)" data-t="${text.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">복사</button>
     </div>
     <div class="result-box">${text}</div>`;
-  }catch(e){res.innerHTML=`<div style="color:#ef4444;font-size:12px;margin-top:10px">오류: ${e.message}</div>`;}
+  }catch(e){res.innerHTML=`<div style="color:var(--danger);font-size:12px;margin-top:10px">오류: ${e.message}</div>`;}
   btn.disabled=false;
+  loadAIUsage();
 }
 
 async function runMonthly(){
@@ -937,14 +1075,14 @@ async function runMonthly(){
     const text=await callAI(`ESCARE 보안기술팀 분석 전문가로서 아래 이슈 목록의 월간 동향 보고서를 작성하세요.
 분석: 1.이슈 유형별 현황 2.고객사별 현황(상위5사) 3.주요 반복 패턴 4.이번 기간 특이사항 5.다음 기간 주의사항 및 권고
 이슈 목록:\n${list}`,'monthly');
-    res.innerHTML=`<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px">
+    res.innerHTML=`<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
         <span style="font-size:13px;font-weight:700;color:var(--text2)">📊 월간 동향 분석</span>
         <button class="copy" onclick="copyText(this.dataset.t)" data-t="${text.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">복사</button>
       </div>
       <div class="result-box" style="max-height:300px">${text}</div>
-    </div>`;
-  }catch(e){res.innerHTML=`<div style="color:#ef4444;font-size:12px">오류: ${e.message}</div>`;}
+    </div>`;loadAIUsage();
+  }catch(e){res.innerHTML=`<div style="color:var(--danger);font-size:12px">오류: ${e.message}</div>`;}
 }
 
 async function runPattern(){
@@ -955,16 +1093,16 @@ async function runPattern(){
   const list=ISSUES.filter(i=>topCus.includes(i.customer)).map(i=>`[${i.customer}]${i.title}|${i.status}|${i.labels.join(',')}|${i.date}`).join('\n');
   try{
     const text=await callAI(`상위 5개 고객사의 이슈 패턴을 분석하세요.
-분석: 1.고객사별 주요 이슈 유형 2.반복 발생 문제점 3.고객사별 관리 포인트 및 리스크 4.예방 조치 권고
+분석: 1.고객사별 주요 이슈 유형 2.반복 발생 문제점 3.고객사별 관리 포인트 4.예방 조치 권고
 이슈 목록:\n${list}`,'pattern');
-    res.innerHTML=`<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px">
+    res.innerHTML=`<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
         <span style="font-size:13px;font-weight:700;color:var(--text2)">🔍 고객사 패턴 분석</span>
         <button class="copy" onclick="copyText(this.dataset.t)" data-t="${text.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">복사</button>
       </div>
       <div class="result-box" style="max-height:300px">${text}</div>
-    </div>`;
-  }catch(e){res.innerHTML=`<div style="color:#ef4444;font-size:12px">오류: ${e.message}</div>`;}
+    </div>`;loadAIUsage();
+  }catch(e){res.innerHTML=`<div style="color:var(--danger);font-size:12px">오류: ${e.message}</div>`;}
 }
 
 // ── AUDIT ─────────────────────────────────────────
@@ -975,30 +1113,28 @@ async function loadAudit(){
   try{
     const r=await fetch(`${WORKERS}/kv/audit`,{headers:{'X-User':encUser(CURRENT_USER)}});
     let items=await r.json();
-    if(filter) items=items.filter(a=>a.type===filter);
+    if(filter)items=items.filter(a=>a.type===filter);
     document.getElementById('audit-count').textContent=items.length+'건';
-
-    const typeStyle={
-      LOGIN:{bg:'rgba(16,185,129,.15)',color:'#10b981',label:'LOGIN'},
-      AI_REQUEST:{bg:'rgba(139,92,246,.15)',color:'#8b5cf6',label:'AI 요청'},
-      ADMIN_CHANGE:{bg:'rgba(239,68,68,.15)',color:'#ef4444',label:'권한 변경'},
+    const ts={
+      LOGIN:{bg:'rgba(34,211,165,.12)',color:'#22d3a5',label:'LOGIN'},
+      AI_REQUEST:{bg:'rgba(167,139,250,.12)',color:'#a78bfa',label:'AI 요청'},
+      ADMIN_CHANGE:{bg:'rgba(248,113,113,.12)',color:'#f87171',label:'권한 변경'},
     };
-
     tbody.innerHTML=items.map(a=>{
-      const ts=typeStyle[a.type]||{bg:'rgba(148,163,184,.15)',color:'#94a3b8',label:a.type};
+      const t=ts[a.type]||{bg:'rgba(148,163,184,.12)',color:'#94a3b8',label:a.type};
       let detail='';
-      if(a.type==='AI_REQUEST') detail=`모드: ${a.mode||'-'} | 입력 ${a.promptLen||0}자`;
-      else if(a.type==='ADMIN_CHANGE') detail=`${a.action==='add'?'부여':'회수'}: ${a.target}`;
-      else if(a.type==='LOGIN') detail=`UA: ${(a.ua||'-').slice(0,40)}`;
+      if(a.type==='AI_REQUEST')detail=`모드: ${a.mode||'-'} | 입력 ${a.promptLen||0}자`;
+      else if(a.type==='ADMIN_CHANGE')detail=`${a.action==='add'?'부여':'회수'}: ${a.target}`;
+      else if(a.type==='LOGIN')detail=`브라우저: ${(a.ua||'-').slice(0,50)}`;
       return `<tr>
-        <td><span class="audit-type-badge" style="background:${ts.bg};color:${ts.color}">${ts.label}</span></td>
-        <td style="font-weight:700;color:var(--accent2)">${a.user}</td>
+        <td><span class="audit-type-badge" style="background:${t.bg};color:${t.color}">${t.label}</span></td>
+        <td style="font-weight:700;color:var(--accent3)">${a.user}</td>
         <td style="color:var(--text2)">${detail}</td>
         <td style="color:var(--text3);font-size:11px">${a.ip||'-'}</td>
         <td style="color:var(--text3)">${fdt(a.ts)}</td>
       </tr>`;
-    }).join('') || `<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--text3)">로그 없음</td></tr>`;
-  }catch(e){tbody.innerHTML=`<tr><td colspan="5" style="color:#ef4444;padding:16px">로드 실패: ${e.message}</td></tr>`;}
+    }).join('')||`<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--text3)">로그 없음</td></tr>`;
+  }catch(e){tbody.innerHTML=`<tr><td colspan="5" style="color:var(--danger);padding:16px">로드 실패: ${e.message}</td></tr>`;}
 }
 
 // ── SETTINGS ──────────────────────────────────────
@@ -1011,14 +1147,13 @@ async function loadSettings(){
     wrap.innerHTML=d.admins.map(name=>`
     <div class="admin-list-item">
       <div style="display:flex;align-items:center;gap:10px">
-        <span style="font-size:11px;padding:2px 8px;border-radius:20px;background:rgba(37,99,235,.15);color:var(--accent2);font-weight:700">${name===SUPER_ADMIN?'최상위':'관리자'}</span>
+        <span style="font-size:10px;padding:2px 9px;border-radius:20px;background:rgba(99,102,241,.15);color:var(--accent3);font-weight:700">${name===SUPER_ADMIN?'최상위':'관리자'}</span>
         <span style="font-weight:700;color:var(--text)">${name}</span>
       </div>
-      ${name!==SUPER_ADMIN?`<button onclick="removeAdmin('${name}')" class="btn btn-red" style="width:auto;padding:5px 12px;font-size:11px">회수</button>`:'<span style="font-size:11px;color:var(--text3)">변경 불가</span>'}
+      ${name!==SUPER_ADMIN?`<button onclick="removeAdmin('${name}')" class="btn btn-red" style="width:auto;padding:5px 12px;font-size:11px">권한 회수</button>`:'<span style="font-size:11px;color:var(--text3)">변경 불가</span>'}
     </div>`).join('');
-  }catch(e){wrap.innerHTML=`<div style="color:#ef4444;font-size:12px">로드 실패: ${e.message}</div>`;}
+  }catch(e){wrap.innerHTML=`<div style="color:var(--danger);font-size:12px">로드 실패: ${e.message}</div>`;}
 }
-
 async function addAdmin(){
   const name=document.getElementById('admin-add-input').value.trim();
   if(!name){toast('이름을 입력해주세요',true);return;}
@@ -1030,11 +1165,9 @@ async function addAdmin(){
     const d=await r.json();
     if(!d.ok){toast(d.message||'실패',true);return;}
     document.getElementById('admin-add-input').value='';
-    toast(`${name} 관리자 추가 완료`);
-    loadSettings();
+    toast(`${name} 관리자 추가 완료`);loadSettings();
   }catch(e){toast('오류: '+e.message,true);}
 }
-
 async function removeAdmin(name){
   if(!confirm(`${name}의 관리자 권한을 회수하시겠어요?`))return;
   try{
@@ -1044,8 +1177,7 @@ async function removeAdmin(name){
     });
     const d=await r.json();
     if(!d.ok){toast(d.message||'실패',true);return;}
-    toast(`${name} 관리자 권한 회수 완료`);
-    loadSettings();
+    toast(`${name} 관리자 권한 회수 완료`);loadSettings();
   }catch(e){toast('오류: '+e.message,true);}
 }
 
@@ -1056,23 +1188,17 @@ async function callAI(prompt,mode='analyze'){
     headers:{'Content-Type':'application/json','X-User':encUser(CURRENT_USER)},
     body:JSON.stringify({contents:[{parts:[{text:prompt}]}],mode})
   });
-  if(!r.ok) throw new Error('AI 응답 오류: '+r.status);
+  if(!r.ok)throw new Error('AI 응답 오류: '+r.status);
   const d=await r.json();
   return d.candidates?.[0]?.content?.parts?.[0]?.text||'응답을 받지 못했습니다.';
 }
 
 // ── INIT ──────────────────────────────────────────
 (function init(){
-  const savedUser=localStorage.getItem('engr_user');
-  const savedPin=localStorage.getItem('engr_pin');
-  if(savedUser&&savedPin){
-    document.getElementById('l-name').value=savedUser;
-    document.getElementById('l-pin').value=savedPin;
-    login();
-  }else if(savedUser){
-    document.getElementById('l-name').value=savedUser;
-    document.getElementById('l-pin').focus();
-  }
+  const su=localStorage.getItem('engr_user');
+  const sp=localStorage.getItem('engr_pin');
+  if(su&&sp){document.getElementById('l-name').value=su;document.getElementById('l-pin').value=sp;login();}
+  else if(su){document.getElementById('l-name').value=su;document.getElementById('l-pin').focus();}
 })();
 </script>
 </body>
