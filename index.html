@@ -220,9 +220,6 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
         <button class="sb-btn" id="nav-log" onclick="showPage('log',this)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>로그 분석기
         </button>
-        <button class="sb-btn" id="nav-ai" onclick="showPage('ai',this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>AI 분석
-        </button>
         <button class="sb-btn" id="nav-audit" onclick="showPage('audit',this)" style="display:none">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/></svg>감사 로그
         </button>
@@ -288,19 +285,34 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
       <div id="dash-list" class="issue-list"></div>
     </div>
 
-    <!-- ISSUES -->
+    <!-- ISSUES + AI 통합 -->
     <div class="page" id="page-issues">
+      <!-- 전체 분석 버튼 -->
+      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+        <button class="btn btn-purple" onclick="runMonthly()" style="width:auto;padding:8px 16px;font-size:11px">📊 월간 동향 요약</button>
+        <button class="btn btn-ghost" onclick="runPattern()" style="width:auto;padding:8px 16px;font-size:11px">🔍 고객사 패턴 분석</button>
+      </div>
+      <div id="ai-monthly-result" style="display:none;margin-bottom:16px"></div>
       <div class="filter-row">
         <input id="f-q" placeholder="이슈 검색 (제목, 내용)..." oninput="renderIssues()">
         <select id="f-stat" onchange="renderIssues()"><option value="">전체 상태</option><option>완료</option><option>진행 중</option><option>미해결</option></select>
         <select id="f-pri" onchange="renderIssues()"><option value="">전체 우선순위</option><option>Highest</option><option>High</option><option>Medium</option><option>Low</option></select>
         <select id="f-lab" onchange="renderIssues()"><option value="">전체 레이블</option><option>DLP</option><option>PP</option><option>SEP</option></select>
+        <select id="f-pg" onchange="PAGE=1;renderIssues()">
+          <option value="20">20개씩</option>
+          <option value="50">50개씩</option>
+          <option value="100">100개씩</option>
+          <option value="200">200개씩</option>
+        </select>
         <span class="filter-count" id="f-count">0건</span>
       </div>
       <div class="two-col">
-        <div><div id="issue-list-wrap" class="issue-list"></div></div>
+        <div>
+          <div id="issue-list-wrap" class="issue-list"></div>
+          <div id="page-nav" style="display:flex;justify-content:center;align-items:center;gap:8px;margin-top:16px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:10px"></div>
+        </div>
         <div id="right-panel">
-          <div class="rpanel"><div class="rp-empty"><p style="font-size:13px;color:var(--text3)">이슈를 선택하면<br>상세 내용이 표시됩니다</p></div></div>
+          <div class="rpanel"><div class="rp-empty"><p style="font-size:13px;color:var(--text3)">이슈를 선택하면<br>상세 내용과 AI 분석이 표시됩니다</p></div></div>
         </div>
       </div>
     </div>
@@ -368,29 +380,7 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
       <div id="log-result"></div>
     </div>
 
-    <!-- AI -->
-    <div class="page" id="page-ai">
-      <div style="background:linear-gradient(135deg,rgba(99,102,241,.08),rgba(167,139,250,.05));border:1px solid rgba(99,102,241,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:var(--accent3);margin-bottom:16px">
-        🤖 이슈 전체 내용(본문+코멘트)을 분석합니다. 기술 분석 / 고객사 메일 / 유사 이슈 탐색을 지원합니다.
-      </div>
-      <div class="filter-row">
-        <input id="ai-q" placeholder="이슈 검색..." oninput="renderAIList()">
-        <span class="filter-count" id="ai-count">0건</span>
-      </div>
-      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
-        <button class="btn btn-purple" onclick="runMonthly()" style="width:auto;padding:8px 16px;font-size:11px">📊 월간 동향 요약</button>
-        <button class="btn btn-ghost" onclick="runPattern()" style="width:auto;padding:8px 16px;font-size:11px">🔍 고객사 패턴 분석</button>
-      </div>
-      <div id="ai-monthly-result" style="display:none;margin-bottom:16px"></div>
-      <div class="two-col">
-        <div id="ai-list" class="issue-list"></div>
-        <div id="ai-right">
-          <div class="rpanel"><div class="rp-empty"><p style="font-size:13px;color:var(--text3)">이슈를 클릭하여<br>AI 분석을 요청하세요</p></div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- AUDIT -->
+<!-- AUDIT -->
     <div class="page" id="page-audit">
       <div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:#fca5a5;margin-bottom:16px">
         🔒 관리자 전용 감사 로그 — 팀원 접속 및 AI 사용 이력
@@ -426,7 +416,7 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
       <div class="admin-card">
         <h3>ℹ 권한 안내</h3>
         <div style="font-size:12px;color:var(--text2);line-height:2">
-          <div>• <strong style="color:var(--text)">일반 사용자</strong> — 대시보드, 이슈, 케이스 트래커, VT, 로그 분석, AI 분석</div>
+          <div>• <strong style="color:var(--text)">일반 사용자</strong> — 대시보드, 이슈(AI 포함), 케이스 트래커, VT, 로그 분석</div>
           <div>• <strong style="color:var(--warn)">관리자</strong> — 일반 기능 + 감사 로그 열람</div>
           <div>• <strong style="color:var(--accent3)">최상위 관리자</strong> — 모든 기능 + 관리자 설정</div>
         </div>
@@ -438,7 +428,7 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
 <script>
 const WORKERS='https://engr-hub-proxy.mj-park.workers.dev';
 const SUPER_ADMIN='박민준';
-let ISSUES=[],SEL=null,AI_SEL=null,CASE_SEL=null;
+let ISSUES=[],SEL=null,CASE_SEL=null,PAGE=1;
 let CURRENT_USER='',IS_ADMIN=false,IS_SUPER=false;
 let VT_HISTORY=JSON.parse(localStorage.getItem('vt_history')||'[]');
 
@@ -506,7 +496,6 @@ const pageTitles={
   cases:['케이스 트래커','브로드컴 케이스 현황 및 AI 다음 액션 가이드'],
   vt:['VirusTotal 조회','해시값 기반 악성 여부 분석'],
   log:['로그 분석기','SEP / DLP / ProxySG / CloudSWG / CASB 로그 AI 분석'],
-  ai:['AI 분석','AI 기술 분석 및 인사이트'],
   audit:['감사 로그','접속 및 AI 사용 이력'],
   settings:['관리자 설정','권한 관리']
 };
@@ -520,7 +509,6 @@ function showPage(id,btn){
   document.getElementById('page-desc').textContent=t[1];
   if(id==='issues')renderIssues();
   if(id==='cases')renderCases();
-  if(id==='ai')renderAIList();
   if(id==='audit'){loadAudit();loadAIUsage();}
   if(id==='settings')loadSettings();
 }
@@ -626,10 +614,31 @@ function filteredIssues(){
 }
 function renderIssues(){
   const fi=filteredIssues();
-  document.getElementById('f-count').textContent=fi.length+'건';
+  const pgSize=parseInt(document.getElementById('f-pg')?.value||'20');
+  const totalPages=Math.max(1,Math.ceil(fi.length/pgSize));
+  if(PAGE>totalPages)PAGE=1;
+  const start=(PAGE-1)*pgSize;
+  const pageItems=fi.slice(start,start+pgSize);
+  document.getElementById('f-count').textContent=`${fi.length}건 (${PAGE}/${totalPages})`;
   const wrap=document.getElementById('issue-list-wrap');
-  wrap.innerHTML=fi.map(i=>issueRowHTML(i,true,SEL&&SEL.key===i.key)).join('');
-  wrap.querySelectorAll('.irow').forEach((el,idx)=>{el.onclick=()=>{SEL=fi[idx];renderIssues();renderRightPanel();};});
+  wrap.innerHTML=pageItems.map(i=>issueRowHTML(i,true,SEL&&SEL.key===i.key)).join('');
+  wrap.querySelectorAll('.irow').forEach((el,idx)=>{el.onclick=()=>{SEL=pageItems[idx];renderIssues();renderRightPanel();};});
+  // 페이지 네비게이션
+  const nav=document.getElementById('page-nav');
+  if(!nav)return;
+  if(fi.length<=pgSize){nav.innerHTML='';return;}
+  const btnStyle='background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:6px 12px;color:var(--text2);font-size:12px;cursor:pointer;font-family:inherit;min-width:34px';
+  const activeStyle='background:linear-gradient(135deg,#4f46e5,#7c3aed);border:1px solid var(--accent);color:#fff;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;min-width:34px';
+  let html=`<button style="${btnStyle}" ${PAGE===1?'disabled':''} onclick="PAGE=1;renderIssues()">«</button>`;
+  html+=`<button style="${btnStyle}" ${PAGE===1?'disabled':''} onclick="PAGE--;renderIssues()">‹</button>`;
+  // 페이지 번호 (현재 ±2)
+  const pStart=Math.max(1,PAGE-2),pEnd=Math.min(totalPages,PAGE+2);
+  for(let p=pStart;p<=pEnd;p++){
+    html+=`<button style="${p===PAGE?activeStyle:btnStyle}" onclick="PAGE=${p};renderIssues()">${p}</button>`;
+  }
+  html+=`<button style="${btnStyle}" ${PAGE===totalPages?'disabled':''} onclick="PAGE++;renderIssues()">›</button>`;
+  html+=`<button style="${btnStyle}" ${PAGE===totalPages?'disabled':''} onclick="PAGE=${totalPages};renderIssues()">»</button>`;
+  nav.innerHTML=html;
 }
 function issueRowHTML(i,clickable,selected){
   const sc=SC[i.status]||'#94a3b8',pc=PC[i.pri]||'#94a3b8';
@@ -667,40 +676,66 @@ function renderRightPanel(){
     </div>
     ${i.desc?`<div class="rp-desc">${i.desc}</div>`:''}
     <div class="btn-group">
-      <button class="btn btn-indigo" id="summary-btn" onclick="runSummary()">📋 내용 요약</button>
-      <button class="btn btn-purple" onclick="goAI('${i.key}')">🤖 AI 분석</button>
+      <button class="btn btn-indigo" id="summary-btn" onclick="runAI('summary')">📋 내용 요약</button>
+      <button class="btn btn-purple" id="analyze-btn" onclick="runAI('analyze')">🔍 기술 분석</button>
+      <button class="btn btn-cyan" id="similar-btn" onclick="runAI('similar')">🔗 유사 이슈</button>
       <a href="https://escare-engr.atlassian.net/browse/${i.key}" target="_blank" style="text-decoration:none">
         <button class="btn btn-ghost">Jira에서 보기 →</button>
       </a>
     </div>
-    <div id="summary-result"></div>
+    <div id="ai-result-box"></div>
   </div>`;
 }
-async function runSummary(){
+async function runAI(mode){
   if(!SEL)return;
-  const i=SEL,btn=document.getElementById('summary-btn'),res=document.getElementById('summary-result');
-  btn.disabled=true;btn.textContent='요약 중...';
-  res.innerHTML='<div class="loading">AI가 이슈 전체 내용을 요약하고 있어요...</div>';
+  const i=SEL;
+  const btnMap={summary:'summary-btn',analyze:'analyze-btn',similar:'similar-btn'};
+  const labelMap={summary:'📋 내용 요약',analyze:'🔍 기술 분석',similar:'🔗 유사 이슈'};
+  const btn=document.getElementById(btnMap[mode]);
+  const res=document.getElementById('ai-result-box');
+  btn.disabled=true;btn.textContent='분석 중...';
+  res.innerHTML='<div class="loading">AI가 분석하고 있어요...</div>';
+  const fc=`이슈: ${i.key} | ${i.title}
+고객사: ${i.customer||'-'} | 솔루션: ${i.labels.join(',')||'-'}
+우선순위: ${i.pri} | 상태: ${i.status} | 담당자: ${i.assignee} | 접수일: ${i.date}
+[이슈 본문]
+${i.desc||'(없음)'}
+[코멘트/진행 이력]
+${i.comments||'(없음)'}`;
   try{
-    const text=await callAI(`아래 Jira 이슈 전체 내용을 분석하여 4가지로 간결하게 요약해주세요:
+    let prompt='';
+    if(mode==='summary'){
+      prompt=`아래 Jira 이슈 전체 내용을 분석하여 4가지로 간결하게 요약해주세요:
 1. 핵심 문제 (1-2줄)
 2. 현재 상태
 3. 취한 조치
 4. 남은 과제
 
-이슈: ${i.key} | ${i.title}
-고객사: ${i.customer||'-'} | 상태: ${i.status} | 담당자: ${i.assignee}
-내용: ${i.desc||'(없음)'}
-코멘트: ${i.comments||'(없음)'}`, 'summary');
-    res.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;margin-bottom:6px">
-      <span style="font-size:11px;color:var(--text3);font-weight:700">AI 요약</span>
+${fc}`;
+    }else if(mode==='analyze'){
+      prompt=`당신은 ESCARE 보안기술팀의 Symantec/Broadcom 전문가입니다. 아래 이슈 전체(본문+코멘트)를 분석하여 4개 섹션으로 답변하세요:
+**🔍 상황 분석** (이슈 성격, 심각도, 기술 배경)
+**🧩 원인 및 기술 포인트** (추정 원인, 핵심 기술, 로그 키워드)
+**⚡ 권장 조치** (우선순위별 단계별 절차)
+**🛡 재발 방지** (정책, 모니터링, 예방)
+${fc}`;
+    }else if(mode==='similar'){
+      const similar=ISSUES.filter(x=>x.key!==i.key&&(x.labels.some(l=>i.labels.includes(l))||x.customer===i.customer)).slice(0,10);
+      prompt=`현재 이슈와 유사 이슈를 비교 분석하여 패턴과 시사점을 찾아주세요.
+분석: 1.유사 케이스 및 공통점 2.반복 발생 패턴 3.과거 해결책 참고사항 4.종합 시사점
+현재 이슈: ${fc}
+유사 이슈: ${similar.map((x,n)=>`${n+1}.[${x.key}]${x.title}(${x.date},${x.status})\n${x.desc}`).join('\n\n')}`;
+    }
+    const text=await callAI(prompt,mode);
+    res.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;margin-bottom:6px">
+      <span style="font-size:11px;color:var(--text3);font-weight:700">${labelMap[mode]}</span>
       <button class="copy" onclick="copyText(this.dataset.t)" data-t="${text.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">복사</button>
     </div>
-    <div class="result-box" style="max-height:250px">${text}</div>`;
+    <div class="result-box">${text}</div>`;
   }catch(e){res.innerHTML=`<div style="color:var(--danger);font-size:12px;margin-top:10px">오류: ${e.message}</div>`;}
-  btn.disabled=false;btn.textContent='📋 내용 요약';
+  btn.disabled=false;btn.textContent=labelMap[mode];
+  loadAIUsage();
 }
-function goAI(key){AI_SEL=ISSUES.find(i=>i.key===key);showPage('ai',document.getElementById('nav-ai'));renderAIList();renderAIRight();}
 
 // ── CASE TRACKER ──────────────────────────────────
 function getCases(){
@@ -932,80 +967,6 @@ ${log.slice(0,2000)}`, 'keywords');
 }
 
 // ── AI ────────────────────────────────────────────
-function renderAIList(){
-  const q=(document.getElementById('ai-q')||{}).value?.toLowerCase()||'';
-  const fi=ISSUES.filter(i=>!q||(i.title.toLowerCase().includes(q)||i.desc.toLowerCase().includes(q)));
-  document.getElementById('ai-count').textContent=fi.length+'건';
-  const wrap=document.getElementById('ai-list');
-  wrap.innerHTML=fi.map(i=>issueRowHTML(i,true,AI_SEL&&AI_SEL.key===i.key)).join('');
-  wrap.querySelectorAll('.irow').forEach((el,idx)=>{el.onclick=()=>{AI_SEL=fi[idx];renderAIList();renderAIRight();};});
-}
-function renderAIRight(){
-  if(!AI_SEL)return;
-  const i=AI_SEL;
-  document.getElementById('ai-right').innerHTML=`
-  <div class="rpanel">
-    <div class="rp-title">${i.title}</div>
-    <div class="rp-badges">
-      <span class="badge" style="background:rgba(99,102,241,.15);color:var(--accent3)">${i.key}</span>
-      <span class="badge" style="background:${(SC[i.status]||'#94a3b8')}22;color:${SC[i.status]||'#94a3b8'}">${i.status}</span>
-      ${i.labels.map(l=>`<span class="badge" style="background:${(LC[l]||'#94a3b8')}22;color:${LC[l]||'#94a3b8'}">${l}</span>`).join('')}
-    </div>
-    ${i.desc?`<div class="rp-desc">${i.desc}</div>`:''}
-    <div class="btn-group">
-      <button class="btn btn-purple" id="ai-analyze-btn" onclick="runAI('analyze')">🔍 기술 분석</button>
-      <button class="btn btn-orange" id="ai-mail-btn" onclick="runAI('mail')">✉ 고객사 메일</button>
-      <button class="btn btn-indigo" id="ai-similar-btn" onclick="runAI('similar')">🔗 유사 이슈</button>
-    </div>
-    <div id="ai-result-box"></div>
-  </div>`;
-}
-async function runAI(mode){
-  if(!AI_SEL)return;
-  const i=AI_SEL;
-  const btnId=mode==='analyze'?'ai-analyze-btn':mode==='mail'?'ai-mail-btn':'ai-similar-btn';
-  const btn=document.getElementById(btnId);
-  const res=document.getElementById('ai-result-box');
-  btn.disabled=true;
-  res.innerHTML='<div class="loading">AI가 분석하고 있어요...</div>';
-  const fc=`이슈: ${i.key} | ${i.title}
-고객사: ${i.customer||'-'} | 솔루션: ${i.labels.join(',')||'-'}
-우선순위: ${i.pri} | 상태: ${i.status} | 담당자: ${i.assignee} | 접수일: ${i.date}
-[이슈 본문]
-${i.desc||'(없음)'}
-[코멘트/진행 이력]
-${i.comments||'(없음)'}`;
-  try{
-    let prompt='';
-    if(mode==='analyze'){
-      prompt=`당신은 ESCARE 보안기술팀의 Symantec/Broadcom 전문가입니다. 아래 이슈 전체(본문+코멘트)를 분석하여 4개 섹션으로 답변하세요:
-**🔍 상황 분석** (이슈 성격, 심각도, 기술 배경)
-**🧩 원인 및 기술 포인트** (추정 원인, 핵심 기술, 로그 키워드)
-**⚡ 권장 조치** (우선순위별 단계별 절차)
-**🛡 재발 방지** (정책, 모니터링, 예방)
-${fc}`;
-    }else if(mode==='mail'){
-      prompt=`당신은 ESCARE 보안기술팀의 커뮤니케이션 전문가입니다. 고객사 전달용 공식 이메일을 한국어로 작성하세요.
-형식: 수신/발신/제목/인사/지원경위/이슈요약/조치내용/현재상태/향후계획/맺음말
-발신: 에스케어 보안기술팀 ${CURRENT_USER}
-${fc}`;
-    }else{
-      const similar=ISSUES.filter(x=>x.key!==i.key&&(x.labels.some(l=>i.labels.includes(l))||x.customer===i.customer)).slice(0,10);
-      prompt=`현재 이슈와 유사 이슈를 비교 분석하여 패턴과 시사점을 찾아주세요.
-분석: 1.유사 케이스 및 공통점 2.반복 발생 패턴 3.과거 해결책 참고사항 4.종합 시사점
-현재 이슈: ${fc}
-유사 이슈: ${similar.map((x,n)=>`${n+1}.[${x.key}]${x.title}(${x.date},${x.status})\n${x.desc}`).join('\n\n')}`;
-    }
-    const text=await callAI(prompt,mode);
-    res.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;margin-bottom:6px">
-      <span style="font-size:11px;color:var(--text3);font-weight:700">${mode==='analyze'?'기술 분석':mode==='mail'?'메일 초안':'유사 이슈 분석'}</span>
-      <button class="copy" onclick="copyText(this.dataset.t)" data-t="${text.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">복사</button>
-    </div>
-    <div class="result-box">${text}</div>`;
-  }catch(e){res.innerHTML=`<div style="color:var(--danger);font-size:12px;margin-top:10px">오류: ${e.message}</div>`;}
-  btn.disabled=false;
-  loadAIUsage();
-}
 async function runMonthly(){
   const res=document.getElementById('ai-monthly-result');
   res.style.display='block';res.innerHTML='<div class="loading">AI가 월간 동향을 분석하고 있어요...</div>';
@@ -1118,7 +1079,11 @@ async function callAI(prompt,mode='analyze'){
     headers:{'Content-Type':'application/json','X-User':encUser(CURRENT_USER)},
     body:JSON.stringify({contents:[{parts:[{text:prompt}]}],mode})
   });
-  if(!r.ok)throw new Error('AI 응답 오류: '+r.status);
+  if(!r.ok){
+    let detail='';
+    try{const err=await r.json();detail=err.message||JSON.stringify(err).slice(0,200);}catch{detail='응답 파싱 실패';}
+    throw new Error(`(${r.status}) ${detail}`);
+  }
   const d=await r.json();
   return d.candidates?.[0]?.content?.parts?.[0]?.text||'응답을 받지 못했습니다.';
 }
