@@ -19,48 +19,49 @@ body{font-family:'Malgun Gothic','Segoe UI',sans-serif;background:var(--bg);colo
 .cfg-logo{text-align:center;margin-bottom:32px}
 .cfg-logo .mark{display:inline-flex;align-items:center;justify-content:center;width:68px;height:68px;background:linear-gradient(135deg,#4f46e5,#7c3aed);border-radius:20px;margin-bottom:16px;box-shadow:0 0 50px rgba(99,102,241,.5)}
 .cfg-logo .mark svg{width:34px;height:34px}
-.cfg-logo h1{font-size:28px;font-weight:800;letter-spacing:4px;color:#fff;text-shadow:0 0 30px rgba(129,140,248,.5)}
+.cfg-logo h1{font-size:28px;font-weight:800;letter-spacing:4px;color:#fff}
 .cfg-logo p{font-size:13px;color:var(--text3);margin-top:8px}
 .cfg-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:28px;backdrop-filter:blur(20px)}
 .cfg-field{margin-bottom:16px}
 .cfg-field label{display:block;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
-.cfg-field input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 16px;color:var(--text);font-size:14px;outline:none;transition:all .2s;font-family:inherit}
-.cfg-field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(99,102,241,.2)}
-.cfg-btn{width:100%;background:linear-gradient(135deg,#4f46e5,#7c3aed);border:none;border-radius:12px;padding:14px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;transition:all .2s;font-family:inherit}
-.cfg-btn:hover{opacity:.9;transform:translateY(-1px)}
-.cfg-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.cfg-field input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 16px;color:var(--text);font-size:14px;outline:none;font-family:inherit}
+.cfg-field input:focus{border-color:var(--accent)}
+.cfg-btn{width:100%;background:linear-gradient(135deg,#4f46e5,#7c3aed);border:none;border-radius:12px;padding:14px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;font-family:inherit}
+.cfg-btn:hover{opacity:.9}
+.cfg-btn:disabled{opacity:.5;cursor:not-allowed}
 .cfg-note{font-size:11px;color:var(--text3);text-align:center;margin-top:14px}
 #app{display:none;height:100vh;flex-direction:row}
 aside{width:230px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;height:100vh;position:sticky;top:0}
 .sb-top{padding:20px 16px 14px}
 .sb-brand{display:flex;align-items:center;gap:10px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
-.sb-icon{width:38px;height:38px;background:linear-gradient(135deg,#4f46e5,#7c3aed);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sb-icon{width:38px;height:38px;background:linear-gradient(135deg,#4f46e5,#7c3aed);border-radius:12px;display:flex;align-items:center;justify-content:center}
 .sb-icon svg{width:20px;height:20px}
 .sb-name{font-size:17px;font-weight:800;letter-spacing:2px;color:#fff}
 .sb-sub{font-size:10px;color:var(--text3);margin-top:1px}
 .sb-section{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1.2px;padding:0 12px;margin-bottom:6px;margin-top:4px}
 .sb-nav{display:flex;flex-direction:column;gap:2px}
-.sb-btn{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;border:none;background:none;color:var(--text2);font-size:13px;cursor:pointer;transition:all .18s;font-family:inherit;width:100%;text-align:left}
-.sb-btn svg{width:16px;height:16px;flex-shrink:0;opacity:.6}
+.sb-btn{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:12px;border:none;background:none;color:var(--text2);font-size:12.5px;cursor:pointer;font-family:inherit;width:100%;text-align:left}
+.sb-btn svg{width:15px;height:15px;flex-shrink:0;opacity:.6}
 .sb-btn:hover{background:var(--card);color:var(--text)}
 .sb-btn.active{background:linear-gradient(135deg,rgba(99,102,241,.2),rgba(124,58,237,.15));color:var(--accent3);border:1px solid rgba(99,102,241,.25)}
 .sb-btn.active svg{opacity:1}
-.sb-divider{height:1px;background:var(--border);margin:12px 16px}
-.sb-bottom{padding:12px 16px;margin-top:auto}
-.ai-usage-card{background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(124,58,237,.08));border:1px solid rgba(99,102,241,.2);border-radius:14px;padding:12px 14px;margin-bottom:10px}
-.ai-usage-title{font-size:10px;font-weight:700;color:var(--accent2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.ai-usage-row{display:flex;justify-content:space-between;align-items:center;font-size:11px;margin-bottom:5px}
+.sb-btn .badge-warn{background:var(--danger);color:#fff;font-size:9px;padding:1px 6px;border-radius:10px;font-weight:700;margin-left:auto}
+.sb-divider{height:1px;background:var(--border);margin:10px 16px}
+.sb-bottom{padding:10px 16px;margin-top:auto}
+.ai-usage-card{background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(124,58,237,.08));border:1px solid rgba(99,102,241,.2);border-radius:14px;padding:11px 13px;margin-bottom:8px}
+.ai-usage-title{font-size:10px;font-weight:700;color:var(--accent2);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.ai-usage-row{display:flex;justify-content:space-between;align-items:center;font-size:11px;margin-bottom:4px}
 .ai-usage-row span:first-child{color:var(--text3)}
 .ai-usage-val{color:var(--text);font-weight:700}
-.ai-usage-bar{height:4px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden}
-.ai-usage-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#6366f1,#a78bfa);transition:width .6s ease}
-.sb-status{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin-bottom:10px}
-.sb-status-row{display:flex;justify-content:space-between;align-items:center;font-size:11px;padding:3px 0}
+.ai-usage-bar{height:4px;background:var(--border);border-radius:2px;margin-top:6px;overflow:hidden}
+.ai-usage-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#6366f1,#a78bfa)}
+.sb-status{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:9px 12px;margin-bottom:8px}
+.sb-status-row{display:flex;justify-content:space-between;align-items:center;font-size:11px;padding:2px 0}
 .sb-status-row span:first-child{color:var(--text3)}
 .dot{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:5px}
 .dot-green{background:var(--success)}.dot-gray{background:var(--text3)}
-.session-timer{font-size:10px;color:var(--text3);text-align:center;margin-top:8px}
-.sb-sync-btn{width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:9px;color:var(--text2);font-size:11px;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px}
+.session-timer{font-size:10px;color:var(--text3);text-align:center;margin-top:6px}
+.sb-sync-btn{width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px;color:var(--text2);font-size:11px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px}
 .sb-sync-btn:hover{border-color:var(--accent);color:var(--accent3)}
 main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
 .topbar{background:rgba(19,22,31,.8);border-bottom:1px solid var(--border);padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;flex-shrink:0;backdrop-filter:blur(20px)}
@@ -68,37 +69,35 @@ main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
 .topbar-left p{font-size:11px;color:var(--text3);margin-top:2px}
 .topbar-right{display:flex;align-items:center;gap:10px}
 .search-box{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:8px 14px;width:240px}
-.search-box:focus-within{border-color:var(--accent)}
 .search-box input{background:none;border:none;outline:none;color:var(--text);font-size:12px;width:100%;font-family:inherit}
-.search-box input::placeholder{color:var(--text3)}
-.search-box svg{width:14px;height:14px;color:var(--text3);flex-shrink:0}
-.icon-btn{background:var(--card);border:1px solid var(--border);border-radius:10px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);transition:all .2s}
+.search-box svg{width:14px;height:14px;color:var(--text3)}
+.icon-btn{background:var(--card);border:1px solid var(--border);border-radius:10px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2)}
 .icon-btn:hover{border-color:var(--accent);color:var(--accent3)}
 .icon-btn svg{width:15px;height:15px}
 .page{padding:24px;flex:1;display:none}
 .page.active{display:block}
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:22px}
-.kpi{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;position:relative;overflow:hidden;transition:all .2s}
-.kpi:hover{border-color:var(--border2);transform:translateY(-2px)}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:18px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;position:relative;overflow:hidden}
+.kpi:hover{border-color:var(--border2)}
 .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--kpi-c1),var(--kpi-c2))}
-.kpi-val{font-size:32px;font-weight:800;color:#fff;line-height:1;margin-bottom:6px}
-.kpi-label{font-size:13px;color:var(--text2);font-weight:500}
-.kpi-sub{font-size:11px;color:var(--text3);margin-top:3px}
-.filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;align-items:center}
-.filter-row input,.filter-row select{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 12px;color:var(--text);font-size:12px;outline:none;transition:all .2s;font-family:inherit}
-.filter-row input:focus,.filter-row select:focus{border-color:var(--accent)}
+.kpi-val{font-size:28px;font-weight:800;color:#fff;line-height:1;margin-bottom:5px}
+.kpi-label{font-size:12px;color:var(--text2)}
+.kpi-sub{font-size:10px;color:var(--text3);margin-top:3px}
+.filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;align-items:center}
+.filter-row input,.filter-row select{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 12px;color:var(--text);font-size:12px;outline:none;font-family:inherit}
 .filter-row input{flex:1;min-width:180px}
-.filter-count{font-size:12px;color:var(--text3);margin-left:auto;white-space:nowrap}
+.filter-row input:focus,.filter-row select:focus{border-color:var(--accent)}
+.filter-count{font-size:12px;color:var(--text3);margin-left:auto}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
 @media(max-width:1200px){.two-col{grid-template-columns:1fr}}
 .issue-list{display:flex;flex-direction:column;gap:6px}
 .irow{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--lc,#475569);border-radius:12px;padding:13px 15px;cursor:pointer;transition:all .15s}
-.irow:hover{background:var(--card2);border-color:var(--border2);transform:translateX(2px)}
+.irow:hover{background:var(--card2);border-color:var(--border2)}
 .irow.selected{background:rgba(99,102,241,.1);border-color:var(--accent)}
 .irow-top{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-.ikey{font-size:10px;font-weight:800;color:var(--accent3);background:rgba(99,102,241,.15);padding:2px 9px;border-radius:20px;white-space:nowrap}
+.ikey{font-size:10px;font-weight:800;color:var(--accent3);background:rgba(99,102,241,.15);padding:2px 9px;border-radius:20px}
 .ititle{flex:1;font-size:13px;font-weight:500;color:var(--text);min-width:80px}
-.imeta{font-size:11px;color:var(--text3);white-space:nowrap}
+.imeta{font-size:11px;color:var(--text3)}
 .irow-bot{margin-top:7px;display:flex;gap:6px;flex-wrap:wrap}
 .badge{font-size:10px;padding:2px 9px;border-radius:20px;font-weight:600;white-space:nowrap}
 .rpanel{background:var(--panel);border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:16px;padding:20px;position:sticky;top:70px;max-height:calc(100vh - 100px);overflow-y:auto}
@@ -110,34 +109,47 @@ main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
 .rp-row:last-child{border-bottom:none}
 .rp-row span:first-child{color:var(--text3);width:72px;flex-shrink:0}
 .rp-row span:last-child{color:var(--text);flex:1}
-.rp-desc{font-size:12px;color:var(--text2);line-height:1.75;background:rgba(255,255,255,.02);border-radius:10px;padding:12px;margin-bottom:14px;max-height:160px;overflow-y:auto;white-space:pre-wrap;border:1px solid var(--border)}
+.rp-desc{font-size:12.5px;color:var(--text2);line-height:1.7;background:rgba(255,255,255,.02);border-radius:10px;padding:14px;margin-bottom:12px;max-height:280px;overflow-y:auto;white-space:pre-wrap;border:1px solid var(--border)}
+.rp-desc code{background:rgba(99,102,241,.12);color:var(--accent3);padding:2px 6px;border-radius:4px;font-size:11px}
+.rp-desc strong{color:var(--text);font-weight:700}
+.rp-attach-item{display:flex;align-items:center;gap:6px;padding:6px 10px;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.2);border-radius:8px;font-size:11px;color:var(--cyan);margin-bottom:4px}
+.rp-comments{margin-bottom:12px}
+.rp-comment-item{padding:10px 12px;background:rgba(255,255,255,.02);border-left:3px solid var(--accent2);border-radius:0 8px 8px 0;margin-bottom:6px;font-size:11.5px}
+.rp-comment-author{font-size:10px;color:var(--accent3);font-weight:700;margin-bottom:4px}
+.rp-comment-body{color:var(--text2);line-height:1.6;white-space:pre-wrap}
 .btn-group{display:flex;flex-direction:column;gap:6px}
-.btn{border:none;border-radius:10px;padding:10px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;width:100%}
+.btn{border:none;border-radius:10px;padding:10px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px;width:100%}
 .btn:hover{transform:translateY(-1px)}
-.btn-indigo{background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;box-shadow:0 4px 15px rgba(99,102,241,.3)}
+.btn-indigo{background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff}
 .btn-green{background:linear-gradient(135deg,#059669,#10b981);color:#fff}
 .btn-purple{background:linear-gradient(135deg,#7c3aed,#a78bfa);color:#fff}
-.btn-orange{background:linear-gradient(135deg,#d97706,#fbbf24);color:#fff}
 .btn-cyan{background:linear-gradient(135deg,#0891b2,#22d3ee);color:#fff}
 .btn-red{background:linear-gradient(135deg,#991b1b,#f87171);color:#fff}
 .btn-ghost{background:var(--card);border:1px solid var(--border);color:var(--text2)}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent3)}
 .sec-title{font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .sec-title::after{content:'';flex:1;height:1px;background:var(--border)}
-.result-box{background:rgba(255,255,255,.02);border:1px solid var(--border2);border-radius:12px;padding:16px;margin-top:10px;font-size:13px;line-height:1.85;color:var(--text);white-space:pre-wrap;max-height:400px;overflow-y:auto}
 .loading{display:flex;align-items:center;gap:10px;color:var(--text3);font-size:13px;padding:16px}
-.loading::before{content:'';width:16px;height:16px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite;flex-shrink:0}
+.loading::before{content:'';width:16px;height:16px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:20px}
-.chart-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px}
-.chart-card h4{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px}
+.chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:18px}
+.chart-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px}
+.chart-card h4{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;margin-bottom:12px}
 .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .bar-lbl{font-size:11px;color:var(--text2);width:90px;text-align:right;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bar-track{flex:1;background:var(--bg);border-radius:5px;height:22px;overflow:hidden}
-.bar-fill{height:100%;border-radius:5px;display:flex;align-items:center;padding-left:8px;transition:width .6s ease}
+.bar-fill{height:100%;border-radius:5px;display:flex;align-items:center;padding-left:8px}
 .bar-n{font-size:10px;color:#fff;font-weight:700}
-.case-card{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--lc,#475569);border-radius:12px;padding:14px 16px;cursor:pointer;transition:all .15s;margin-bottom:6px}
-.case-card:hover{background:var(--card2);border-color:var(--border2)}
+.line-chart{width:100%;height:140px}
+.rank-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;background:var(--panel);border:1px solid var(--border);margin-bottom:5px}
+.rank-pos{font-size:14px;font-weight:800;color:var(--text3);width:24px;text-align:center}
+.rank-pos.top1{color:#fbbf24}.rank-pos.top2{color:#94a3b8}.rank-pos.top3{color:#fb923c}
+.rank-name{flex:1;font-size:12px;color:var(--text);font-weight:600}
+.rank-stat{font-size:11px;color:var(--text3)}
+.rank-bar{width:60px;height:5px;background:var(--bg);border-radius:3px;overflow:hidden;margin-left:8px}
+.rank-bar-fill{height:100%;background:linear-gradient(90deg,#22d3a5,#10b981)}
+.case-card{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--lc,#475569);border-radius:12px;padding:14px 16px;cursor:pointer;margin-bottom:6px}
+.case-card:hover{background:var(--card2)}
 .case-card.selected{background:rgba(99,102,241,.1);border-color:var(--accent)}
 .case-num{font-size:11px;font-weight:800;color:var(--cyan);background:rgba(34,211,238,.12);padding:2px 10px;border-radius:20px}
 .sla-badge{font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px}
@@ -147,52 +159,86 @@ main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
 .vt-cell{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center}
 .vt-cell-label{font-size:10px;color:var(--text3);margin-bottom:4px}
 .vt-cell-val{font-size:13px;font-weight:700;color:var(--text)}
-.vt-hist-item{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;background:var(--panel);border:1px solid var(--border);border-radius:8px;margin-bottom:5px;font-size:11px;cursor:pointer}
-.vt-hist-item:hover{border-color:var(--accent)}
-.log-textarea{width:100%;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;color:var(--text);font-size:11px;font-family:'Consolas','Courier New',monospace;resize:vertical;min-height:160px;outline:none;line-height:1.6}
+.vt-hist-row{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:center;padding:10px 14px;background:var(--panel);border:1px solid var(--border);border-radius:10px;margin-bottom:5px;font-size:11px;cursor:pointer}
+.vt-hist-row:hover{border-color:var(--accent)}
+.vt-hist-name{color:var(--text);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vt-hist-hash{color:var(--text3);font-size:10px;font-family:monospace}
+.log-textarea{width:100%;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;color:var(--text);font-size:11px;font-family:'Consolas',monospace;resize:vertical;min-height:160px;outline:none;line-height:1.6}
 .log-textarea:focus{border-color:var(--accent)}
-.file-drop{border:2px dashed var(--border);border-radius:12px;padding:24px;text-align:center;margin-bottom:12px;background:var(--panel);transition:all .2s;cursor:pointer}
+.file-drop{border:2px dashed var(--border);border-radius:12px;padding:20px;text-align:center;margin-bottom:12px;background:var(--panel);cursor:pointer}
 .file-drop:hover,.file-drop.drag{border-color:var(--accent);background:rgba(99,102,241,.05)}
-.file-drop-info{font-size:12px;color:var(--text2);margin-bottom:6px}
-.file-drop-limit{font-size:10px;color:var(--text3)}
 .file-list{display:flex;flex-direction:column;gap:4px;margin-top:8px}
 .file-item{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:11px}
 .file-item .file-name{flex:1;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .file-item .file-size{color:var(--text3);margin:0 8px}
-.file-item .file-del{color:var(--danger);cursor:pointer;font-size:14px;flex-shrink:0}
+.file-item .file-del{color:var(--danger);cursor:pointer;font-size:14px}
 .audit-table{width:100%;border-collapse:collapse}
-.audit-table th{background:var(--panel);color:var(--text3);font-size:11px;font-weight:700;padding:11px 14px;text-align:left;border-bottom:2px solid var(--border)}
-.audit-table td{padding:10px 14px;font-size:12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.audit-table th{background:var(--panel);color:var(--text3);font-size:11px;font-weight:700;padding:10px 14px;text-align:left;border-bottom:2px solid var(--border)}
+.audit-table td{padding:9px 14px;font-size:11.5px;border-bottom:1px solid var(--border);vertical-align:middle}
 .audit-table tr:hover td{background:var(--card)}
-.audit-type-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap;display:inline-block}
+.audit-type-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;display:inline-block}
+.audit-detail{font-size:11px;color:var(--text2);max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .admin-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:16px}
 .admin-card h3{font-size:13px;font-weight:700;color:var(--text);margin-bottom:14px}
 .admin-list-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--panel);border:1px solid var(--border);border-radius:10px;margin-bottom:8px}
-.admin-add-row{display:flex;gap:8px;margin-top:12px}
-.admin-add-row input{flex:1;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:9px 12px;color:var(--text);font-size:13px;outline:none;font-family:inherit}
-.admin-input{width:100%;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:9px 12px;color:var(--text);font-size:13px;outline:none;font-family:inherit}
+.admin-add-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.admin-add-row select,.admin-add-row input{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:9px 12px;color:var(--text);font-size:12px;outline:none;font-family:inherit}
+.admin-add-row select{min-width:140px}
+.admin-add-row input{flex:1;min-width:140px}
+.admin-input{width:100%;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:9px 12px;color:var(--text);font-size:12px;outline:none;font-family:inherit}
 .admin-input:focus{border-color:var(--accent)}
-.admin-textarea{width:100%;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);font-size:12px;outline:none;font-family:inherit;resize:vertical;min-height:140px;line-height:1.7}
+.admin-textarea{width:100%;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);font-size:12px;outline:none;font-family:inherit;resize:vertical;min-height:120px;line-height:1.7}
 .admin-textarea:focus{border-color:var(--accent)}
 .admin-row{display:flex;gap:12px;align-items:center;margin-bottom:10px}
 .admin-row label{font-size:11px;color:var(--text3);min-width:140px;font-weight:700}
-.copy{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:3px 10px;font-size:10px;color:var(--text3);cursor:pointer;transition:all .2s}
+.link-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.link-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;cursor:pointer;position:relative;transition:all .15s}
+.link-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.link-cat{display:inline-block;font-size:9px;padding:2px 8px;border-radius:12px;background:rgba(99,102,241,.15);color:var(--accent3);margin-bottom:8px;font-weight:700}
+.link-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px}
+.link-desc{font-size:11px;color:var(--text3);line-height:1.5;margin-bottom:6px}
+.link-url{font-size:10px;color:var(--text3);font-family:monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.link-meta{font-size:10px;color:var(--text3);margin-top:8px;display:flex;justify-content:space-between}
+.link-del{position:absolute;top:10px;right:10px;background:none;border:none;color:var(--danger);font-size:14px;cursor:pointer;opacity:0}
+.link-card:hover .link-del{opacity:1}
+.eos-table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.eos-table th{background:var(--panel);color:var(--text3);font-size:11px;font-weight:700;padding:11px 14px;text-align:left;border-bottom:2px solid var(--border)}
+.eos-table td{padding:10px 14px;font-size:12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.eos-table tr:hover td{background:var(--panel)}
+.eos-warn{background:rgba(248,113,113,.05) !important}
+.eos-warn-near{background:rgba(251,191,36,.05) !important}
+.eos-day-badge{font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px}
+.modal-form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal-form .full{grid-column:span 2}
+.modal-form label{display:block;font-size:10px;color:var(--text3);margin-bottom:5px;font-weight:700;text-transform:uppercase}
+.modal-form input,.modal-form select,.modal-form textarea{width:100%;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:9px 12px;color:var(--text);font-size:12px;outline:none;font-family:inherit}
+.modal-form textarea{resize:vertical;min-height:60px}
+.eos-banner{background:linear-gradient(135deg,rgba(248,113,113,.1),rgba(251,191,36,.08));border:1px solid rgba(248,113,113,.3);border-radius:12px;padding:14px 18px;margin-bottom:18px;display:flex;align-items:center;gap:12px}
+.eos-banner-icon{font-size:24px}
+.eos-banner-text{flex:1}
+.eos-banner-title{font-size:13px;font-weight:700;color:#fca5a5;margin-bottom:3px}
+.eos-banner-detail{font-size:11px;color:var(--text2)}
+.eos-banner-btn{background:rgba(248,113,113,.2);border:1px solid rgba(248,113,113,.4);color:#fca5a5;padding:6px 14px;border-radius:8px;font-size:11px;cursor:pointer;font-family:inherit;font-weight:700}
+.copy{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:3px 10px;font-size:10px;color:var(--text3);cursor:pointer}
 .copy:hover{border-color:var(--accent);color:var(--accent3)}
 input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:pointer}
-/* AI MODAL */
-.ai-modal-bg{position:fixed;inset:0;background:rgba(5,8,16,.85);backdrop-filter:blur(8px);z-index:9998;display:none;align-items:center;justify-content:center;padding:20px}
-.ai-modal-bg.show{display:flex}
-.ai-modal{background:var(--panel);border:1px solid var(--border2);border-top:3px solid var(--accent);border-radius:18px;width:100%;max-width:900px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,.6)}
-.ai-modal-head{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--border);flex-shrink:0}
-.ai-modal-title{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:var(--text)}
+.ai-modal-bg,.modal-bg{position:fixed;inset:0;background:rgba(5,8,16,.85);backdrop-filter:blur(8px);z-index:9998;display:none;align-items:center;justify-content:center;padding:20px}
+.ai-modal-bg.show,.modal-bg.show{display:flex}
+.ai-modal,.modal{background:var(--panel);border:1px solid var(--border2);border-top:3px solid var(--accent);border-radius:18px;width:100%;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.ai-modal{max-width:900px}
+.modal{max-width:600px}
+.ai-modal-head,.modal-head{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--border)}
+.ai-modal-title,.modal-head h3{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700}
 .ai-modal-badge{font-size:10px;padding:3px 10px;border-radius:20px;background:rgba(99,102,241,.15);color:var(--accent3);font-weight:700}
 .ai-modal-actions{display:flex;gap:8px;align-items:center}
-.ai-modal-close{background:var(--card);border:1px solid var(--border);border-radius:10px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);transition:all .15s}
+.ai-modal-close{background:var(--card);border:1px solid var(--border);border-radius:10px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .ai-modal-close:hover{border-color:var(--danger);color:var(--danger)}
-.ai-modal-body{flex:1;overflow-y:auto;padding:24px 28px;font-size:14px;line-height:1.9;color:var(--text);white-space:pre-wrap}
+.ai-modal-body,.modal-body{flex:1;overflow-y:auto;padding:24px 28px;font-size:14px;line-height:1.9;white-space:pre-wrap}
+.modal-body{padding:24px;white-space:normal}
 .ai-modal-body strong{color:var(--accent3);font-weight:700}
 .ai-modal-body code{background:rgba(99,102,241,.12);color:var(--accent3);padding:2px 7px;border-radius:5px;font-size:12px;font-family:'Consolas',monospace}
-.ai-modal-foot{padding:12px 24px;border-top:1px solid var(--border);font-size:11px;color:var(--text3);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.ai-modal-foot,.modal-foot{padding:12px 24px;border-top:1px solid var(--border);font-size:11px;color:var(--text3);display:flex;justify-content:space-between}
+.modal-foot{justify-content:flex-end;gap:8px}
 #toast{position:fixed;bottom:24px;right:24px;background:var(--success);color:#052e16;padding:12px 22px;border-radius:12px;font-size:13px;font-weight:700;z-index:9999;display:none;box-shadow:0 8px 30px rgba(0,0,0,.4)}
 #toast.err{background:var(--danger);color:#fff}
 ::-webkit-scrollbar{width:6px;height:6px}
@@ -203,7 +249,6 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
 <body>
 <div id="toast"></div>
 
-<!-- AI MODAL -->
 <div class="ai-modal-bg" id="ai-modal" onclick="if(event.target===this)closeAIModal()">
   <div class="ai-modal">
     <div class="ai-modal-head">
@@ -214,9 +259,7 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
       </div>
       <div class="ai-modal-actions">
         <button class="copy" id="ai-modal-copy" style="padding:6px 14px">📋 복사</button>
-        <div class="ai-modal-close" onclick="closeAIModal()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </div>
+        <div class="ai-modal-close" onclick="closeAIModal()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
       </div>
     </div>
     <div class="ai-modal-body" id="ai-modal-body"></div>
@@ -227,7 +270,17 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
   </div>
 </div>
 
-<!-- LOGIN -->
+<div class="modal-bg" id="gen-modal" onclick="if(event.target===this)closeGenModal()">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="gen-modal-title">제목</h3>
+      <div class="ai-modal-close" onclick="closeGenModal()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+    </div>
+    <div class="modal-body" id="gen-modal-body"></div>
+    <div class="modal-foot" id="gen-modal-foot"></div>
+  </div>
+</div>
+
 <div id="cfg">
   <div class="cfg-wrap">
     <div class="cfg-logo">
@@ -244,7 +297,6 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
   </div>
 </div>
 
-<!-- APP -->
 <div id="app">
   <aside>
     <div class="sb-top">
@@ -254,123 +306,85 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
       </div>
       <div class="sb-section">메뉴</div>
       <div class="sb-nav">
-        <button class="sb-btn active" id="nav-dash" onclick="showPage('dash',this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>대시보드
-        </button>
-        <button class="sb-btn" id="nav-issues" onclick="showPage('issues',this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>이슈 관리
-        </button>
-        <button class="sb-btn" id="nav-cases" onclick="showPage('cases',this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>케이스 트래커
-        </button>
-        <button class="sb-btn" id="nav-log" onclick="showPage('log',this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>로그 분석기
-        </button>
-        <button class="sb-btn" id="nav-vt" onclick="showPage('vt',this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>VirusTotal 조회
-        </button>
-        <button class="sb-btn" id="nav-audit" onclick="showPage('audit',this)" style="display:none">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/></svg>감사 로그
-        </button>
-        <button class="sb-btn" id="nav-settings" onclick="showPage('settings',this)" style="display:none">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>관리자 설정
-        </button>
+        <button class="sb-btn active" id="nav-dash" onclick="showPage('dash',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>대시보드</button>
+        <button class="sb-btn" id="nav-issues" onclick="showPage('issues',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>이슈 관리</button>
+        <button class="sb-btn" id="nav-cases" onclick="showPage('cases',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>케이스 트래커</button>
+        <button class="sb-btn" id="nav-eos" onclick="showPage('eos',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>EOS / 라이선스<span class="badge-warn" id="eos-warn-badge" style="display:none">0</span></button>
+        <button class="sb-btn" id="nav-log" onclick="showPage('log',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>로그 분석기</button>
+        <button class="sb-btn" id="nav-vt" onclick="showPage('vt',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>VirusTotal 조회</button>
+        <button class="sb-btn" id="nav-links" onclick="showPage('links',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>업무 링크</button>
+        <button class="sb-btn" id="nav-audit" onclick="showPage('audit',this)" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/></svg>감사 로그</button>
+        <button class="sb-btn" id="nav-settings" onclick="showPage('settings',this)" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>관리자 설정</button>
       </div>
     </div>
     <div class="sb-divider"></div>
     <div class="sb-bottom">
       <div class="ai-usage-card">
-        <div class="ai-usage-title">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>AI 사용량
-        </div>
+        <div class="ai-usage-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>AI 사용량</div>
         <div class="ai-usage-row"><span>오늘</span><span class="ai-usage-val" id="ai-today">-</span></div>
         <div class="ai-usage-row"><span>이번 달</span><span class="ai-usage-val" id="ai-month">-</span></div>
-        <div class="ai-usage-row"><span>일 한도</span><span style="color:var(--text3)">1,500 회</span></div>
         <div class="ai-usage-bar"><div class="ai-usage-fill" id="ai-usage-fill" style="width:0%"></div></div>
       </div>
       <div class="sb-status">
-        <div style="font-size:10px;font-weight:700;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.8px">연결 상태</div>
+        <div style="font-size:10px;font-weight:700;color:var(--text3);margin-bottom:7px">연결 상태</div>
         <div class="sb-status-row"><span>접속자</span><span id="user-label" style="color:var(--accent3);font-weight:700">-</span></div>
         <div class="sb-status-row"><span>Jira</span><span id="jira-dot"><span class="dot dot-gray"></span>대기중</span></div>
         <div class="sb-status-row"><span>AI</span><span id="ai-dot"><span class="dot dot-gray"></span>대기중</span></div>
         <div class="sb-status-row"><span>이슈</span><span id="issue-count" style="color:var(--text2)">-</span></div>
       </div>
-      <button class="sb-sync-btn" onclick="syncJira()">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>Jira 새로고침
-      </button>
+      <button class="sb-sync-btn" onclick="syncJira()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>Jira 새로고침</button>
       <div class="session-timer" id="session-timer"></div>
-      <div style="margin-top:4px;text-align:center">
-        <button onclick="logout()" style="background:none;border:none;font-size:10px;color:var(--text3);cursor:pointer;font-family:inherit">로그아웃</button>
-      </div>
+      <div style="text-align:center;margin-top:4px"><button onclick="logout()" style="background:none;border:none;font-size:10px;color:var(--text3);cursor:pointer;font-family:inherit">로그아웃</button></div>
     </div>
   </aside>
-
   <main>
     <div class="topbar">
-      <div class="topbar-left">
-        <h2 id="page-title">대시보드</h2>
-        <p id="page-desc">이슈 기반 보안기술팀 허브</p>
-      </div>
+      <div class="topbar-left"><h2 id="page-title">대시보드</h2><p id="page-desc">이슈 기반 보안기술팀 허브</p></div>
       <div class="topbar-right">
-        <div class="search-box">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input id="global-search" placeholder="이슈 검색..." oninput="onGlobalSearch(this.value)">
-        </div>
-        <div class="icon-btn" onclick="syncJira()" title="새로고침">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
-        </div>
+        <div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input id="global-search" placeholder="이슈 검색..." oninput="onGlobalSearch(this.value)"></div>
+        <div class="icon-btn" onclick="syncJira()" title="새로고침"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg></div>
       </div>
     </div>
 
-    <!-- DASHBOARD -->
     <div class="page active" id="page-dash">
-      <div class="kpi-grid">
-        <div class="kpi" style="--kpi-c1:#4f46e5;--kpi-c2:#818cf8"><div class="kpi-val" id="k-total">-</div><div class="kpi-label">전체 이슈</div><div class="kpi-sub" id="k-range">-</div></div>
-        <div class="kpi" style="--kpi-c1:#059669;--kpi-c2:#22d3a5"><div class="kpi-val" id="k-done">-</div><div class="kpi-label">완료</div><div class="kpi-sub">처리 완료 건</div></div>
-        <div class="kpi" style="--kpi-c1:#2563eb;--kpi-c2:#60a5fa"><div class="kpi-val" id="k-prog">-</div><div class="kpi-label">진행중</div><div class="kpi-sub">처리 중인 건</div></div>
-        <div class="kpi" style="--kpi-c1:#d97706;--kpi-c2:#fbbf24"><div class="kpi-val" id="k-high">-</div><div class="kpi-label">High+</div><div class="kpi-sub">높은 우선순위</div></div>
-      </div>
+      <div id="eos-banner-wrap"></div>
+      <div class="kpi-grid" id="kpi-wrap"></div>
       <div class="chart-grid" id="chart-section"></div>
+      <div class="sec-title">팀원 랭킹</div>
+      <div class="chart-grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
+        <div class="chart-card"><h4>처리 건수 TOP</h4><div id="rank-handled"></div></div>
+        <div class="chart-card"><h4>완료율 (5건 이상)</h4><div id="rank-rate"></div></div>
+        <div class="chart-card"><h4>월별 추이 (최근 6개월)</h4><svg class="line-chart" id="trend-chart" viewBox="0 0 400 140"></svg></div>
+      </div>
       <div class="sec-title">최근 이슈 (10건)</div>
       <div id="dash-list" class="issue-list"></div>
     </div>
 
-    <!-- ISSUES -->
     <div class="page" id="page-issues">
       <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
         <button class="btn btn-purple" onclick="runMonthly()" style="width:auto;padding:8px 16px;font-size:11px">📊 월간 동향 요약</button>
         <button class="btn btn-ghost" onclick="runPattern()" style="width:auto;padding:8px 16px;font-size:11px">🔍 고객사 패턴 분석</button>
       </div>
-      <div id="ai-monthly-result" style="display:none;margin-bottom:16px"></div>
       <div class="filter-row">
         <input id="f-q" placeholder="이슈 검색 (제목, 내용)..." oninput="renderIssues()">
         <select id="f-stat" onchange="renderIssues()"><option value="">전체 상태</option><option>완료</option><option>진행 중</option><option>미해결</option></select>
         <select id="f-pri" onchange="renderIssues()"><option value="">전체 우선순위</option><option>Highest</option><option>High</option><option>Medium</option><option>Low</option></select>
         <select id="f-lab" onchange="renderIssues()"><option value="">전체 레이블</option></select>
-        <select id="f-pg" onchange="PAGE=1;renderIssues()">
-          <option value="20">20개씩</option>
-          <option value="50">50개씩</option>
-          <option value="100">100개씩</option>
-          <option value="200">200개씩</option>
-        </select>
+        <select id="f-ass" onchange="renderIssues()"><option value="">전체 담당자</option></select>
+        <select id="f-pg" onchange="PAGE=1;renderIssues()"><option value="20">20개</option><option value="50">50개</option><option value="100">100개</option><option value="200">200개</option></select>
         <span class="filter-count" id="f-count">0건</span>
       </div>
       <div class="two-col">
         <div>
           <div id="issue-list-wrap" class="issue-list"></div>
-          <div id="page-nav" style="display:flex;justify-content:center;align-items:center;gap:8px;margin-top:16px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:10px"></div>
+          <div id="page-nav" style="display:flex;justify-content:center;align-items:center;gap:6px;margin-top:14px;padding:10px;background:var(--card);border:1px solid var(--border);border-radius:10px"></div>
         </div>
-        <div id="right-panel">
-          <div class="rpanel"><div class="rp-empty"><p style="font-size:13px;color:var(--text3)">이슈를 선택하면<br>상세 내용과 AI 분석이 표시됩니다</p></div></div>
-        </div>
+        <div id="right-panel"><div class="rpanel"><div class="rp-empty"><p style="font-size:13px;color:var(--text3)">이슈를 선택하세요</p></div></div></div>
       </div>
     </div>
 
-    <!-- CASE TRACKER -->
     <div class="page" id="page-cases">
-      <div style="background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:var(--cyan);margin-bottom:16px">
-        📦 제목에서 케이스 번호(7자리 이상 순수 숫자)를 자동 파싱합니다.
-      </div>
+      <div style="background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:var(--cyan);margin-bottom:16px">📦 제목에서 케이스 번호(7자리 이상 순수 숫자)를 자동 파싱합니다.</div>
       <div class="two-col">
         <div>
           <div class="filter-row">
@@ -379,141 +393,145 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
           </div>
           <div id="case-list"></div>
         </div>
-        <div id="case-right">
-          <div class="rpanel"><div class="rp-empty"><p style="font-size:13px;color:var(--text3)">케이스를 선택하면<br>AI 다음 액션 가이드를 제공합니다</p></div></div>
-        </div>
+        <div id="case-right"><div class="rpanel"><div class="rp-empty"><p style="font-size:13px;color:var(--text3)">케이스를 선택하세요</p></div></div></div>
       </div>
     </div>
 
-    <!-- LOG ANALYZER -->
-    <div class="page" id="page-log">
-      <div style="background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:var(--purple);margin-bottom:16px">
-        🔬 로그 텍스트 또는 로그 파일(.log / .txt / .zip)을 업로드하면 AI가 분석합니다. <strong style="color:var(--text)">최대 5MB</strong>
+    <div class="page" id="page-eos">
+      <div style="background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:var(--warn);margin-bottom:16px">⏰ EOS / 라이선스 만료 관리. 만료 임박 항목은 로그인 시 강조됩니다.</div>
+      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center">
+        <button class="btn btn-indigo" onclick="openEosModal()" style="width:auto;padding:9px 18px">+ 신규 등록</button>
+        <select id="eos-type-filter" onchange="renderEosList()" style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 12px;color:var(--text);font-size:12px;outline:none">
+          <option value="">전체</option><option value="eos">EOS만</option><option value="license">라이선스만</option>
+        </select>
+        <input id="eos-q" placeholder="검색 (고객사/제품/버전)..." oninput="renderEosList()" style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:7px 12px;color:var(--text);font-size:12px;flex:1;min-width:200px;font-family:inherit;outline:none">
+        <span class="filter-count" id="eos-count">0건</span>
       </div>
+      <table class="eos-table">
+        <thead><tr><th>유형</th><th>고객사</th><th>제품/버전</th><th>라이선스명</th><th>만료일</th><th>D-Day</th><th>등록</th><th></th></tr></thead>
+        <tbody id="eos-tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="page" id="page-log">
+      <div style="background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:var(--purple);margin-bottom:16px">🔬 로그 텍스트 또는 파일(.log/.txt/.zip/.csv) 업로드. 최대 5MB</div>
       <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:16px">
-        <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:center">
+        <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap">
           <select id="log-product" class="admin-input" style="width:auto;min-width:200px">
-            <option value="SEP">SEP</option>
-            <option value="SEPM">SEPM</option>
-            <option value="DLP">DLP</option>
-            <option value="PP">PP (PowerPack)</option>
-            <option value="ProxySG">ProxySG / BCWF</option>
-            <option value="CloudSWG">Cloud SWG / WSS</option>
-            <option value="CASB">CloudSOC / CASB</option>
-            <option value="Windows">Windows Server</option>
-            <option value="Oracle">Oracle DB</option>
-            <option value="MSSQL">MS-SQL</option>
-            <option value="기타">기타</option>
+            <option value="SEP">SEP</option><option value="SEPM">SEPM</option><option value="DLP">DLP</option>
+            <option value="PP">PP (PowerPack)</option><option value="ProxySG">ProxySG / BCWF</option>
+            <option value="CloudSWG">Cloud SWG / WSS</option><option value="CASB">CloudSOC / CASB</option>
+            <option value="Windows">Windows Server</option><option value="Oracle">Oracle DB</option>
+            <option value="MSSQL">MS-SQL</option><option value="기타">기타</option>
           </select>
           <button onclick="clearLogInput()" class="btn btn-ghost" style="width:auto;padding:7px 14px">지우기</button>
         </div>
-        <!-- File Drop -->
         <div class="file-drop" id="log-drop" onclick="document.getElementById('log-file').click()">
-          <div class="file-drop-info">📁 파일을 드래그하거나 클릭하여 업로드</div>
-          <div class="file-drop-limit">.log / .txt / .zip · 최대 5MB</div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:6px">📁 파일을 드래그하거나 클릭</div>
+          <div style="font-size:10px;color:var(--text3)">.log / .txt / .zip / .csv · 최대 5MB</div>
           <input type="file" id="log-file" accept=".log,.txt,.zip,.csv" multiple style="display:none">
           <div id="log-file-list" class="file-list"></div>
         </div>
-        <textarea id="log-input" class="log-textarea" placeholder="로그를 여기에 붙여넣거나 위에 파일을 업로드하세요..."></textarea>
-        <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+        <textarea id="log-input" class="log-textarea" placeholder="로그 직접 입력 또는 파일 업로드..."></textarea>
+        <div style="display:flex;gap:8px;margin-top:12px">
           <button class="btn btn-purple" id="log-btn" onclick="analyzeLogs()" style="width:auto;padding:10px 20px">🔬 로그 분석</button>
-          <button class="btn btn-cyan" onclick="extractKeywords()" style="width:auto;padding:10px 20px">🔑 핵심 키워드 추출</button>
+          <button class="btn btn-cyan" onclick="extractKeywords()" style="width:auto;padding:10px 20px">🔑 키워드 추출</button>
         </div>
       </div>
       <div id="log-result"></div>
     </div>
 
-    <!-- VIRUSTOTAL -->
     <div class="page" id="page-vt">
-      <div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:#fca5a5;margin-bottom:16px">
-        🛡 MD5 / SHA-1 / SHA-256 해시값을 입력하면 VirusTotal 탐지 결과를 조회합니다.
-      </div>
+      <div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:#fca5a5;margin-bottom:16px">🛡 MD5 / SHA-1 / SHA-256 해시값 입력 시 VirusTotal 탐지 결과 조회</div>
       <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:16px">
-        <div style="display:flex;gap:10px;align-items:center">
-          <input id="vt-input" placeholder="해시값 입력 (MD5 / SHA-1 / SHA-256)..."
-            style="flex:1;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:var(--text);font-size:13px;outline:none;font-family:inherit"
-            onkeydown="if(event.key==='Enter')vtLookup()">
-          <button class="btn btn-red" onclick="vtLookup()" id="vt-btn" style="width:auto;padding:12px 20px;white-space:nowrap">🔍 조회</button>
+        <div style="display:flex;gap:10px">
+          <input id="vt-input" placeholder="해시값 입력..." style="flex:1;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:var(--text);font-size:13px;outline:none;font-family:inherit" onkeydown="if(event.key==='Enter')vtLookup()">
+          <button class="btn btn-red" onclick="vtLookup()" id="vt-btn" style="width:auto;padding:12px 20px">🔍 조회</button>
         </div>
       </div>
       <div id="vt-result"></div>
       <div id="vt-history-wrap" style="margin-top:16px"></div>
     </div>
 
-    <!-- AUDIT -->
-    <div class="page" id="page-audit">
-      <div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:#fca5a5;margin-bottom:16px">
-        🔒 관리자 전용 감사 로그 — 팀원 접속 및 AI 사용 이력
-      </div>
+    <div class="page" id="page-links">
+      <div style="background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:var(--cyan);margin-bottom:16px">🔗 자주 접근하는 업무용 링크 모음. 등록은 관리자 이상만 가능합니다.</div>
       <div style="display:flex;gap:8px;margin-bottom:14px;align-items:center">
+        <button class="btn btn-indigo" id="links-add-btn" onclick="openLinkModal()" style="width:auto;padding:9px 18px">+ 링크 등록</button>
+        <input id="links-q" placeholder="검색..." oninput="renderLinks()" style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:7px 12px;color:var(--text);font-size:12px;flex:1;font-family:inherit;outline:none">
+      </div>
+      <div id="links-grid" class="link-grid"></div>
+    </div>
+
+    <div class="page" id="page-audit">
+      <div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:#fca5a5;margin-bottom:16px">🔒 관리자 전용 감사 로그</div>
+      <div style="display:flex;gap:8px;margin-bottom:14px;align-items:center;flex-wrap:wrap">
         <select id="audit-filter" onchange="loadAudit()" style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 12px;color:var(--text);font-size:12px;outline:none">
-          <option value="">전체</option><option value="LOGIN">로그인</option><option value="AI_REQUEST">AI 요청</option><option value="ADMIN_CHANGE">관리자 변경</option><option value="CONFIG_CHANGE">설정 변경</option>
+          <option value="">전체</option><option value="LOGIN">로그인</option><option value="AI_REQUEST">AI 요청</option>
+          <option value="VT_LOOKUP">VT 조회</option><option value="ADMIN_CHANGE">권한 변경</option>
+          <option value="CONFIG_CHANGE">설정 변경</option><option value="LINK_ADD">링크 등록</option>
+          <option value="EOS_ADD">EOS 등록</option>
+        </select>
+        <select id="audit-limit" onchange="loadAudit()" style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 12px;color:var(--text);font-size:12px;outline:none">
+          <option value="50">50건</option><option value="100" selected>100건</option><option value="200">200건</option><option value="500">500건</option>
         </select>
         <button onclick="loadAudit()" class="btn btn-ghost" style="width:auto;padding:7px 14px">새로고침</button>
         <span id="audit-count" style="font-size:12px;color:var(--text3);margin-left:auto"></span>
       </div>
       <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden">
         <table class="audit-table">
-          <thead><tr><th>유형</th><th>사용자</th><th>상세</th><th>일시</th></tr></thead>
+          <thead><tr><th>유형</th><th>사용자</th><th>대상/내용</th><th>상세</th><th>일시</th></tr></thead>
           <tbody id="audit-tbody"></tbody>
         </table>
       </div>
     </div>
 
-    <!-- SETTINGS -->
     <div class="page" id="page-settings">
-      <div style="background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:var(--accent3);margin-bottom:16px">
-        ⚙ 최상위 관리자 전용 — 시스템 설정 및 권한 관리
-      </div>
-      <!-- 시스템 설정 -->
+      <div style="background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:var(--accent3);margin-bottom:16px">⚙ 최상위 관리자 전용</div>
       <div class="admin-card">
         <h3>🔧 시스템 설정</h3>
         <div class="admin-row">
           <label>데이터 조회 기간</label>
           <select id="cfg-range" class="admin-input" style="max-width:240px">
-            <option value="1">최근 1개월</option>
-            <option value="2">최근 2개월</option>
-            <option value="3" selected>최근 3개월</option>
-            <option value="4">최근 4개월</option>
-            <option value="5">최근 5개월</option>
-            <option value="6">최근 6개월</option>
-            <option value="12">최근 1년</option>
+            <option value="1">1개월</option><option value="2">2개월</option><option value="3" selected>3개월</option>
+            <option value="4">4개월</option><option value="5">5개월</option><option value="6">6개월</option><option value="12">1년</option>
           </select>
         </div>
         <div class="admin-row">
           <label>세션 타임아웃</label>
           <select id="cfg-session" class="admin-input" style="max-width:240px">
-            <option value="30">30분</option>
-            <option value="60">1시간</option>
-            <option value="120" selected>2시간</option>
-            <option value="240">4시간</option>
-            <option value="480">8시간</option>
+            <option value="30">30분</option><option value="60">1시간</option><option value="120" selected>2시간</option>
+            <option value="240">4시간</option><option value="480">8시간</option>
           </select>
         </div>
-        <div style="margin-top:16px">
-          <label style="font-size:11px;color:var(--text3);font-weight:700;display:block;margin-bottom:6px">AI 시스템 지침 (모든 AI 호출에 공통 적용)</label>
-          <textarea id="cfg-ai-system" class="admin-textarea" placeholder="예: 당신은 ESCARE 보안기술팀의 Symantec/Broadcom 전문가입니다. 모든 답변은 한국어로 작성하되, 기술 용어는 원문을 함께 표기하세요. 확인된 사실과 추정을 명확히 구분하고, 실무 관점에서 답변하세요..."></textarea>
+        <div class="admin-row">
+          <label>EOS 경고 일수</label>
+          <input id="cfg-eos-warn" class="admin-input" style="max-width:240px" placeholder="60,30,7">
+          <span style="font-size:10px;color:var(--text3)">콤마로 구분</span>
+        </div>
+        <div style="margin-top:14px">
+          <label style="font-size:11px;color:var(--text3);font-weight:700;display:block;margin-bottom:6px">AI 시스템 지침</label>
+          <textarea id="cfg-ai-system" class="admin-textarea" placeholder="당신은 ESCARE 보안기술팀의..."></textarea>
         </div>
         <div style="display:flex;gap:8px;margin-top:12px">
-          <button class="btn btn-indigo" onclick="saveConfig()" style="width:auto;padding:10px 20px">💾 설정 저장</button>
+          <button class="btn btn-indigo" onclick="saveConfig()" style="width:auto;padding:10px 20px">💾 저장</button>
           <button class="btn btn-red" onclick="clearCache()" style="width:auto;padding:10px 20px">🗑 AI 캐시 초기화</button>
         </div>
       </div>
-      <!-- 관리자 목록 -->
       <div class="admin-card">
         <h3>👑 관리자 권한</h3>
         <div id="admin-list-wrap"></div>
         <div class="admin-add-row">
-          <input id="admin-add-input" placeholder="팀원 이름 입력" onkeydown="if(event.key==='Enter')addAdmin()">
+          <select id="admin-add-name"><option value="">팀원 선택</option></select>
+          <select id="admin-add-role"><option value="admin">일반 관리자</option><option value="super">최상위 관리자</option></select>
           <button class="btn btn-indigo" onclick="addAdmin()" style="width:auto;padding:9px 16px">+ 추가</button>
         </div>
       </div>
       <div class="admin-card">
         <h3>ℹ 권한 안내</h3>
         <div style="font-size:12px;color:var(--text2);line-height:2">
-          <div>• <strong style="color:var(--text)">일반 사용자</strong> — 대시보드, 이슈, 케이스 트래커, 로그 분석, VT 조회</div>
-          <div>• <strong style="color:var(--warn)">관리자</strong> — 일반 기능 + 감사 로그 열람</div>
-          <div>• <strong style="color:var(--accent3)">최상위 관리자</strong> — 모든 기능 + 시스템 설정 + 권한 관리</div>
+          <div>• <strong>일반 사용자</strong> — 대시보드, 이슈, 케이스 트래커, EOS, 로그 분석, VT, 업무 링크</div>
+          <div>• <strong style="color:var(--warn)">일반 관리자</strong> — + 감사 로그 열람, 업무 링크 등록/삭제</div>
+          <div>• <strong style="color:var(--accent3)">최상위 관리자</strong> — + 시스템 설정, 권한 부여</div>
         </div>
       </div>
     </div>
@@ -525,11 +543,13 @@ const WORKERS='https://engr-hub-proxy.mj-park.workers.dev';
 const SUPER_ADMIN='박민준';
 const MAX_FILE_SIZE=5*1024*1024;
 let ISSUES=[],SEL=null,CASE_SEL=null,PAGE=1;
-let CURRENT_USER='',IS_ADMIN=false,IS_SUPER=false;
+let CURRENT_USER='',IS_ADMIN=false,IS_SUPER=false,USER_ROLE='user';
 let SESSION_MIN=120, SESSION_DEADLINE=0, SESSION_TIMER=null;
 let VT_HISTORY=JSON.parse(localStorage.getItem('vt_history')||'[]');
+let LINKS=[],EOS_ITEMS=[],TEAM_NAMES=[];
+let EOS_WARN_DAYS=[60,30,7];
+let LOG_FILES=[];
 
-// 솔루션별 색상 (동적 확장 가능)
 const SC={'완료':'#22d3a5','진행 중':'#818cf8','미해결':'#94a3b8','보류':'#fbbf24'};
 const PC={'Highest':'#f87171','High':'#fb923c','Medium':'#fbbf24','Low':'#4ade80'};
 const LC_MAP={'DLP':'#f87171','PP':'#f472b6','SEP':'#22d3a5','SEPM':'#22d3a5','ProxySG':'#22d3ee','CloudSWG':'#818cf8','CASB':'#a78bfa'};
@@ -538,12 +558,13 @@ function labelColor(l){return LC_MAP[l]||'#94a3b8';}
 function fd(d){return d?new Date(d).toLocaleDateString('ko-KR',{year:'2-digit',month:'2-digit',day:'2-digit'}):'-';}
 function fdt(d){if(!d)return '-';const dd=(typeof d==='number')?new Date(d):new Date(d);return dd.toLocaleString('ko-KR',{year:'2-digit',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});}
 function daysSince(d){return d?Math.floor((Date.now()-new Date(d))/86400000):0;}
+function daysUntil(d){return d?Math.ceil((new Date(d)-Date.now())/86400000):0;}
 function toast(msg,err){const t=document.getElementById('toast');t.textContent=msg;t.className=err?'err':'';t.style.display='block';setTimeout(()=>t.style.display='none',2800);}
 function copyText(text){navigator.clipboard.writeText(text).then(()=>toast('복사됐어요!')).catch(()=>{});}
 function encUser(n){try{return btoa(unescape(encodeURIComponent(n)));}catch{return btoa(n);}}
-function escapeHtml(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function escapeHtml(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 
-// ── AUTH & SESSION ────────────────────────────────
+// ── AUTH ──────────────────────────────────────────
 async function login(){
   const name=document.getElementById('l-name').value.trim();
   const pin=document.getElementById('l-pin').value.trim();
@@ -553,8 +574,8 @@ async function login(){
   try{
     const r=await fetch(`${WORKERS}/auth/login`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,pin})});
     const d=await r.json();
-    if(!d.ok){toast('이름 또는 PIN이 올바르지 않습니다',true);btn.disabled=false;btn.textContent='접속하기 →';return;}
-    CURRENT_USER=name;IS_ADMIN=d.isAdmin;IS_SUPER=d.isSuperAdmin;SESSION_MIN=d.sessionMin||120;
+    if(!d.ok){toast(d.message||'로그인 실패',true);btn.disabled=false;btn.textContent='접속하기 →';return;}
+    CURRENT_USER=name;IS_ADMIN=d.isAdmin;IS_SUPER=d.isSuperAdmin;USER_ROLE=d.role||'user';SESSION_MIN=d.sessionMin||120;
     SESSION_DEADLINE=Date.now()+SESSION_MIN*60000;
     localStorage.setItem('engr_user',name);localStorage.setItem('engr_pin',pin);
     localStorage.setItem('engr_session_deadline',SESSION_DEADLINE);
@@ -568,44 +589,40 @@ function enterApp(){
   document.getElementById('ai-dot').innerHTML='<span class="dot dot-green"></span><span style="color:var(--success)">준비됨</span>';
   if(IS_ADMIN||IS_SUPER)document.getElementById('nav-audit').style.display='flex';
   if(IS_SUPER)document.getElementById('nav-settings').style.display='flex';
+  if(!IS_ADMIN&&!IS_SUPER){const btn=document.getElementById('links-add-btn');if(btn)btn.style.display='none';}
   startSessionTimer();
   syncJira();loadAIUsage();renderVTHistory();bindFileUpload();
+  loadEOS();loadLinks();loadEosWarnDays();
 }
 function startSessionTimer(){
   if(SESSION_TIMER)clearInterval(SESSION_TIMER);
   SESSION_TIMER=setInterval(()=>{
     const remain=SESSION_DEADLINE-Date.now();
-    if(remain<=0){clearInterval(SESSION_TIMER);toast('세션이 만료되어 로그아웃됩니다',true);setTimeout(forceLogout,1500);return;}
+    if(remain<=0){clearInterval(SESSION_TIMER);toast('세션 만료',true);setTimeout(forceLogout,1500);return;}
     const m=Math.floor(remain/60000),s=Math.floor((remain%60000)/1000);
     document.getElementById('session-timer').textContent=`세션 ${m}:${String(s).padStart(2,'0')}`;
   },1000);
 }
-function extendSession(){
-  SESSION_DEADLINE=Date.now()+SESSION_MIN*60000;
-  localStorage.setItem('engr_session_deadline',SESSION_DEADLINE);
-}
+function extendSession(){SESSION_DEADLINE=Date.now()+SESSION_MIN*60000;localStorage.setItem('engr_session_deadline',SESSION_DEADLINE);}
 document.addEventListener('click',extendSession);
 document.addEventListener('keydown',extendSession);
-function forceLogout(){
-  localStorage.removeItem('engr_user');localStorage.removeItem('engr_pin');localStorage.removeItem('engr_session_deadline');
-  location.reload();
-}
+function forceLogout(){localStorage.removeItem('engr_user');localStorage.removeItem('engr_pin');localStorage.removeItem('engr_session_deadline');location.reload();}
 function logout(){if(!confirm('로그아웃 하시겠어요?'))return;forceLogout();}
 
 // ── AI 사용량 ──────────────────────────────────────
 async function loadAIUsage(){
   try{
-    const r=await fetch(`${WORKERS}/kv/audit`,{headers:{'X-User':encUser(CURRENT_USER)}});
+    const r=await fetch(`${WORKERS}/kv/audit?filter=AI_REQUEST&limit=500`,{headers:{'X-User':encUser(CURRENT_USER)}});
     if(!r.ok)return;
     const items=await r.json();
     const now=new Date();
     const todayStr=now.toISOString().slice(0,10);
     const monthStr=now.toISOString().slice(0,7);
-    const tc=items.filter(a=>a.type==='AI_REQUEST'&&(a.ts||'').startsWith(todayStr)).length;
-    const mc=items.filter(a=>a.type==='AI_REQUEST'&&(a.ts||'').startsWith(monthStr)).length;
+    const tc=items.filter(a=>(a.ts||'').startsWith(todayStr)).length;
+    const mc=items.filter(a=>(a.ts||'').startsWith(monthStr)).length;
     document.getElementById('ai-today').textContent=tc+'회';
     document.getElementById('ai-month').textContent=mc+'회';
-    const pct=Math.min(Math.round(tc/1500*100),100);
+    const pct=Math.min(Math.round(tc/200*100),100);
     document.getElementById('ai-usage-fill').style.width=pct+'%';
     document.getElementById('ai-usage-fill').style.background=pct>80?'#ef4444':pct>50?'#fbbf24':'';
   }catch{}
@@ -613,12 +630,14 @@ async function loadAIUsage(){
 
 // ── PAGE NAV ──────────────────────────────────────
 const pageTitles={
-  dash:['대시보드','이슈 기반 보안기술팀 허브'],
+  dash:['대시보드','팀 현황 및 개인별 진행 통계'],
   issues:['이슈 관리','전체 이슈 목록 및 상세 조회'],
-  cases:['케이스 트래커','벤더 케이스 현황 및 AI 다음 액션 가이드'],
+  cases:['케이스 트래커','벤더 케이스 현황 및 AI 가이드'],
+  eos:['EOS / 라이선스','제품 EOS 및 라이선스 만료 관리'],
   log:['로그 분석기','솔루션 로그 AI 분석'],
   vt:['VirusTotal 조회','해시값 기반 악성 여부 분석'],
-  audit:['감사 로그','접속 및 AI 사용 이력'],
+  links:['업무 링크','자주 접근하는 URL 모음'],
+  audit:['감사 로그','접속 및 사용 이력'],
   settings:['관리자 설정','시스템 설정 및 권한 관리']
 };
 function showPage(id,btn){
@@ -631,15 +650,17 @@ function showPage(id,btn){
   document.getElementById('page-desc').textContent=t[1];
   if(id==='issues')renderIssues();
   if(id==='cases')renderCases();
+  if(id==='eos')renderEosList();
+  if(id==='links')renderLinks();
   if(id==='audit'){loadAudit();loadAIUsage();}
   if(id==='settings')loadSettings();
+  if(id==='dash')renderDash();
 }
 function onGlobalSearch(q){showPage('issues',document.getElementById('nav-issues'));document.getElementById('f-q').value=q;renderIssues();}
 
 // ── JIRA ──────────────────────────────────────────
 async function syncJira(){
   document.getElementById('jira-dot').innerHTML='<span class="dot" style="background:var(--warn)"></span>동기화중...';
-  document.getElementById('issue-count').textContent='로딩중...';
   try{
     const r=await fetch(`${WORKERS}/jira/search/jql`);
     if(!r.ok)throw new Error('응답 오류: '+r.status);
@@ -653,17 +674,17 @@ async function syncJira(){
       labels:i.fields.labels||[],
       date:i.fields.created?i.fields.created.slice(0,10):'',
       updated:i.fields.updated?i.fields.updated.slice(0,10):'',
-      desc:extractDesc(i.fields.description),
-      comments:extractComments(i.fields.comment),
+      desc:extractADF(i.fields.description),
+      descPlain:extractADFPlain(i.fields.description),
+      comments:extractCommentsArr(i.fields.comment),
+      attachments:extractAttachments(i.fields.attachment),
       type:i.fields.issuetype?i.fields.issuetype.name:'작업',
       customer:extractCustomer(i.fields.summary),
       caseNums:extractCaseNums(i.fields.summary)
     }));
     document.getElementById('jira-dot').innerHTML='<span class="dot dot-green"></span><span style="color:var(--success)">연결됨</span>';
     document.getElementById('issue-count').textContent=ISSUES.length+'건';
-    const rangeMonths=d.rangeMonths||3;
-    document.getElementById('k-range').textContent=`최근 ${rangeMonths}개월`;
-    refreshLabelFilter();
+    refreshFilters();
     renderDash();
     toast('Jira 동기화 완료! '+ISSUES.length+'건');
   }catch(e){
@@ -671,59 +692,123 @@ async function syncJira(){
     toast('Jira 연결 실패: '+e.message,true);
   }
 }
-function extractDesc(desc){
-  if(!desc||!desc.content)return '';
+
+// ── ADF Parser (Atlassian Document Format) ────────
+function extractADF(node){
+  if(!node)return '';
+  let out='';
+  function walk(n,depth){
+    if(!n)return;
+    if(Array.isArray(n)){n.forEach(c=>walk(c,depth));return;}
+    const type=n.type;
+    const marks=n.marks||[];
+    if(type==='text'){
+      let t=n.text||'';
+      if(marks.some(m=>m.type==='strong'))t='**'+t+'**';
+      if(marks.some(m=>m.type==='code'))t='`'+t+'`';
+      if(marks.some(m=>m.type==='link')){
+        const href=marks.find(m=>m.type==='link')?.attrs?.href||'';
+        t=t+' ('+href+')';
+      }
+      out+=t;return;
+    }
+    if(type==='hardBreak'){out+='\n';return;}
+    if(type==='paragraph'){if(n.content)walk(n.content,depth);out+='\n';return;}
+    if(type==='heading'){
+      const lvl=n.attrs?.level||1;
+      out+='\n'+'#'.repeat(lvl)+' ';
+      if(n.content)walk(n.content,depth);
+      out+='\n';return;
+    }
+    if(type==='bulletList'||type==='orderedList'){if(n.content)walk(n.content,depth+1);out+='\n';return;}
+    if(type==='listItem'){
+      out+='  '.repeat(Math.max(0,depth-1))+'• ';
+      if(n.content)walk(n.content,depth);
+      return;
+    }
+    if(type==='codeBlock'){
+      out+='\n```\n';
+      if(n.content)walk(n.content,depth);
+      out+='```\n';return;
+    }
+    if(type==='blockquote'){out+='> ';if(n.content)walk(n.content,depth);return;}
+    if(type==='rule'){out+='\n---\n';return;}
+    if(type==='mention'){out+='@'+(n.attrs?.text||'');return;}
+    if(n.content)walk(n.content,depth);
+  }
+  walk(node.content||node,0);
+  return out.replace(/\n{3,}/g,'\n\n').trim().slice(0,8000);
+}
+function extractADFPlain(node){
+  if(!node)return '';
   const texts=[];
   function walk(nodes){if(!nodes)return;nodes.forEach(n=>{if(n.type==='text'&&n.text)texts.push(n.text);if(n.content)walk(n.content);});}
-  walk(desc.content);return texts.join(' ').slice(0,1500);
+  walk(node.content||node);
+  return texts.join(' ').slice(0,3000);
 }
-function extractComments(comment){
-  if(!comment||!comment.comments)return '';
-  return comment.comments.slice(-5).map(c=>{
-    const texts=[];
-    function walk(nodes){if(!nodes)return;nodes.forEach(n=>{if(n.type==='text'&&n.text)texts.push(n.text);if(n.content)walk(n.content);});}
-    if(c.body&&c.body.content)walk(c.body.content);
-    return '['+c.author.displayName+'] '+texts.join(' ');
-  }).join('\n');
+function extractCommentsArr(comment){
+  if(!comment||!comment.comments)return [];
+  return comment.comments.slice(-20).map(c=>({
+    author:c.author?.displayName||'-',
+    body:extractADF(c.body),
+    bodyPlain:extractADFPlain(c.body),
+    created:c.created||''
+  }));
 }
-// 고객사 추출 — 빈 괄호 무시, 숫자만 있는 괄호 무시
+function extractAttachments(att){
+  if(!att||!Array.isArray(att))return [];
+  return att.map(a=>({name:a.filename||'unknown',size:a.size||0,mime:a.mimeType||''}));
+}
 function extractCustomer(title){
   const matches=title.match(/\[([^\]]+)\]/g)||[];
   for(const m of matches){
     const inner=m.slice(1,-1).trim();
-    if(!inner)continue;                    // 빈 괄호 무시
-    if(/^\d+$/.test(inner))continue;       // 숫자만 있으면 케이스 번호
+    if(!inner||/^\d+$/.test(inner))continue;
     return inner;
   }
   return '';
 }
-// 케이스 번호 — 7자리 이상 순수 숫자만
-function extractCaseNums(title){
-  const matches=title.match(/\b\d{7,}\b/g);
-  return matches||[];
-}
-// 빈 [] 제거해서 제목 표시용
-function cleanTitle(title){
-  return title.replace(/\[\s*\]/g,'').replace(/\s+/g,' ').trim();
+function extractCaseNums(title){return title.match(/\b\d{7,}\b/g)||[];}
+function cleanTitle(title){return title.replace(/\[\s*\]/g,'').replace(/\s+/g,' ').trim();}
+
+function refreshFilters(){
+  const labels=new Set(),assignees=new Set();
+  ISSUES.forEach(i=>{i.labels.forEach(l=>labels.add(l));if(i.assignee&&i.assignee!=='-')assignees.add(i.assignee);});
+  const labSel=document.getElementById('f-lab');
+  const assSel=document.getElementById('f-ass');
+  if(labSel){const cur=labSel.value;labSel.innerHTML='<option value="">전체 레이블</option>'+Array.from(labels).sort().map(l=>`<option ${cur===l?'selected':''}>${escapeHtml(l)}</option>`).join('');}
+  if(assSel){const cur=assSel.value;assSel.innerHTML='<option value="">전체 담당자</option>'+Array.from(assignees).sort().map(l=>`<option ${cur===l?'selected':''}>${escapeHtml(l)}</option>`).join('');}
 }
 
-// 레이블 필터 동적 생성
-function refreshLabelFilter(){
-  const all=new Set();
-  ISSUES.forEach(i=>i.labels.forEach(l=>all.add(l)));
-  const sel=document.getElementById('f-lab');
-  if(!sel)return;
-  const cur=sel.value;
-  sel.innerHTML='<option value="">전체 레이블</option>'+
-    Array.from(all).sort().map(l=>`<option ${cur===l?'selected':''}>${l}</option>`).join('');
+function adfToHtml(text){
+  if(!text)return '';
+  let h=escapeHtml(text);
+  h=h.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+  h=h.replace(/`([^`]+)`/g,'<code>$1</code>');
+  h=h.replace(/^### (.+)$/gm,'<strong style="color:var(--accent3);display:block;margin-top:6px">$1</strong>');
+  h=h.replace(/^## (.+)$/gm,'<strong style="color:var(--accent3);display:block;margin-top:8px">$1</strong>');
+  h=h.replace(/^# (.+)$/gm,'<strong style="color:var(--accent3);display:block;margin-top:10px;font-size:13px">$1</strong>');
+  h=h.replace(/^---$/gm,'<hr style="border:none;border-top:1px solid var(--border);margin:8px 0">');
+  return h;
 }
 
 // ── DASHBOARD ─────────────────────────────────────
 function renderDash(){
-  document.getElementById('k-total').textContent=ISSUES.length;
-  document.getElementById('k-done').textContent=ISSUES.filter(i=>i.status==='완료').length;
-  document.getElementById('k-prog').textContent=ISSUES.filter(i=>['진행 중','진행중','In Progress'].includes(i.status)).length;
-  document.getElementById('k-high').textContent=ISSUES.filter(i=>['High','Highest'].includes(i.pri)).length;
+  const total=ISSUES.length;
+  const done=ISSUES.filter(i=>i.status==='완료').length;
+  const prog=ISSUES.filter(i=>['진행 중','진행중','In Progress'].includes(i.status)).length;
+  const high=ISSUES.filter(i=>['High','Highest'].includes(i.pri)).length;
+  const myIssues=ISSUES.filter(i=>i.assignee===CURRENT_USER);
+  const myDone=myIssues.filter(i=>i.status==='완료').length;
+  const myRate=myIssues.length?Math.round(myDone/myIssues.length*100):0;
+  document.getElementById('kpi-wrap').innerHTML=`
+    <div class="kpi" style="--kpi-c1:#4f46e5;--kpi-c2:#818cf8"><div class="kpi-val">${total}</div><div class="kpi-label">전체 이슈</div><div class="kpi-sub">팀 전체</div></div>
+    <div class="kpi" style="--kpi-c1:#059669;--kpi-c2:#22d3a5"><div class="kpi-val">${done}</div><div class="kpi-label">완료</div><div class="kpi-sub">${total?Math.round(done/total*100):0}% 완료율</div></div>
+    <div class="kpi" style="--kpi-c1:#2563eb;--kpi-c2:#60a5fa"><div class="kpi-val">${prog}</div><div class="kpi-label">진행중</div><div class="kpi-sub">처리 중</div></div>
+    <div class="kpi" style="--kpi-c1:#d97706;--kpi-c2:#fbbf24"><div class="kpi-val">${high}</div><div class="kpi-label">High+</div><div class="kpi-sub">우선처리</div></div>
+    <div class="kpi" style="--kpi-c1:#7c3aed;--kpi-c2:#a78bfa"><div class="kpi-val">${myIssues.length}</div><div class="kpi-label">내 담당</div><div class="kpi-sub">${escapeHtml(CURRENT_USER)}</div></div>
+    <div class="kpi" style="--kpi-c1:#be185d;--kpi-c2:#f472b6"><div class="kpi-val">${myRate}%</div><div class="kpi-label">내 완료율</div><div class="kpi-sub">${myDone}/${myIssues.length}건</div></div>`;
+
   const cusCnt={},labCnt={},priCnt={};
   ISSUES.forEach(i=>{
     if(i.customer)cusCnt[i.customer]=(cusCnt[i.customer]||0)+1;
@@ -732,25 +817,83 @@ function renderDash(){
   });
   const maxC=Math.max(1,...Object.values(cusCnt));
   const maxL=Math.max(1,...Object.values(labCnt));
+  const noData='<div style="color:var(--text3);font-size:11px">데이터 없음</div>';
   document.getElementById('chart-section').innerHTML=`
-  <div class="chart-card"><h4>고객사별 분포</h4>
+  <div class="chart-card"><h4>고객사별 분포 TOP 8</h4>
   ${Object.entries(cusCnt).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,v])=>`
   <div class="bar-row"><div class="bar-lbl" title="${escapeHtml(k)}">${escapeHtml(k)}</div>
-  <div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/maxC*100)}%;background:linear-gradient(90deg,#4f46e5,#818cf8)"><span class="bar-n">${v}</span></div></div></div>`).join('')}
+  <div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/maxC*100)}%;background:linear-gradient(90deg,#4f46e5,#818cf8)"><span class="bar-n">${v}</span></div></div></div>`).join('')||noData}
   </div>
   <div class="chart-card"><h4>레이블별 분포</h4>
   ${Object.entries(labCnt).sort((a,b)=>b[1]-a[1]).slice(0,10).map(([k,v])=>`
   <div class="bar-row"><div class="bar-lbl">${escapeHtml(k)}</div>
-  <div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/maxL*100)}%;background:${labelColor(k)}88"><span class="bar-n">${v}</span></div></div></div>`).join('')}
+  <div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/maxL*100)}%;background:${labelColor(k)}88"><span class="bar-n">${v}</span></div></div></div>`).join('')||noData}
   </div>
   <div class="chart-card"><h4>우선순위별</h4>
   ${['Highest','High','Medium','Low'].map(p=>{const v=priCnt[p]||0;const mx=Math.max(1,...Object.values(priCnt));return`
   <div class="bar-row"><div class="bar-lbl">${p}</div>
   <div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/mx*100)}%;background:${PC[p]||'#94a3b8'}aa"><span class="bar-n">${v}</span></div></div></div>`;}).join('')}
   </div>`;
+
+  // 팀원 랭킹
+  const byAssignee={};
+  ISSUES.forEach(i=>{
+    if(!i.assignee||i.assignee==='-')return;
+    if(!byAssignee[i.assignee])byAssignee[i.assignee]={total:0,done:0};
+    byAssignee[i.assignee].total++;
+    if(i.status==='완료')byAssignee[i.assignee].done++;
+  });
+  const ranked=Object.entries(byAssignee).map(([n,v])=>({name:n,...v,rate:v.total?Math.round(v.done/v.total*100):0}));
+  const byHandled=[...ranked].sort((a,b)=>b.total-a.total).slice(0,8);
+  const maxH=Math.max(1,...byHandled.map(x=>x.total));
+  document.getElementById('rank-handled').innerHTML=byHandled.map((r,idx)=>`
+  <div class="rank-row">
+    <span class="rank-pos ${idx===0?'top1':idx===1?'top2':idx===2?'top3':''}">${idx+1}</span>
+    <span class="rank-name">${escapeHtml(r.name)}${r.name===CURRENT_USER?' <span style="color:var(--accent3);font-size:9px">(나)</span>':''}</span>
+    <span class="rank-stat">${r.total}건</span>
+    <div class="rank-bar"><div class="rank-bar-fill" style="width:${Math.round(r.total/maxH*100)}%"></div></div>
+  </div>`).join('')||noData;
+  const byRate=ranked.filter(x=>x.total>=5).sort((a,b)=>b.rate-a.rate).slice(0,8);
+  document.getElementById('rank-rate').innerHTML=byRate.map((r,idx)=>`
+  <div class="rank-row">
+    <span class="rank-pos ${idx===0?'top1':idx===1?'top2':idx===2?'top3':''}">${idx+1}</span>
+    <span class="rank-name">${escapeHtml(r.name)}${r.name===CURRENT_USER?' <span style="color:var(--accent3);font-size:9px">(나)</span>':''}</span>
+    <span class="rank-stat">${r.rate}% (${r.done}/${r.total})</span>
+    <div class="rank-bar"><div class="rank-bar-fill" style="width:${r.rate}%"></div></div>
+  </div>`).join('')||'<div style="color:var(--text3);font-size:11px">5건 이상 담당자 없음</div>';
+
+  // 월별 추이
+  const monthCnt={};
+  for(let m=5;m>=0;m--){const d=new Date();d.setMonth(d.getMonth()-m);monthCnt[d.toISOString().slice(0,7)]={c:0,d:0};}
+  ISSUES.forEach(i=>{if(!i.date)return;const k=i.date.slice(0,7);if(monthCnt[k]){monthCnt[k].c++;if(i.status==='완료')monthCnt[k].d++;}});
+  const mks=Object.keys(monthCnt);
+  const maxM=Math.max(1,...mks.map(k=>monthCnt[k].c));
+  const W=400,H=140,P=20;
+  const xStep=(W-P*2)/(mks.length-1||1);
+  let pathC='',pathD='',pts='';
+  mks.forEach((k,idx)=>{
+    const x=P+xStep*idx;
+    const yC=H-P-(monthCnt[k].c/maxM)*(H-P*2);
+    const yD=H-P-(monthCnt[k].d/maxM)*(H-P*2);
+    pathC+=(idx===0?'M':'L')+x+','+yC+' ';
+    pathD+=(idx===0?'M':'L')+x+','+yD+' ';
+    pts+=`<text x="${x}" y="${H-5}" fill="#94a3b8" font-size="9" text-anchor="middle">${k.slice(2,7)}</text>`;
+    pts+=`<circle cx="${x}" cy="${yC}" r="3" fill="#818cf8"/>`;
+    pts+=`<circle cx="${x}" cy="${yD}" r="3" fill="#22d3a5"/>`;
+    pts+=`<text x="${x}" y="${yC-6}" fill="#a5b4fc" font-size="9" text-anchor="middle">${monthCnt[k].c}</text>`;
+  });
+  document.getElementById('trend-chart').innerHTML=`
+    <path d="${pathC}" stroke="#818cf8" stroke-width="2" fill="none"/>
+    <path d="${pathD}" stroke="#22d3a5" stroke-width="2" fill="none" stroke-dasharray="3,3"/>
+    ${pts}
+    <text x="${W-10}" y="15" fill="#818cf8" font-size="10" text-anchor="end">전체</text>
+    <text x="${W-10}" y="30" fill="#22d3a5" font-size="10" text-anchor="end">완료</text>`;
+
   const dl=document.getElementById('dash-list');
   dl.innerHTML=ISSUES.slice(0,10).map(i=>issueRowHTML(i,false)).join('');
   dl.querySelectorAll('.irow').forEach((el,idx)=>{el.onclick=()=>{showPage('issues',document.getElementById('nav-issues'));SEL=ISSUES[idx];renderIssues();renderRightPanel();};});
+
+  renderEosBanner();
 }
 
 // ── ISSUES ────────────────────────────────────────
@@ -759,11 +902,13 @@ function filteredIssues(){
   const st=(document.getElementById('f-stat')||{}).value||'';
   const pr=(document.getElementById('f-pri')||{}).value||'';
   const lb=(document.getElementById('f-lab')||{}).value||'';
+  const ass=(document.getElementById('f-ass')||{}).value||'';
   return ISSUES.filter(i=>{
-    if(q&&!i.title.toLowerCase().includes(q)&&!i.desc.toLowerCase().includes(q))return false;
+    if(q&&!i.title.toLowerCase().includes(q)&&!i.descPlain.toLowerCase().includes(q))return false;
     if(st&&i.status!==st)return false;
     if(pr&&i.pri!==pr)return false;
     if(lb&&!i.labels.includes(lb))return false;
+    if(ass&&i.assignee!==ass)return false;
     return true;
   });
 }
@@ -781,16 +926,12 @@ function renderIssues(){
   const nav=document.getElementById('page-nav');
   if(!nav)return;
   if(fi.length<=pgSize){nav.innerHTML='';return;}
-  const btnStyle='background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:6px 12px;color:var(--text2);font-size:12px;cursor:pointer;font-family:inherit;min-width:34px';
-  const activeStyle='background:linear-gradient(135deg,#4f46e5,#7c3aed);border:1px solid var(--accent);color:#fff;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;min-width:34px';
-  let html=`<button style="${btnStyle}" ${PAGE===1?'disabled':''} onclick="PAGE=1;renderIssues()">«</button>`;
-  html+=`<button style="${btnStyle}" ${PAGE===1?'disabled':''} onclick="PAGE--;renderIssues()">‹</button>`;
+  const bs='background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:6px 12px;color:var(--text2);font-size:12px;cursor:pointer;font-family:inherit;min-width:34px';
+  const as='background:linear-gradient(135deg,#4f46e5,#7c3aed);border:1px solid var(--accent);color:#fff;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;min-width:34px';
+  let html=`<button style="${bs}" ${PAGE===1?'disabled':''} onclick="PAGE=1;renderIssues()">«</button><button style="${bs}" ${PAGE===1?'disabled':''} onclick="PAGE--;renderIssues()">‹</button>`;
   const pStart=Math.max(1,PAGE-2),pEnd=Math.min(totalPages,PAGE+2);
-  for(let p=pStart;p<=pEnd;p++){
-    html+=`<button style="${p===PAGE?activeStyle:btnStyle}" onclick="PAGE=${p};renderIssues()">${p}</button>`;
-  }
-  html+=`<button style="${btnStyle}" ${PAGE===totalPages?'disabled':''} onclick="PAGE++;renderIssues()">›</button>`;
-  html+=`<button style="${btnStyle}" ${PAGE===totalPages?'disabled':''} onclick="PAGE=${totalPages};renderIssues()">»</button>`;
+  for(let p=pStart;p<=pEnd;p++)html+=`<button style="${p===PAGE?as:bs}" onclick="PAGE=${p};renderIssues()">${p}</button>`;
+  html+=`<button style="${bs}" ${PAGE===totalPages?'disabled':''} onclick="PAGE++;renderIssues()">›</button><button style="${bs}" ${PAGE===totalPages?'disabled':''} onclick="PAGE=${totalPages};renderIssues()">»</button>`;
   nav.innerHTML=html;
 }
 function issueRowHTML(i,clickable,selected){
@@ -807,6 +948,8 @@ function issueRowHTML(i,clickable,selected){
     ${i.labels.map(l=>`<span class="badge" style="background:${labelColor(l)}22;color:${labelColor(l)}">${escapeHtml(l)}</span>`).join('')}
     ${i.customer?`<span class="badge" style="background:rgba(99,102,241,.15);color:var(--accent3)">${escapeHtml(i.customer)}</span>`:''}
     ${i.assignee&&i.assignee!=='-'?`<span class="imeta">@${escapeHtml(i.assignee)}</span>`:''}
+    ${i.attachments&&i.attachments.length?`<span class="imeta">📎${i.attachments.length}</span>`:''}
+    ${i.comments&&i.comments.length?`<span class="imeta">💬${i.comments.length}</span>`:''}
   </div></div>`;
 }
 function renderRightPanel(){
@@ -827,7 +970,20 @@ function renderRightPanel(){
       <div class="rp-row"><span>접수일</span><span>${fd(i.date)}</span></div>
       <div class="rp-row"><span>수정일</span><span>${fd(i.updated)}</span></div>
     </div>
-    ${i.desc?`<div class="rp-desc">${escapeHtml(i.desc)}</div>`:''}
+    ${i.attachments&&i.attachments.length?`
+    <div style="margin-bottom:12px">
+      <div style="font-size:10px;color:var(--text3);font-weight:700;margin-bottom:6px">📎 첨부파일 (${i.attachments.length})</div>
+      ${i.attachments.map(a=>`<div class="rp-attach-item">📄 ${escapeHtml(a.name)} <span style="color:var(--text3);margin-left:auto">${(a.size/1024).toFixed(1)}KB</span></div>`).join('')}
+    </div>`:''}
+    ${i.desc?`<div class="rp-desc">${adfToHtml(i.desc)}</div>`:''}
+    ${i.comments&&i.comments.length?`
+    <div class="rp-comments">
+      <div style="font-size:10px;color:var(--text3);font-weight:700;margin-bottom:6px">💬 코멘트 (${i.comments.length})</div>
+      ${i.comments.map(c=>`<div class="rp-comment-item">
+        <div class="rp-comment-author">${escapeHtml(c.author)} · ${fdt(c.created)}</div>
+        <div class="rp-comment-body">${adfToHtml(c.body)}</div>
+      </div>`).join('')}
+    </div>`:''}
     <div class="btn-group">
       <button class="btn btn-indigo" id="summary-btn" onclick="runAI('summary')">📋 내용 요약</button>
       <button class="btn btn-purple" id="analyze-btn" onclick="runAI('analyze')">🔍 기술 분석</button>
@@ -847,14 +1003,16 @@ async function runAI(mode){
   const iconMap={summary:'📋',analyze:'🔍',similar:'🔗'};
   const btn=document.getElementById(btnMap[mode]);
   btn.disabled=true;btn.textContent='분석 중...';
-  openAIModal(iconMap[mode],labelMap[mode],i.key,'<div class="loading">AI가 분석하고 있어요...</div>');
+  openAIModal(iconMap[mode],labelMap[mode],i.key,'<div class="loading">AI 분석 중...</div>');
+  const commentText=i.comments.map(c=>`[${c.author}] ${c.bodyPlain||c.body}`).join('\n');
   const fc=`이슈: ${i.key} | ${i.title}
 고객사: ${i.customer||'-'} | 레이블: ${i.labels.join(',')||'-'}
 우선순위: ${i.pri} | 상태: ${i.status} | 담당자: ${i.assignee} | 접수일: ${i.date}
+첨부: ${i.attachments.map(a=>a.name).join(', ')||'없음'}
 [본문]
-${i.desc||'(없음)'}
-[코멘트/진행 이력]
-${i.comments||'(없음)'}`;
+${i.descPlain||'(없음)'}
+[코멘트]
+${commentText||'(없음)'}`;
   try{
     let prompt='';
     if(mode==='summary'){
@@ -874,21 +1032,22 @@ ${fc}`;
 
 ${fc}`;
     }else if(mode==='similar'){
-      const similar=ISSUES.filter(x=>x.key!==i.key&&(x.labels.some(l=>i.labels.includes(l))||x.customer===i.customer)).slice(0,10);
-      prompt=`현재 이슈와 유사 이슈를 비교 분석하여 패턴과 시사점을 찾아주세요.
-분석: 1.유사 케이스 및 공통점 2.반복 발생 패턴 3.과거 해결책 참고사항 4.종합 시사점
-현재 이슈: ${fc}
-유사 이슈: ${similar.map((x,n)=>`${n+1}.[${x.key}]${x.title}(${x.date},${x.status})\n${x.desc}`).join('\n\n')}`;
+      const similar=ISSUES.filter(x=>x.key!==i.key&&(x.labels.some(l=>i.labels.includes(l))||x.customer===i.customer)).slice(0,8);
+      prompt=`현재 이슈와 유사 이슈를 비교 분석하세요.
+1.유사 케이스 공통점 2.반복 발생 패턴 3.과거 해결책 참고 4.종합 시사점
+현재: ${fc}
+유사:
+${similar.map((x,n)=>`${n+1}.[${x.key}]${x.title}(${x.date},${x.status})\n${x.descPlain.slice(0,500)}`).join('\n\n')}`;
     }
-    const text=await callAI(prompt,mode);
+    const text=await callAI(prompt,mode,{issue:i.key,title:cleanTitle(i.title)});
     setAIModalBody(text);
-    document.getElementById('ai-modal-meta').textContent=`${i.key} · ${cleanTitle(i.title).slice(0,60)}${i.title.length>60?'...':''}`;
+    document.getElementById('ai-modal-meta').textContent=`${i.key} · ${cleanTitle(i.title).slice(0,60)}`;
   }catch(e){setAIModalBody(`<div style="color:var(--danger);padding:20px">오류: ${e.message}</div>`,true);}
   btn.disabled=false;btn.textContent=labelMap[mode];
   loadAIUsage();
 }
 
-// ── AI MODAL ──────────────────────────────────────
+// ── MODALS ────────────────────────────────────────
 function openAIModal(icon,label,issueKey,bodyHTML){
   document.getElementById('ai-modal-icon').textContent=icon;
   document.getElementById('ai-modal-label').textContent=label;
@@ -908,13 +1067,19 @@ function setAIModalBody(text,isError){
   btn.onclick=()=>copyText(btn.dataset.t);
 }
 function closeAIModal(){document.getElementById('ai-modal').classList.remove('show');}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAIModal();});
 
-// ── CASE TRACKER ──────────────────────────────────
+function openGenModal(title,bodyHTML,footHTML){
+  document.getElementById('gen-modal-title').textContent=title;
+  document.getElementById('gen-modal-body').innerHTML=bodyHTML;
+  document.getElementById('gen-modal-foot').innerHTML=footHTML||'';
+  document.getElementById('gen-modal').classList.add('show');
+}
+function closeGenModal(){document.getElementById('gen-modal').classList.remove('show');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeAIModal();closeGenModal();}});
+
+// ── CASE ──────────────────────────────────────────
 function getCases(){
-  return ISSUES.filter(i=>i.caseNums&&i.caseNums.length>0).flatMap(i=>
-    i.caseNums.map(cn=>({...i,caseNum:cn}))
-  );
+  return ISSUES.filter(i=>i.caseNums&&i.caseNums.length>0).flatMap(i=>i.caseNums.map(cn=>({...i,caseNum:cn})));
 }
 function renderCases(){
   const q=(document.getElementById('case-q')||{}).value?.toLowerCase()||'';
@@ -927,8 +1092,7 @@ function renderCases(){
     const slaBg=days>=7?'rgba(248,113,113,.2)':days>=5?'rgba(251,191,36,.2)':days>=3?'rgba(251,191,36,.12)':'rgba(34,211,165,.15)';
     const slaColor=days>=7?'#f87171':days>=5?'#fbbf24':days>=3?'#fbbf24':'#22d3a5';
     const sc=SC[c.status]||'#94a3b8';
-    // 제목에서 케이스 번호와 빈 괄호 제거
-    let t=c.title.replace(new RegExp('\\\\[?\\\\s*'+c.caseNum+'\\\\s*\\\\]?'),'').replace(/\[\s*\]/g,'').replace(/\s+/g,' ').trim();
+    let t=c.title.replace(new RegExp('\\[?\\s*'+c.caseNum+'\\s*\\]?'),'').replace(/\[\s*\]/g,'').replace(/\s+/g,' ').trim();
     return `<div class="case-card${CASE_SEL&&CASE_SEL.caseNum===c.caseNum&&CASE_SEL.key===c.key?' selected':''}" style="--lc:${sc}" data-idx="${idx}">
       <div class="irow-top">
         <span class="case-num">📦 ${c.caseNum}</span>
@@ -944,9 +1108,7 @@ function renderCases(){
       </div>
     </div>`;
   }).join('');
-  wrap.querySelectorAll('.case-card').forEach((el,idx)=>{
-    el.onclick=()=>{CASE_SEL=cases[idx];renderCases();renderCaseRight();};
-  });
+  wrap.querySelectorAll('.case-card').forEach((el,idx)=>{el.onclick=()=>{CASE_SEL=cases[idx];renderCases();renderCaseRight();};});
 }
 function renderCaseRight(){
   if(!CASE_SEL)return;
@@ -963,7 +1125,7 @@ function renderCaseRight(){
       <div class="rp-row"><span>상태</span><span style="color:${sc}">${c.status}</span></div>
       <div class="rp-row"><span>경과일</span><span style="color:${days>=7?'#f87171':days>=3?'#fbbf24':'#22d3a5'};font-weight:700">${days}일</span></div>
     </div>
-    ${c.desc?`<div class="rp-desc">${escapeHtml(c.desc)}</div>`:''}
+    ${c.desc?`<div class="rp-desc">${adfToHtml(c.desc)}</div>`:''}
     <button class="btn btn-cyan" id="case-ai-btn" onclick="runCaseAI()" style="margin-bottom:8px">🤖 다음 액션 가이드</button>
     <a href="https://escare-engr.atlassian.net/browse/${c.key}" target="_blank" style="text-decoration:none">
       <button class="btn btn-ghost">Jira에서 보기 →</button>
@@ -975,25 +1137,23 @@ async function runCaseAI(){
   const c=CASE_SEL;
   const btn=document.getElementById('case-ai-btn');
   btn.disabled=true;btn.textContent='분석 중...';
-  openAIModal('📦','케이스 다음 액션',c.caseNum,'<div class="loading">AI가 분석 중...</div>');
+  openAIModal('📦','케이스 다음 액션',c.caseNum,'<div class="loading">AI 분석 중...</div>');
   const days=daysSince(c.date);
+  const commentText=c.comments.map(x=>`[${x.author}] ${x.bodyPlain||x.body}`).join('\n');
   try{
-    const text=await callAI(`벤더 기술지원 케이스 현황을 분석하고 다음 액션을 가이드해주세요.
-
+    const text=await callAI(`벤더 기술지원 케이스 분석 및 다음 액션 가이드.
 케이스 번호: ${c.caseNum}
 이슈: ${c.key} | ${c.title}
 고객사: ${c.customer||'-'} | 담당자: ${c.assignee}
 현재 상태: ${c.status} | 접수일: ${c.date} | 경과: ${days}일
-레이블: ${c.labels.join(',')||'-'}
+이슈 본문: ${c.descPlain||'(없음)'}
+코멘트: ${commentText||'(없음)'}
 
-이슈 내용: ${c.desc||'(없음)'}
-코멘트/진행이력: ${c.comments||'(없음)'}
-
-다음 형식으로 답변하세요:
-**📋 현재 상황 요약** (2-3줄)
-**⚡ 즉시 취해야 할 액션** (경과일 ${days}일 기준)
+답변 형식:
+**📋 현재 상황 요약**
+**⚡ 즉시 취해야 할 액션** (경과 ${days}일 기준)
 **📌 벤더에 확인/요청할 사항**
-**⚠ 주의사항 및 에스컬레이션 기준**`, 'case');
+**⚠ 에스컬레이션 기준**`,'case',{caseNum:c.caseNum,issue:c.key});
     setAIModalBody(text);
     document.getElementById('ai-modal-meta').textContent=`${c.caseNum} · ${c.key}`;
   }catch(e){setAIModalBody(`<div style="color:var(--danger);padding:20px">오류: ${e.message}</div>`,true);}
@@ -1001,8 +1161,196 @@ async function runCaseAI(){
   loadAIUsage();
 }
 
+// ── EOS / LICENSE ─────────────────────────────────
+async function loadEOS(){
+  try{
+    const r=await fetch(`${WORKERS}/eos`);
+    const d=await r.json();
+    EOS_ITEMS=d.items||[];
+    updateEosWarnBadge();
+  }catch{}
+}
+async function loadEosWarnDays(){
+  if(!IS_ADMIN&&!IS_SUPER)return;
+  try{
+    const r=await fetch(`${WORKERS}/admin/config`,{headers:{'X-User':encUser(CURRENT_USER)}});
+    const d=await r.json();
+    if(d.ok&&d.eosWarnDays){EOS_WARN_DAYS=d.eosWarnDays.split(',').map(s=>parseInt(s.trim())).filter(x=>x>0);}
+  }catch{}
+}
+function updateEosWarnBadge(){
+  const warnDay=Math.max(...EOS_WARN_DAYS,60);
+  const warns=EOS_ITEMS.filter(it=>{
+    if(!it.expireDate)return false;
+    const d=daysUntil(it.expireDate);
+    return d<=warnDay;
+  });
+  const badge=document.getElementById('eos-warn-badge');
+  if(warns.length>0){badge.style.display='inline-block';badge.textContent=warns.length;}
+  else badge.style.display='none';
+}
+function renderEosBanner(){
+  const wrap=document.getElementById('eos-banner-wrap');
+  if(!wrap)return;
+  const warnDay=Math.max(...EOS_WARN_DAYS,60);
+  const urgent=EOS_ITEMS.filter(it=>{
+    if(!it.expireDate)return false;
+    const d=daysUntil(it.expireDate);
+    return d>=0&&d<=warnDay;
+  }).sort((a,b)=>daysUntil(a.expireDate)-daysUntil(b.expireDate));
+  if(!urgent.length){wrap.innerHTML='';return;}
+  const top=urgent[0];
+  const tDays=daysUntil(top.expireDate);
+  wrap.innerHTML=`
+  <div class="eos-banner">
+    <div class="eos-banner-icon">⚠️</div>
+    <div class="eos-banner-text">
+      <div class="eos-banner-title">EOS / 라이선스 만료 임박 ${urgent.length}건</div>
+      <div class="eos-banner-detail">
+        가장 임박: <strong style="color:#fca5a5">${escapeHtml(top.customer)}</strong> · ${escapeHtml(top.product)} ${escapeHtml(top.version||'')}${top.licenseName?' · '+escapeHtml(top.licenseName):''} (${tDays}일 후 ${top.expireDate})
+      </div>
+    </div>
+    <button class="eos-banner-btn" onclick="showPage('eos',document.getElementById('nav-eos'))">자세히 →</button>
+  </div>`;
+}
+function renderEosList(){
+  const q=(document.getElementById('eos-q')||{}).value?.toLowerCase()||'';
+  const tf=(document.getElementById('eos-type-filter')||{}).value||'';
+  let list=[...EOS_ITEMS];
+  if(tf)list=list.filter(it=>it.type===tf);
+  if(q)list=list.filter(it=>(it.customer||'').toLowerCase().includes(q)||(it.product||'').toLowerCase().includes(q)||(it.version||'').toLowerCase().includes(q)||(it.licenseName||'').toLowerCase().includes(q));
+  list.sort((a,b)=>{
+    const da=a.expireDate?new Date(a.expireDate).getTime():Infinity;
+    const db=b.expireDate?new Date(b.expireDate).getTime():Infinity;
+    return da-db;
+  });
+  document.getElementById('eos-count').textContent=list.length+'건';
+  const tbody=document.getElementById('eos-tbody');
+  if(!list.length){tbody.innerHTML=`<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--text3)">등록된 항목이 없습니다</td></tr>`;return;}
+  tbody.innerHTML=list.map(it=>{
+    const days=daysUntil(it.expireDate);
+    let rowClass='',badgeBg,badgeColor,badgeText;
+    if(days<0){rowClass='eos-warn';badgeBg='rgba(248,113,113,.2)';badgeColor='#f87171';badgeText='만료';}
+    else if(days<=7){rowClass='eos-warn';badgeBg='rgba(248,113,113,.2)';badgeColor='#f87171';badgeText='D-'+days;}
+    else if(days<=30){rowClass='eos-warn-near';badgeBg='rgba(251,191,36,.2)';badgeColor='#fbbf24';badgeText='D-'+days;}
+    else if(days<=60){badgeBg='rgba(251,191,36,.12)';badgeColor='#fbbf24';badgeText='D-'+days;}
+    else {badgeBg='rgba(34,211,165,.15)';badgeColor='#22d3a5';badgeText='D-'+days;}
+    return `<tr class="${rowClass}">
+      <td><span class="badge" style="background:${it.type==='eos'?'rgba(167,139,250,.15)':'rgba(34,211,165,.15)'};color:${it.type==='eos'?'#a78bfa':'#22d3a5'}">${it.type==='eos'?'EOS':'라이선스'}</span></td>
+      <td style="font-weight:700">${escapeHtml(it.customer||'-')}</td>
+      <td>${escapeHtml(it.product||'-')} <span style="color:var(--text3)">${escapeHtml(it.version||'')}</span></td>
+      <td>${escapeHtml(it.licenseName||'-')}</td>
+      <td>${it.expireDate||'-'}</td>
+      <td><span class="eos-day-badge" style="background:${badgeBg};color:${badgeColor}">${badgeText}</span></td>
+      <td style="font-size:10px;color:var(--text3)">${escapeHtml(it.createdBy||'-')}</td>
+      <td><button onclick="deleteEos('${it.id}')" style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:14px">×</button></td>
+    </tr>`;
+  }).join('');
+}
+function openEosModal(){
+  const today=new Date().toISOString().slice(0,10);
+  openGenModal('EOS / 라이선스 등록',`
+  <div class="modal-form">
+    <div class="full">
+      <label>유형</label>
+      <select id="eos-form-type"><option value="eos">EOS (제품/버전)</option><option value="license">라이선스</option></select>
+    </div>
+    <div><label>고객사 *</label><input id="eos-form-customer" placeholder="고객사명"></div>
+    <div><label>제품 *</label><input id="eos-form-product" placeholder="예: SEP, DLP, ProxySG"></div>
+    <div><label>버전</label><input id="eos-form-version" placeholder="예: 14.3 RU8"></div>
+    <div><label>라이선스명</label><input id="eos-form-license" placeholder="라이선스 이름"></div>
+    <div class="full"><label>만료일 / EOS 일자 *</label><input type="date" id="eos-form-date" value="${today}"></div>
+    <div class="full"><label>메모</label><textarea id="eos-form-memo" placeholder="비고"></textarea></div>
+  </div>`,
+  `<button class="btn btn-ghost" onclick="closeGenModal()" style="width:auto;padding:8px 18px">취소</button>
+   <button class="btn btn-indigo" onclick="saveEos()" style="width:auto;padding:8px 18px">저장</button>`);
+}
+async function saveEos(){
+  const type=document.getElementById('eos-form-type').value;
+  const customer=document.getElementById('eos-form-customer').value.trim();
+  const product=document.getElementById('eos-form-product').value.trim();
+  const version=document.getElementById('eos-form-version').value.trim();
+  const licenseName=document.getElementById('eos-form-license').value.trim();
+  const expireDate=document.getElementById('eos-form-date').value;
+  const memo=document.getElementById('eos-form-memo').value.trim();
+  if(!customer||!product||!expireDate){toast('고객사, 제품, 만료일은 필수입니다',true);return;}
+  try{
+    const r=await fetch(`${WORKERS}/eos`,{method:'POST',headers:{'Content-Type':'application/json','X-User':encUser(CURRENT_USER)},body:JSON.stringify({type,customer,product,version,licenseName,expireDate,memo})});
+    const d=await r.json();
+    if(!d.ok){toast(d.message||'저장 실패',true);return;}
+    toast('등록 완료');closeGenModal();await loadEOS();renderEosList();
+  }catch(e){toast('오류: '+e.message,true);}
+}
+async function deleteEos(id){
+  if(!confirm('삭제하시겠어요?'))return;
+  try{
+    const r=await fetch(`${WORKERS}/eos/${id}`,{method:'DELETE',headers:{'X-User':encUser(CURRENT_USER)}});
+    const d=await r.json();
+    if(!d.ok){toast(d.message||'실패',true);return;}
+    toast('삭제됨');await loadEOS();renderEosList();
+  }catch(e){toast('오류: '+e.message,true);}
+}
+
+// ── LINKS ─────────────────────────────────────────
+async function loadLinks(){
+  try{
+    const r=await fetch(`${WORKERS}/links`);
+    const d=await r.json();
+    LINKS=d.links||[];
+  }catch{}
+}
+function renderLinks(){
+  const q=(document.getElementById('links-q')||{}).value?.toLowerCase()||'';
+  const list=LINKS.filter(l=>!q||(l.title||'').toLowerCase().includes(q)||(l.desc||'').toLowerCase().includes(q)||(l.url||'').toLowerCase().includes(q)||(l.category||'').toLowerCase().includes(q));
+  const wrap=document.getElementById('links-grid');
+  if(!list.length){wrap.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text3);font-size:13px">등록된 링크가 없습니다</div>`;return;}
+  wrap.innerHTML=list.map(l=>`
+  <div class="link-card" onclick="window.open('${escapeHtml(l.url)}','_blank')">
+    ${(IS_ADMIN||IS_SUPER)?`<button class="link-del" onclick="event.stopPropagation();deleteLink('${l.id}')">×</button>`:''}
+    <span class="link-cat">${escapeHtml(l.category||'기타')}</span>
+    <div class="link-title">${escapeHtml(l.title||'')}</div>
+    ${l.desc?`<div class="link-desc">${escapeHtml(l.desc)}</div>`:''}
+    <div class="link-url">${escapeHtml(l.url||'')}</div>
+    <div class="link-meta"><span>by ${escapeHtml(l.createdBy||'-')}</span><span>${l.createdAt?fd(l.createdAt):''}</span></div>
+  </div>`).join('');
+}
+function openLinkModal(){
+  if(!IS_ADMIN&&!IS_SUPER){toast('관리자만 등록 가능',true);return;}
+  openGenModal('업무 링크 등록',`
+  <div class="modal-form">
+    <div><label>분류</label><input id="link-form-cat" placeholder="예: 모니터링, 매뉴얼" value="기타"></div>
+    <div><label>제목 *</label><input id="link-form-title" placeholder="링크 제목"></div>
+    <div class="full"><label>URL *</label><input id="link-form-url" placeholder="https://..."></div>
+    <div class="full"><label>설명</label><textarea id="link-form-desc" placeholder="설명 (선택)"></textarea></div>
+  </div>`,
+  `<button class="btn btn-ghost" onclick="closeGenModal()" style="width:auto;padding:8px 18px">취소</button>
+   <button class="btn btn-indigo" onclick="saveLink()" style="width:auto;padding:8px 18px">저장</button>`);
+}
+async function saveLink(){
+  const title=document.getElementById('link-form-title').value.trim();
+  const url=document.getElementById('link-form-url').value.trim();
+  const category=document.getElementById('link-form-cat').value.trim()||'기타';
+  const desc=document.getElementById('link-form-desc').value.trim();
+  if(!title||!url){toast('제목과 URL은 필수',true);return;}
+  if(!url.startsWith('http')){toast('URL은 http로 시작해야 합니다',true);return;}
+  try{
+    const r=await fetch(`${WORKERS}/links`,{method:'POST',headers:{'Content-Type':'application/json','X-User':encUser(CURRENT_USER)},body:JSON.stringify({title,url,category,desc})});
+    const d=await r.json();
+    if(!d.ok){toast(d.message||'저장 실패',true);return;}
+    toast('등록됨');closeGenModal();await loadLinks();renderLinks();
+  }catch(e){toast('오류: '+e.message,true);}
+}
+async function deleteLink(id){
+  if(!confirm('삭제하시겠어요?'))return;
+  try{
+    const r=await fetch(`${WORKERS}/links/${id}`,{method:'DELETE',headers:{'X-User':encUser(CURRENT_USER)}});
+    const d=await r.json();
+    if(!d.ok){toast(d.message||'실패',true);return;}
+    toast('삭제됨');await loadLinks();renderLinks();
+  }catch(e){toast('오류: '+e.message,true);}
+}
+
 // ── LOG ANALYZER ──────────────────────────────────
-let LOG_FILES=[];
 function bindFileUpload(){
   const drop=document.getElementById('log-drop');
   const input=document.getElementById('log-file');
@@ -1015,6 +1363,7 @@ function bindFileUpload(){
 async function handleFiles(files){
   for(const f of files){
     if(f.size>MAX_FILE_SIZE){toast(`${f.name}: 5MB 초과`,true);continue;}
+    if(LOG_FILES.find(x=>x.name===f.name)){toast(`${f.name}: 이미 추가됨`,true);continue;}
     const ext=f.name.split('.').pop().toLowerCase();
     if(ext==='zip'){
       try{
@@ -1024,12 +1373,10 @@ async function handleFiles(files){
           const content=await entry.async('string');
           LOG_FILES.push({name:`${f.name}/${name}`,size:content.length,content});
         }
-      }catch(e){toast('ZIP 파일 읽기 실패: '+e.message,true);}
+      }catch(e){toast('ZIP 읽기 실패: '+e.message,true);}
     }else{
-      try{
-        const content=await f.text();
-        LOG_FILES.push({name:f.name,size:f.size,content});
-      }catch(e){toast('파일 읽기 실패: '+e.message,true);}
+      try{const content=await f.text();LOG_FILES.push({name:f.name,size:f.size,content});}
+      catch(e){toast('파일 읽기 실패: '+e.message,true);}
     }
   }
   renderLogFiles();
@@ -1037,8 +1384,7 @@ async function handleFiles(files){
 function renderLogFiles(){
   const wrap=document.getElementById('log-file-list');
   if(!LOG_FILES.length){wrap.innerHTML='';return;}
-  wrap.innerHTML=LOG_FILES.map((f,idx)=>`
-  <div class="file-item">
+  wrap.innerHTML=LOG_FILES.map((f,idx)=>`<div class="file-item">
     <span class="file-name">📄 ${escapeHtml(f.name)}</span>
     <span class="file-size">${(f.size/1024).toFixed(1)}KB</span>
     <span class="file-del" onclick="event.stopPropagation();removeLogFile(${idx})">✕</span>
@@ -1046,37 +1392,32 @@ function renderLogFiles(){
 }
 function removeLogFile(idx){LOG_FILES.splice(idx,1);renderLogFiles();}
 function clearLogInput(){document.getElementById('log-input').value='';LOG_FILES=[];renderLogFiles();}
-
 function collectLogContent(){
-  const textarea=document.getElementById('log-input').value.trim();
-  const fileContent=LOG_FILES.map(f=>`[파일: ${f.name}]\n${f.content}`).join('\n\n');
-  let combined='';
-  if(textarea)combined+=textarea;
-  if(fileContent)combined+=(combined?'\n\n':'')+fileContent;
-  return combined;
+  const t=document.getElementById('log-input').value.trim();
+  const f=LOG_FILES.map(x=>`[파일: ${x.name}]\n${x.content}`).join('\n\n');
+  return [t,f].filter(Boolean).join('\n\n');
 }
-
 async function analyzeLogs(){
   const log=collectLogContent();
   const product=document.getElementById('log-product').value;
-  if(!log){toast('로그를 입력하거나 파일을 업로드해주세요',true);return;}
+  if(!log){toast('로그 입력 필요',true);return;}
+  const fileNames=LOG_FILES.map(f=>f.name).join(', ')||'직접입력';
   const btn=document.getElementById('log-btn');
   btn.disabled=true;btn.textContent='분석 중...';
-  openAIModal('🔬',`${product} 로그 분석`,product,'<div class="loading">AI가 로그를 분석하고 있어요...</div>');
+  openAIModal('🔬',`${product} 로그 분석`,product,'<div class="loading">AI 분석 중...</div>');
   try{
-    const text=await callAI(`당신은 ${product} 로그 분석 전문가입니다.
-아래 로그를 분석하여 다음 형식으로 답변하세요:
+    const text=await callAI(`당신은 ${product} 로그 분석 전문가입니다. 아래 로그를 분석하세요.
 
-**🔍 핵심 이벤트 요약** (무슨 일이 발생했는지 2-3줄)
-**📌 주요 관찰 포인트** (로그에서 주목해야 할 항목들)
-**🧩 원인 분석** (확인된 사실 vs 추정 구분)
-**⚡ 즉시 조치 방안** (우선순위별)
-**🛡 재발 방지** (정책/설정 권고사항)
+**🔍 핵심 이벤트 요약**
+**📌 주요 관찰 포인트**
+**🧩 원인 분석** (확인 사실 vs 추정 구분)
+**⚡ 즉시 조치 방안**
+**🛡 재발 방지**
 
 로그:
-${log.slice(0,25000)}`, 'log');
+${log.slice(0,25000)}`,'log',{product,files:fileNames,size:log.length});
     setAIModalBody(text);
-    document.getElementById('ai-modal-meta').textContent=`${product} · ${(log.length/1024).toFixed(1)}KB 분석`;
+    document.getElementById('ai-modal-meta').textContent=`${product} · ${fileNames} · ${(log.length/1024).toFixed(1)}KB`;
   }catch(e){setAIModalBody(`<div style="color:var(--danger);padding:20px">오류: ${e.message}</div>`,true);}
   btn.disabled=false;btn.textContent='🔬 로그 분석';
   loadAIUsage();
@@ -1084,10 +1425,11 @@ ${log.slice(0,25000)}`, 'log');
 async function extractKeywords(){
   const log=collectLogContent();
   const product=document.getElementById('log-product').value;
-  if(!log){toast('로그를 입력하거나 파일을 업로드해주세요',true);return;}
-  openAIModal('🔑',`${product} 키워드 추출`,product,'<div class="loading">핵심 키워드 추출 중...</div>');
+  if(!log){toast('로그 입력 필요',true);return;}
+  const fileNames=LOG_FILES.map(f=>f.name).join(', ')||'직접입력';
+  openAIModal('🔑',`${product} 키워드 추출`,product,'<div class="loading">추출 중...</div>');
   try{
-    const text=await callAI(`${product} 로그에서 핵심 키워드를 추출하여 분류해주세요:
+    const text=await callAI(`${product} 로그에서 핵심 키워드 추출:
 **탐지/이벤트명**: 
 **파일/경로**: 
 **IP/호스트**: 
@@ -1096,9 +1438,9 @@ async function extractKeywords(){
 **액션/결과**: 
 
 로그:
-${log.slice(0,15000)}`, 'keywords');
+${log.slice(0,15000)}`,'keywords',{product,files:fileNames});
     setAIModalBody(text);
-    document.getElementById('ai-modal-meta').textContent=`${product} · 키워드 추출`;
+    document.getElementById('ai-modal-meta').textContent=`${product} · ${fileNames}`;
   }catch(e){setAIModalBody(`<div style="color:var(--danger);padding:20px">오류: ${e.message}</div>`,true);}
   loadAIUsage();
 }
@@ -1106,12 +1448,12 @@ ${log.slice(0,15000)}`, 'keywords');
 // ── VIRUSTOTAL ────────────────────────────────────
 async function vtLookup(){
   const hash=document.getElementById('vt-input').value.trim();
-  if(!hash){toast('해시값을 입력해주세요',true);return;}
+  if(!hash){toast('해시값 입력',true);return;}
   const btn=document.getElementById('vt-btn'),res=document.getElementById('vt-result');
   btn.disabled=true;btn.textContent='조회 중...';
   res.innerHTML='<div class="loading">VirusTotal 조회 중...</div>';
   try{
-    const r=await fetch(`${WORKERS}/vt/lookup`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({hash})});
+    const r=await fetch(`${WORKERS}/vt/lookup`,{method:'POST',headers:{'Content-Type':'application/json','X-User':encUser(CURRENT_USER)},body:JSON.stringify({hash})});
     const d=await r.json();
     if(d.error){res.innerHTML=`<div style="color:var(--danger);font-size:12px;padding:16px">${d.error.message||'조회 실패'}</div>`;btn.disabled=false;btn.textContent='🔍 조회';return;}
     const attrs=d.data?.attributes||{};
@@ -1120,9 +1462,10 @@ async function vtLookup(){
     const mal=stats.malicious||0;
     const riskColor=mal>=5?'#f87171':mal>=1?'#fbbf24':'#22d3a5';
     const riskLabel=mal>=5?'⚠ 악성':mal>=1?'🔶 의심':'✅ 안전';
+    const fileName=attrs.meaningful_name||attrs.names?.[0]||'-';
     VT_HISTORY=VT_HISTORY.filter(h=>h.hash!==hash);
-    VT_HISTORY.unshift({hash,mal,total,name:attrs.meaningful_name||hash.slice(0,16)+'...',ts:Date.now()});
-    if(VT_HISTORY.length>10)VT_HISTORY=VT_HISTORY.slice(0,10);
+    VT_HISTORY.unshift({hash,mal,total,name:fileName,size:attrs.size||0,type:attrs.type_description||'',ts:Date.now()});
+    if(VT_HISTORY.length>15)VT_HISTORY=VT_HISTORY.slice(0,15);
     localStorage.setItem('vt_history',JSON.stringify(VT_HISTORY));
     renderVTHistory();
     const engines=attrs.last_analysis_results||{};
@@ -1138,11 +1481,11 @@ async function vtLookup(){
         <div class="vt-cell"><div class="vt-cell-label">의심</div><div class="vt-cell-val" style="color:#fbbf24">${stats.suspicious||0}</div></div>
         <div class="vt-cell"><div class="vt-cell-label">안전</div><div class="vt-cell-val" style="color:#22d3a5">${stats.harmless||0}</div></div>
         <div class="vt-cell"><div class="vt-cell-label">미탐지</div><div class="vt-cell-val">${stats.undetected||0}</div></div>
-        ${attrs.meaningful_name?`<div class="vt-cell" style="grid-column:span 2"><div class="vt-cell-label">파일명</div><div class="vt-cell-val" style="font-size:11px">${escapeHtml(attrs.meaningful_name)}</div></div>`:''}
+        <div class="vt-cell" style="grid-column:span 2"><div class="vt-cell-label">파일명</div><div class="vt-cell-val" style="font-size:11px">${escapeHtml(fileName)}</div></div>
         ${attrs.size?`<div class="vt-cell"><div class="vt-cell-label">크기</div><div class="vt-cell-val" style="font-size:11px">${(attrs.size/1024).toFixed(1)}KB</div></div>`:''}
-        ${attrs.type_description?`<div class="vt-cell"><div class="vt-cell-label">파일 유형</div><div class="vt-cell-val" style="font-size:11px">${escapeHtml(attrs.type_description)}</div></div>`:''}
+        ${attrs.type_description?`<div class="vt-cell"><div class="vt-cell-label">유형</div><div class="vt-cell-val" style="font-size:11px">${escapeHtml(attrs.type_description)}</div></div>`:''}
       </div>
-      ${malEngines.length?`<div style="margin-top:14px"><div class="sec-title" style="margin-bottom:8px">탐지 엔진 (상위 ${malEngines.length}개)</div>
+      ${malEngines.length?`<div style="margin-top:14px"><div class="sec-title" style="margin-bottom:8px">탐지 엔진 (${malEngines.length}개)</div>
       ${malEngines.map(e=>`<div style="font-size:11px;color:var(--danger);padding:4px 0;border-bottom:1px solid var(--border)">${escapeHtml(e)}</div>`).join('')}</div>`:''}
       <div style="margin-top:14px;display:flex;gap:8px">
         <button class="btn btn-purple" onclick="vtAIAnalysis('${hash}',${mal},${total})" style="width:auto;padding:8px 16px;font-size:11px">🤖 AI 위험도 분석</button>
@@ -1155,17 +1498,16 @@ async function vtLookup(){
   btn.disabled=false;btn.textContent='🔍 조회';
 }
 async function vtAIAnalysis(hash,mal,total){
-  openAIModal('🛡','VT 위험도 분석',hash.slice(0,12)+'...','<div class="loading">AI가 위험도를 분석하고 있어요...</div>');
+  openAIModal('🛡','VT 위험도 분석',hash.slice(0,12)+'...','<div class="loading">분석 중...</div>');
   try{
-    const text=await callAI(`VirusTotal 탐지 결과를 분석해주세요.
+    const text=await callAI(`VirusTotal 탐지 결과 분석.
 해시: ${hash}
 탐지: ${mal}/${total}개 엔진
 
-아래 형식으로 분석해주세요:
-**🎯 종합 판정** (악성/오탐/안전 중 하나와 이유)
-**📊 탐지율 해석** (${mal}/${total} 의미)
-**⚡ 권장 조치** (즉시 조치 사항)
-**📝 오탐 가능성** (오탐 여부 판단 근거)`, 'vt');
+**🎯 종합 판정** (악성/오탐/안전)
+**📊 탐지율 해석**
+**⚡ 권장 조치**
+**📝 오탐 가능성**`,'vt',{hash:hash.slice(0,16),mal,total});
     setAIModalBody(text);
     document.getElementById('ai-modal-meta').textContent=`${mal}/${total} 탐지`;
   }catch(e){setAIModalBody(`<div style="color:var(--danger);padding:20px">오류: ${e.message}</div>`,true);}
@@ -1174,38 +1516,46 @@ async function vtAIAnalysis(hash,mal,total){
 function renderVTHistory(){
   const wrap=document.getElementById('vt-history-wrap');
   if(!wrap||!VT_HISTORY.length)return;
-  wrap.innerHTML=`<div class="sec-title" style="margin-bottom:8px">최근 조회 이력</div>
-  ${VT_HISTORY.map(h=>`<div class="vt-hist-item" onclick="document.getElementById('vt-input').value='${h.hash}';vtLookup()">
-    <span style="color:var(--text3);font-size:10px;font-family:monospace">${h.hash.slice(0,24)}...</span>
-    <span class="badge" style="background:${h.mal>=5?'rgba(248,113,113,.2)':h.mal>=1?'rgba(251,191,36,.2)':'rgba(34,211,165,.15)'};color:${h.mal>=5?'#f87171':h.mal>=1?'#fbbf24':'#22d3a5'}">${h.mal}/${h.total}</span>
-    <span style="color:var(--text3);font-size:10px">${fdt(h.ts)}</span>
-  </div>`).join('')}`;
+  wrap.innerHTML=`<div class="sec-title" style="margin-bottom:8px">최근 조회 이력 (${VT_HISTORY.length})</div>
+  ${VT_HISTORY.map(h=>{
+    const c=h.mal>=5?'#f87171':h.mal>=1?'#fbbf24':'#22d3a5';
+    const bg=h.mal>=5?'rgba(248,113,113,.15)':h.mal>=1?'rgba(251,191,36,.15)':'rgba(34,211,165,.15)';
+    return `<div class="vt-hist-row" onclick="document.getElementById('vt-input').value='${h.hash}';vtLookup()">
+      <div>
+        <div class="vt-hist-name">${escapeHtml(h.name||'-')}${h.size?` <span style="color:var(--text3);font-weight:400">${(h.size/1024).toFixed(1)}KB</span>`:''}${h.type?` <span style="color:var(--text3);font-weight:400">· ${escapeHtml(h.type)}</span>`:''}</div>
+        <div class="vt-hist-hash">${h.hash.slice(0,40)}...</div>
+      </div>
+      <span class="badge" style="background:${bg};color:${c}">${h.mal}/${h.total}</span>
+      <span style="color:var(--text3);font-size:10px">${fdt(h.ts)}</span>
+      <span style="color:var(--text3);font-size:14px;cursor:pointer" onclick="event.stopPropagation();copyText('${h.hash}')" title="해시 복사">📋</span>
+    </div>`;
+  }).join('')}`;
 }
 
-// ── 월간/패턴 ──────────────────────────────────────
+// ── MONTHLY/PATTERN ───────────────────────────────
 async function runMonthly(){
-  openAIModal('📊','월간 동향 분석','','<div class="loading">AI가 월간 동향을 분석하고 있어요...</div>');
+  openAIModal('📊','월간 동향 분석','','<div class="loading">분석 중...</div>');
   const list=ISSUES.slice(0,80).map(i=>`[${i.key}]${i.title}|${i.customer||'-'}|${i.status}|${i.labels.join(',')}|${i.date}`).join('\n');
   try{
-    const text=await callAI(`아래 이슈 목록의 월간 동향 보고서를 작성하세요.
-분석: 1.이슈 유형별 현황 2.고객사별 현황(상위5사) 3.주요 반복 패턴 4.이번 기간 특이사항 5.다음 기간 주의사항 및 권고
-이슈 목록:\n${list}`,'monthly');
+    const text=await callAI(`아래 이슈 목록의 월간 동향 보고서.
+1.이슈 유형별 현황 2.고객사별 현황(상위5사) 3.반복 패턴 4.특이사항 5.다음 기간 권고
+이슈:\n${list}`,'monthly',{count:ISSUES.length});
     setAIModalBody(text);
     document.getElementById('ai-modal-meta').textContent=`${ISSUES.length}건 분석`;
   }catch(e){setAIModalBody(`<div style="color:var(--danger);padding:20px">오류: ${e.message}</div>`,true);}
   loadAIUsage();
 }
 async function runPattern(){
-  openAIModal('🔍','고객사 패턴 분석','','<div class="loading">AI가 고객사 패턴을 분석하고 있어요...</div>');
+  openAIModal('🔍','고객사 패턴 분석','','<div class="loading">분석 중...</div>');
   const cusCnt={};ISSUES.forEach(i=>{if(i.customer)cusCnt[i.customer]=(cusCnt[i.customer]||0)+1;});
   const topCus=Object.entries(cusCnt).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([k])=>k);
   const list=ISSUES.filter(i=>topCus.includes(i.customer)).map(i=>`[${i.customer}]${i.title}|${i.status}|${i.labels.join(',')}|${i.date}`).join('\n');
   try{
-    const text=await callAI(`상위 5개 고객사의 이슈 패턴을 분석하세요.
-분석: 1.고객사별 주요 이슈 유형 2.반복 발생 문제점 3.고객사별 관리 포인트 4.예방 조치 권고
-이슈 목록:\n${list}`,'pattern');
+    const text=await callAI(`상위 5개 고객사 이슈 패턴 분석.
+1.주요 이슈 유형 2.반복 문제 3.관리 포인트 4.예방 조치
+이슈:\n${list}`,'pattern',{customers:topCus.join(',')});
     setAIModalBody(text);
-    document.getElementById('ai-modal-meta').textContent=`상위 ${topCus.length}개 고객사 분석`;
+    document.getElementById('ai-modal-meta').textContent=`상위 ${topCus.length}개 고객사`;
   }catch(e){setAIModalBody(`<div style="color:var(--danger);padding:20px">오류: ${e.message}</div>`,true);}
   loadAIUsage();
 }
@@ -1213,61 +1563,107 @@ async function runPattern(){
 // ── AUDIT ─────────────────────────────────────────
 async function loadAudit(){
   const tbody=document.getElementById('audit-tbody');
-  tbody.innerHTML=`<tr><td colspan="4"><div class="loading">로딩 중...</div></td></tr>`;
+  tbody.innerHTML=`<tr><td colspan="5"><div class="loading">로딩...</div></td></tr>`;
   const filter=document.getElementById('audit-filter')?.value||'';
+  const limit=document.getElementById('audit-limit')?.value||'100';
   try{
-    const r=await fetch(`${WORKERS}/kv/audit`,{headers:{'X-User':encUser(CURRENT_USER)}});
-    let items=await r.json();
-    if(filter)items=items.filter(a=>a.type===filter);
+    const url=`${WORKERS}/kv/audit?limit=${limit}${filter?'&filter='+filter:''}`;
+    const r=await fetch(url,{headers:{'X-User':encUser(CURRENT_USER)}});
+    const items=await r.json();
     document.getElementById('audit-count').textContent=items.length+'건';
     const ts={
       LOGIN:{bg:'rgba(34,211,165,.12)',color:'#22d3a5',label:'LOGIN'},
-      AI_REQUEST:{bg:'rgba(167,139,250,.12)',color:'#a78bfa',label:'AI 요청'},
-      ADMIN_CHANGE:{bg:'rgba(248,113,113,.12)',color:'#f87171',label:'권한 변경'},
-      CONFIG_CHANGE:{bg:'rgba(99,102,241,.12)',color:'#818cf8',label:'설정 변경'},
+      AI_REQUEST:{bg:'rgba(167,139,250,.12)',color:'#a78bfa',label:'AI'},
+      VT_LOOKUP:{bg:'rgba(248,113,113,.12)',color:'#f87171',label:'VT'},
+      ADMIN_CHANGE:{bg:'rgba(248,113,113,.12)',color:'#f87171',label:'권한'},
+      CONFIG_CHANGE:{bg:'rgba(99,102,241,.12)',color:'#818cf8',label:'설정'},
+      LINK_ADD:{bg:'rgba(34,211,238,.12)',color:'#22d3ee',label:'링크+'},
+      LINK_DELETE:{bg:'rgba(248,113,113,.12)',color:'#f87171',label:'링크-'},
+      EOS_ADD:{bg:'rgba(251,191,36,.12)',color:'#fbbf24',label:'EOS+'},
+      EOS_DELETE:{bg:'rgba(248,113,113,.12)',color:'#f87171',label:'EOS-'},
+      EOS_UPDATE:{bg:'rgba(251,191,36,.12)',color:'#fbbf24',label:'EOS✎'},
     };
     tbody.innerHTML=items.map(a=>{
       const t=ts[a.type]||{bg:'rgba(148,163,184,.12)',color:'#94a3b8',label:a.type};
-      let detail='';
-      if(a.type==='AI_REQUEST')detail=`모드: ${a.mode||'-'} | 입력 ${a.promptLen||0}자`;
-      else if(a.type==='ADMIN_CHANGE')detail=`${a.action==='add'?'부여':'회수'}: ${escapeHtml(a.target||'')}`;
-      else if(a.type==='CONFIG_CHANGE')detail=`변경: ${(a.keys||[]).join(',')}`;
+      let target='', detail='';
+      if(a.type==='AI_REQUEST'){
+        target=a.mode||'-';
+        const it=[];
+        if(a.issue)it.push(`이슈:${escapeHtml(a.issue)}`);
+        if(a.title)it.push(escapeHtml(a.title.slice(0,40)));
+        if(a.caseNum)it.push(`케이스:${a.caseNum}`);
+        if(a.product)it.push(`제품:${escapeHtml(a.product)}`);
+        if(a.files&&a.files!=='직접입력')it.push(`파일:${escapeHtml(a.files)}`);
+        if(a.hash)it.push(`해시:${a.hash}`);
+        if(a.customers)it.push(`고객사:${escapeHtml(a.customers)}`);
+        if(a.count)it.push(`${a.count}건`);
+        it.push(`${a.promptLen||0}자`);
+        detail=it.join(' · ');
+      }else if(a.type==='VT_LOOKUP'){
+        target=a.name||a.hash||'-';
+        detail=`${a.hash||''} · ${a.mal||0}건 탐지`;
+      }else if(a.type==='ADMIN_CHANGE'){
+        target=a.target||'-';
+        detail=`${a.action==='add'?'부여':a.action==='remove'?'회수':'변경'} (${a.role||'admin'})`;
+      }else if(a.type==='CONFIG_CHANGE'){
+        target='설정';detail=(a.keys||[]).join(', ');
+      }else if(a.type==='LINK_ADD'){
+        target=a.title||'-';
+      }else if(a.type==='EOS_ADD'){
+        target=`${a.customer||'-'} · ${a.product||'-'}`;
+        detail=`${a.type==='eos'?'EOS':'라이선스'} · 만료 ${a.expire||'-'}`;
+      }else if(a.type==='LOGIN'){
+        target=a.role||'user';
+      }
       return `<tr>
         <td><span class="audit-type-badge" style="background:${t.bg};color:${t.color}">${t.label}</span></td>
         <td style="font-weight:700;color:var(--accent3)">${escapeHtml(a.user||'-')}</td>
-        <td style="color:var(--text2)">${detail}</td>
-        <td style="color:var(--text3)">${fdt(a.tsNum||a.ts)}</td>
+        <td>${escapeHtml(target)}</td>
+        <td><div class="audit-detail" title="${escapeHtml(detail)}">${detail||'<span style="color:var(--text3)">-</span>'}</div></td>
+        <td style="color:var(--text3);font-size:11px;white-space:nowrap">${fdt(a.tsNum||a.ts)}</td>
       </tr>`;
-    }).join('')||`<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--text3)">로그 없음</td></tr>`;
-  }catch(e){tbody.innerHTML=`<tr><td colspan="4" style="color:var(--danger);padding:16px">로드 실패: ${e.message}</td></tr>`;}
+    }).join('')||`<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--text3)">로그 없음</td></tr>`;
+  }catch(e){tbody.innerHTML=`<tr><td colspan="5" style="color:var(--danger);padding:16px">로드 실패: ${e.message}</td></tr>`;}
 }
 
 // ── SETTINGS ──────────────────────────────────────
 async function loadSettings(){
-  // 시스템 설정
   try{
-    const r=await fetch(`${WORKERS}/admin/config`);
+    const r=await fetch(`${WORKERS}/admin/config`,{headers:{'X-User':encUser(CURRENT_USER)}});
     const d=await r.json();
     if(d.ok){
       document.getElementById('cfg-range').value=d.rangeMonths;
       document.getElementById('cfg-session').value=d.sessionMin;
       document.getElementById('cfg-ai-system').value=d.aiSystem||'';
+      document.getElementById('cfg-eos-warn').value=d.eosWarnDays||'60,30,7';
     }
   }catch(e){toast('설정 로드 실패',true);}
-  // 관리자 목록
   const wrap=document.getElementById('admin-list-wrap');
-  wrap.innerHTML='<div class="loading">로딩 중...</div>';
+  wrap.innerHTML='<div class="loading">로딩...</div>';
   try{
     const r=await fetch(`${WORKERS}/admin/list`,{headers:{'X-User':encUser(CURRENT_USER)}});
     const d=await r.json();
-    wrap.innerHTML=d.admins.map(name=>`
-    <div class="admin-list-item">
-      <div style="display:flex;align-items:center;gap:10px">
-        <span style="font-size:10px;padding:2px 9px;border-radius:20px;background:rgba(99,102,241,.15);color:var(--accent3);font-weight:700">${name===SUPER_ADMIN?'최상위':'관리자'}</span>
-        <span style="font-weight:700;color:var(--text)">${escapeHtml(name)}</span>
-      </div>
-      ${name!==SUPER_ADMIN?`<button onclick="removeAdmin('${escapeHtml(name)}')" class="btn btn-red" style="width:auto;padding:5px 12px;font-size:11px">권한 회수</button>`:'<span style="font-size:11px;color:var(--text3)">변경 불가</span>'}
-    </div>`).join('');
+    TEAM_NAMES=d.teamNames||[];
+    const admins=d.admins||{};
+    wrap.innerHTML=Object.entries(admins).map(([name,role])=>{
+      const isSuperRole=role==='super';
+      return `<div class="admin-list-item">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-size:10px;padding:2px 9px;border-radius:20px;background:${isSuperRole?'rgba(248,113,113,.15)':'rgba(99,102,241,.15)'};color:${isSuperRole?'#f87171':'var(--accent3)'};font-weight:700">${isSuperRole?'최상위':'관리자'}</span>
+          <span style="font-weight:700;color:var(--text)">${escapeHtml(name)}</span>
+        </div>
+        ${name!==SUPER_ADMIN?`<div style="display:flex;gap:6px">
+          <select onchange="changeRole('${escapeHtml(name)}',this.value)" style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--text);font-size:11px;outline:none">
+            <option value="admin" ${role==='admin'?'selected':''}>일반 관리자</option>
+            <option value="super" ${role==='super'?'selected':''}>최상위 관리자</option>
+          </select>
+          <button onclick="removeAdmin('${escapeHtml(name)}')" class="btn btn-red" style="width:auto;padding:4px 12px;font-size:11px">회수</button>
+        </div>`:'<span style="font-size:11px;color:var(--text3)">변경 불가</span>'}
+      </div>`;
+    }).join('');
+    const adminNames=Object.keys(admins);
+    const candidates=TEAM_NAMES.filter(n=>!adminNames.includes(n));
+    document.getElementById('admin-add-name').innerHTML='<option value="">팀원 선택</option>'+candidates.map(n=>`<option value="${escapeHtml(n)}">${escapeHtml(n)}</option>`).join('');
   }catch(e){wrap.innerHTML=`<div style="color:var(--danger);font-size:12px">로드 실패: ${e.message}</div>`;}
 }
 async function saveConfig(){
@@ -1275,32 +1671,42 @@ async function saveConfig(){
     rangeMonths:parseInt(document.getElementById('cfg-range').value),
     sessionMin:parseInt(document.getElementById('cfg-session').value),
     aiSystem:document.getElementById('cfg-ai-system').value,
+    eosWarnDays:document.getElementById('cfg-eos-warn').value.trim()||'60,30,7',
   };
   try{
     const r=await fetch(`${WORKERS}/admin/config`,{method:'POST',headers:{'Content-Type':'application/json','X-User':encUser(CURRENT_USER)},body:JSON.stringify(body)});
     const d=await r.json();
     if(!d.ok){toast(d.message||'저장 실패',true);return;}
-    toast('설정이 저장되었습니다. (기간 변경은 새로고침 후 반영)');
+    toast('저장 완료. 일부 설정은 새로고침 후 반영됩니다.');
+    loadEosWarnDays();
   }catch(e){toast('오류: '+e.message,true);}
 }
 async function clearCache(){
-  if(!confirm('모든 AI 캐시를 삭제하시겠어요? 캐시된 답변이 모두 삭제되어 다음 호출부터 Gemini API를 다시 호출합니다.'))return;
+  if(!confirm('AI 캐시를 모두 삭제하시겠어요?'))return;
   try{
     const r=await fetch(`${WORKERS}/admin/cache/clear`,{method:'POST',headers:{'X-User':encUser(CURRENT_USER)}});
     const d=await r.json();
     if(!d.ok){toast(d.message||'실패',true);return;}
-    toast(`AI 캐시 ${d.cleared}개 삭제 완료`);
+    toast(`AI 캐시 ${d.cleared}개 삭제`);
   }catch(e){toast('오류: '+e.message,true);}
 }
 async function addAdmin(){
-  const name=document.getElementById('admin-add-input').value.trim();
-  if(!name){toast('이름을 입력해주세요',true);return;}
+  const name=document.getElementById('admin-add-name').value;
+  const role=document.getElementById('admin-add-role').value;
+  if(!name){toast('팀원을 선택해주세요',true);return;}
   try{
-    const r=await fetch(`${WORKERS}/admin/update`,{method:'POST',headers:{'Content-Type':'application/json','X-User':encUser(CURRENT_USER)},body:JSON.stringify({action:'add',user:name})});
+    const r=await fetch(`${WORKERS}/admin/update`,{method:'POST',headers:{'Content-Type':'application/json','X-User':encUser(CURRENT_USER)},body:JSON.stringify({action:'add',user:name,role})});
     const d=await r.json();
     if(!d.ok){toast(d.message||'실패',true);return;}
-    document.getElementById('admin-add-input').value='';
-    toast(`${name} 관리자 추가 완료`);loadSettings();
+    toast(`${name} (${role==='super'?'최상위':'일반'} 관리자) 추가`);loadSettings();
+  }catch(e){toast('오류: '+e.message,true);}
+}
+async function changeRole(name,newRole){
+  try{
+    const r=await fetch(`${WORKERS}/admin/update`,{method:'POST',headers:{'Content-Type':'application/json','X-User':encUser(CURRENT_USER)},body:JSON.stringify({action:'changeRole',user:name,role:newRole})});
+    const d=await r.json();
+    if(!d.ok){toast(d.message||'실패',true);loadSettings();return;}
+    toast(`${name} 권한 변경`);
   }catch(e){toast('오류: '+e.message,true);}
 }
 async function removeAdmin(name){
@@ -1309,21 +1715,21 @@ async function removeAdmin(name){
     const r=await fetch(`${WORKERS}/admin/update`,{method:'POST',headers:{'Content-Type':'application/json','X-User':encUser(CURRENT_USER)},body:JSON.stringify({action:'remove',user:name})});
     const d=await r.json();
     if(!d.ok){toast(d.message||'실패',true);return;}
-    toast(`${name} 관리자 권한 회수 완료`);loadSettings();
+    toast(`${name} 권한 회수`);loadSettings();
   }catch(e){toast('오류: '+e.message,true);}
 }
 
 // ── AI CALL ───────────────────────────────────────
-async function callAI(prompt,mode='analyze'){
+async function callAI(prompt,mode='analyze',detail={}){
   const r=await fetch(`${WORKERS}/ai/generate`,{
     method:'POST',
     headers:{'Content-Type':'application/json','X-User':encUser(CURRENT_USER)},
-    body:JSON.stringify({contents:[{parts:[{text:prompt}]}],mode})
+    body:JSON.stringify({contents:[{parts:[{text:prompt}]}],mode,detail})
   });
   if(!r.ok){
-    let detail='';
-    try{const err=await r.json();detail=err.message||JSON.stringify(err).slice(0,200);}catch{detail='응답 파싱 실패';}
-    throw new Error(`(${r.status}) ${detail}`);
+    let msg='';
+    try{const err=await r.json();msg=err.message||JSON.stringify(err).slice(0,200);}catch{msg='응답 파싱 실패';}
+    throw new Error(`(${r.status}) ${msg}`);
   }
   const d=await r.json();
   return d.candidates?.[0]?.content?.parts?.[0]?.text||'응답을 받지 못했습니다.';
@@ -1334,11 +1740,11 @@ async function callAI(prompt,mode='analyze'){
   const su=localStorage.getItem('engr_user');
   const sp=localStorage.getItem('engr_pin');
   const sd=parseInt(localStorage.getItem('engr_session_deadline')||'0');
-  // 세션 만료 시 자동 로그아웃
   if(sd&&sd<Date.now()){forceLogout();return;}
   if(su&&sp){document.getElementById('l-name').value=su;document.getElementById('l-pin').value=sp;login();}
   else if(su){document.getElementById('l-name').value=su;document.getElementById('l-pin').focus();}
 })();
+
 </script>
 </body>
 </html>
