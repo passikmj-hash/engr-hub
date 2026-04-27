@@ -50,9 +50,15 @@ aside{width:230px;background:#161b27;border-right:1px solid var(--border2);displ
 .sb-bottom{padding:10px 16px;margin-top:auto}
 .ai-usage-card{background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(124,58,237,.08));border:1px solid rgba(99,102,241,.2);border-radius:14px;padding:11px 13px;margin-bottom:8px}
 .ai-usage-title{font-size:10px;font-weight:700;color:var(--accent2);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.ai-usage-section{border-top:1px solid rgba(255,255,255,.08);padding-top:7px;margin-top:7px}
+.ai-usage-section:first-of-type{border-top:none;padding-top:0;margin-top:0}
+.ai-usage-section-title{font-size:9px;color:var(--text3);font-weight:700;margin-bottom:5px;display:flex;justify-content:space-between;align-items:center}
 .ai-usage-row{display:flex;justify-content:space-between;align-items:center;font-size:11px;margin-bottom:4px}
 .ai-usage-row span:first-child{color:var(--text3)}
 .ai-usage-val{color:var(--text);font-weight:700}
+.ai-usage-val.good{color:var(--success)}
+.ai-usage-val.bad{color:var(--danger)}
+.ai-usage-meta{font-size:9px;color:var(--text3);margin-top:6px;line-height:1.35;text-align:right}
 .ai-usage-bar{height:4px;background:var(--border);border-radius:2px;margin-top:6px;overflow:hidden}
 .ai-usage-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#6366f1,#a78bfa)}
 .sb-status{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:9px 12px;margin-bottom:8px}
@@ -88,7 +94,11 @@ main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
 .filter-row input,.filter-row select{background:#262b40;border:1px solid var(--border2);border-radius:10px;padding:8px 12px;color:var(--text);font-size:12px;outline:none;font-family:inherit}
 .filter-row input{flex:1;min-width:180px}
 .filter-row input:focus,.filter-row select:focus{border-color:var(--accent)}
-.filter-count{font-size:12px;color:var(--text3);margin-left:auto}
+.filter-row .page-size-select{min-width:78px;flex:0 0 auto}
+.filter-count{font-size:12px;color:var(--text3);margin-left:auto;white-space:nowrap}
+.action-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.filter-reset{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);border-radius:10px;padding:7px 14px;color:#e8edff;font-size:11px;cursor:pointer;font-family:inherit;white-space:nowrap;font-weight:600}
+.filter-reset:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.4)}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
 @media(max-width:1200px){.two-col{grid-template-columns:1fr}}
 .issue-list{display:flex;flex-direction:column;gap:6px}
@@ -338,9 +348,22 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
     <div class="sb-bottom">
       <div class="ai-usage-card">
         <div class="ai-usage-title"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>AI 사용량</div>
-        <div class="ai-usage-row"><span>오늘</span><span class="ai-usage-val" id="ai-today">-</span></div>
-        <div class="ai-usage-row"><span>이번 달</span><span class="ai-usage-val" id="ai-month">-</span></div>
+        <div class="ai-usage-section">
+          <div class="ai-usage-section-title"><span>내 사용량</span><span id="ai-usage-state">대기</span></div>
+          <div class="ai-usage-row"><span>오늘</span><span class="ai-usage-val" id="ai-my-today">-</span></div>
+          <div class="ai-usage-row"><span>이번 달</span><span class="ai-usage-val" id="ai-my-month">-</span></div>
+        </div>
+        <div class="ai-usage-section">
+          <div class="ai-usage-section-title"><span>팀 전체</span><span>요청 기준</span></div>
+          <div class="ai-usage-row"><span>오늘</span><span class="ai-usage-val" id="ai-team-today">-</span></div>
+          <div class="ai-usage-row"><span>이번 달</span><span class="ai-usage-val" id="ai-team-month">-</span></div>
+        </div>
+        <div class="ai-usage-section">
+          <div class="ai-usage-row"><span>성공</span><span class="ai-usage-val good" id="ai-success-month">-</span></div>
+          <div class="ai-usage-row"><span>실패</span><span class="ai-usage-val bad" id="ai-fail-month">-</span></div>
+        </div>
         <div class="ai-usage-bar"><div class="ai-usage-fill" id="ai-usage-fill" style="width:0%"></div></div>
+        <div class="ai-usage-meta" id="ai-usage-updated">갱신 전</div>
       </div>
       <div class="sb-status">
         <div style="font-size:10px;font-weight:700;color:var(--text3);margin-bottom:7px">연결 상태</div>
@@ -406,25 +429,28 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
 
     <div class="page" id="page-cases">
       <div style="background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:var(--cyan);margin-bottom:16px">📦 제목에서 케이스 번호(7자리 이상 순수 숫자)를 자동 파싱합니다.</div>
+      <div class="filter-row">
+        <input id="case-q" placeholder="케이스 번호 / 제목 검색..." oninput="PAGE_STATE.cases=1;renderCases()">
+        <select id="case-stat" onchange="PAGE_STATE.cases=1;renderCases()">
+          <option value="">전체 상태</option><option>완료</option><option>진행 중</option><option>미해결</option>
+        </select>
+        <select id="case-ass" onchange="PAGE_STATE.cases=1;renderCases()">
+          <option value="">전체 담당자</option>
+        </select>
+        <select id="case-sla" onchange="PAGE_STATE.cases=1;renderCases()">
+          <option value="">전체 경과</option>
+          <option value="7">7일 이상</option>
+          <option value="5">5일 이상</option>
+          <option value="3">3일 이상</option>
+        </select>
+        <select id="case-pg" class="page-size-select" onchange="changePageSize('cases',this.value);renderCases()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select>
+        <button class="filter-reset" onclick="resetCaseFilters()">✕ 초기화</button>
+        <span class="filter-count" id="case-count">0건</span>
+      </div>
       <div class="two-col">
         <div>
-          <div class="filter-row">
-            <input id="case-q" placeholder="케이스 번호 / 제목 검색..." oninput="renderCases()">
-            <select id="case-stat" onchange="renderCases()" style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:7px 10px;color:var(--text);font-size:12px;outline:none">
-              <option value="">전체 상태</option><option>완료</option><option>진행 중</option><option>미해결</option>
-            </select>
-            <select id="case-ass" onchange="renderCases()" style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:7px 10px;color:var(--text);font-size:12px;outline:none">
-              <option value="">전체 담당자</option>
-            </select>
-            <select id="case-sla" onchange="renderCases()" style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:7px 10px;color:var(--text);font-size:12px;outline:none">
-              <option value="">전체 경과</option>
-              <option value="7">7일 이상</option>
-              <option value="5">5일 이상</option>
-              <option value="3">3일 이상</option>
-            </select>
-            <span class="filter-count" id="case-count">0건</span>
-          </div>
-          <div class="list-toolbar"><span class="muted" id="case-page-count"></span><select id="case-pg" onchange="changePageSize('cases',this.value);renderCases()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select></div><div id="case-list"></div><div id="case-pager" class="pager"></div>
+          <div id="case-list" class="issue-list"></div>
+          <div id="case-pager" class="pager"></div>
         </div>
         <div id="case-right"><div class="rpanel"><div class="rp-empty"><p style="font-size:13px;color:var(--text3)">케이스를 선택하세요</p></div></div></div>
       </div>
@@ -432,19 +458,18 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
 
     <!-- CUSTOMERS -->
     <div class="page" id="page-customers">
-      <div style="display:flex;gap:8px;margin-bottom:14px;align-items:center;flex-wrap:wrap">
-        <input id="cust-q" placeholder="고객사 검색..." oninput="renderCustomers()"
-          style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:8px 14px;color:#f0f4ff;font-size:12px;flex:1;min-width:200px;font-family:inherit;outline:none">
-        <select id="cust-prod" onchange="renderCustomers()"
-          style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:8px 12px;color:#f0f4ff;font-size:12px;outline:none">
+      <div class="filter-row">
+        <input id="cust-q" placeholder="고객사 검색..." oninput="PAGE_STATE.customers=1;renderCustomers()">
+        <select id="cust-prod" onchange="PAGE_STATE.customers=1;renderCustomers()">
           <option value="">전체 제품</option>
         </select>
+        <select id="cust-pg" class="page-size-select" onchange="changePageSize('customers',this.value);renderCustomers()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select>
+        <button class="filter-reset" onclick="resetCustomerFilters()">✕ 초기화</button>
         <span class="filter-count" id="cust-count">0개 고객사</span>
       </div>
       <div class="two-col">
         <div>
-          <div class="list-toolbar"><span class="muted" id="cust-page-count"></span><select id="cust-pg" onchange="changePageSize('customers',this.value);renderCustomers()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select></div>
-          <div id="cust-list" style="display:flex;flex-direction:column;gap:6px"></div>
+          <div id="cust-list" class="issue-list"></div>
           <div id="cust-pager" class="pager"></div>
         </div>
         <div id="cust-right">
@@ -455,12 +480,16 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
 
     <div class="page" id="page-eos">
       <div style="background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:var(--warn);margin-bottom:16px">⏰ EOS / 라이선스 만료 관리. 만료 임박 항목은 로그인 시 강조됩니다. <span onclick="showStorageInfo('eos')" title="데이터 저장 안내" style="cursor:pointer;opacity:.6;font-size:13px">ℹ</span></div>
-      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center">
+      <div class="action-row">
         <button class="btn btn-indigo" onclick="openEosModal()" style="width:auto;padding:9px 18px">+ 신규 등록</button>
-        <select id="eos-type-filter" onchange="renderEosList()" style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 12px;color:var(--text);font-size:12px;outline:none">
-          <option value="">전체</option><option value="eos">EOS만</option><option value="license">라이선스만</option>
+      </div>
+      <div class="filter-row">
+        <input id="eos-q" placeholder="검색 (고객사/제품/버전)..." oninput="PAGE_STATE.eos=1;renderEosList()">
+        <select id="eos-type-filter" onchange="PAGE_STATE.eos=1;renderEosList()">
+          <option value="">전체 유형</option><option value="eos">EOS만</option><option value="license">라이선스만</option>
         </select>
-        <input id="eos-q" placeholder="검색 (고객사/제품/버전)..." oninput="renderEosList()" style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:7px 12px;color:var(--text);font-size:12px;flex:1;min-width:200px;font-family:inherit;outline:none">
+        <select id="eos-pg" class="page-size-select" onchange="changePageSize('eos',this.value);renderEosList()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select>
+        <button class="filter-reset" onclick="resetEosFilters()">✕ 초기화</button>
         <span class="filter-count" id="eos-count">0건</span>
       </div>
       <table class="eos-table">
@@ -477,7 +506,7 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
           </td></tr>
         </tbody>
       </table>
-      <div class="list-toolbar"><span class="muted" id="eos-page-count"></span><select id="eos-pg" onchange="changePageSize('eos',this.value);renderEosList()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select></div><div id="eos-pager" class="pager"></div>
+      <div id="eos-pager" class="pager"></div>
     </div>
 
     <div class="page" id="page-log">
@@ -522,11 +551,17 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
 
     <div class="page" id="page-links">
       <div style="background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:var(--cyan);margin-bottom:16px">🔗 자주 접근하는 업무용 링크 모음. 누구나 등록·수정·삭제할 수 있어요. <span onclick="showStorageInfo('links')" title="데이터 저장 안내" style="cursor:pointer;opacity:.6;font-size:13px">ℹ</span></div>
-      <div style="display:flex;gap:8px;margin-bottom:14px;align-items:center">
+      <div class="action-row">
         <button class="btn btn-indigo" id="links-add-btn" onclick="openLinkModal()" style="width:auto;padding:9px 18px">+ 링크 등록</button>
-        <input id="links-q" placeholder="검색..." oninput="renderLinks()" style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:7px 12px;color:var(--text);font-size:12px;flex:1;font-family:inherit;outline:none">
       </div>
-      <div class="list-toolbar"><span class="muted" id="links-count">0건</span><select id="links-pg" onchange="changePageSize('links',this.value);renderLinks()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select></div><div id="links-grid" class="link-grid"></div><div id="links-pager" class="pager"></div>
+      <div class="filter-row">
+        <input id="links-q" placeholder="검색..." oninput="PAGE_STATE.links=1;renderLinks()">
+        <select id="links-pg" class="page-size-select" onchange="changePageSize('links',this.value);renderLinks()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select>
+        <button class="filter-reset" onclick="resetLinkFilters()">✕ 초기화</button>
+        <span class="filter-count" id="links-count">0건</span>
+      </div>
+      <div id="links-grid" class="link-grid"></div>
+      <div id="links-pager" class="pager"></div>
     </div>
 
     <!-- KNOWLEDGE -->
@@ -534,15 +569,18 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
       <div style="background:rgba(250,204,21,.08);border:1px solid rgba(250,204,21,.25);border-radius:12px;padding:12px 16px;font-size:12px;color:#fde68a;margin-bottom:16px">
         💡 팀 노하우 게시판 — Known Issue, 워크어라운드, KB 링크를 팀원 누구나 공유할 수 있습니다.
       </div>
-      <div style="display:flex;gap:8px;margin-bottom:14px;align-items:center;flex-wrap:wrap">
+      <div class="action-row">
         <button class="btn btn-indigo" onclick="openKnowledgeModal()" style="width:auto;padding:9px 18px">+ 노하우 등록</button>
-        <select id="know-prod" onchange="renderKnowledge()" style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:8px 12px;color:#f0f4ff;font-size:12px;outline:none">
+      </div>
+      <div class="filter-row">
+        <input id="know-q" placeholder="검색..." oninput="PAGE_STATE.knowledge=1;renderKnowledge()">
+        <select id="know-prod" onchange="PAGE_STATE.knowledge=1;renderKnowledge()">
           <option value="">전체 제품</option>
           <option value="SEP">SEP</option><option value="SEPM">SEPM</option><option value="DLP">DLP</option>
           <option value="PP">PP</option><option value="ProxySG">ProxySG</option>
           <option value="CloudSWG">CloudSWG</option><option value="CASB">CASB</option><option value="기타">기타</option>
         </select>
-        <select id="know-cat" onchange="renderKnowledge()" style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:8px 12px;color:#f0f4ff;font-size:12px;outline:none">
+        <select id="know-cat" onchange="PAGE_STATE.knowledge=1;renderKnowledge()">
           <option value="">전체 분류</option>
           <option value="Known Issue">Known Issue</option>
           <option value="워크어라운드">워크어라운드</option>
@@ -550,26 +588,28 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
           <option value="KB/문서">KB/문서</option>
           <option value="팁">팁</option>
         </select>
-        <input id="know-q" placeholder="검색..." oninput="renderKnowledge()" style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:8px 12px;color:#f0f4ff;font-size:12px;flex:1;font-family:inherit;outline:none">
+        <select id="know-pg" class="page-size-select" onchange="changePageSize('knowledge',this.value);renderKnowledge()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select>
+        <button class="filter-reset" onclick="resetKnowledgeFilters()">✕ 초기화</button>
         <span class="filter-count" id="know-count">0건</span>
       </div>
-      <div class="list-toolbar"><span class="muted" id="know-page-count"></span><select id="know-pg" onchange="changePageSize('knowledge',this.value);renderKnowledge()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select></div><div id="knowledge-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px"></div><div id="know-pager" class="pager"></div>
+      <div id="knowledge-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px"></div>
+      <div id="know-pager" class="pager"></div>
     </div>
 
     <div class="page" id="page-audit">
       <div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:12px;padding:12px 16px;font-size:12px;color:#fca5a5;margin-bottom:16px">🔒 관리자 전용 감사 로그 <span onclick="showStorageInfo('audit')" title="데이터 저장 안내" style="cursor:pointer;opacity:.6;font-size:13px">ℹ</span></div>
-      <div style="display:flex;gap:8px;margin-bottom:14px;align-items:center;flex-wrap:wrap">
-        <select id="audit-filter" onchange="loadAudit()" style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 12px;color:var(--text);font-size:12px;outline:none">
-          <option value="">전체</option><option value="LOGIN">로그인</option><option value="AI_REQUEST">AI 요청</option>
+      <div class="filter-row">
+        <select id="audit-filter" onchange="loadAudit()">
+          <option value="">전체 유형</option><option value="LOGIN">로그인</option><option value="AI_REQUEST">AI 요청</option>
           <option value="VT_LOOKUP">VT 조회</option><option value="ADMIN_CHANGE">권한 변경</option>
           <option value="CONFIG_CHANGE">설정 변경</option><option value="LINK_ADD">링크 등록</option>
           <option value="EOS_ADD">EOS 등록</option>
         </select>
-        <select id="audit-limit" onchange="loadAudit()" style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 12px;color:var(--text);font-size:12px;outline:none">
+        <select id="audit-limit" class="page-size-select" onchange="loadAudit()">
           <option value="10" selected>10건</option><option value="20">20건</option><option value="30">30건</option><option value="50">50건</option><option value="100">100건</option><option value="200">200건</option>
         </select>
         <button onclick="loadAudit()" class="btn btn-ghost" style="width:auto;padding:7px 14px">새로고침</button>
-        <span id="audit-count" style="font-size:12px;color:var(--text3);margin-left:auto"></span>
+        <span id="audit-count" class="filter-count"></span>
       </div>
       <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden">
         <table class="audit-table">
@@ -656,7 +696,8 @@ const PAGE_SIZES={issues:10,cases:10,customers:10,eos:10,links:10,knowledge:10,v
 const PAGE_STATE={issues:1,cases:1,customers:1,eos:1,links:1,knowledge:1,vt:1};
 let SYNC_META=null;
 function changePageSize(scope,val){PAGE_SIZES[scope]=parseInt(val,10)||10;PAGE_STATE[scope]=1;if(scope==='issues')PAGE=1;}
-function sliceForPage(items,scope){const page=PAGE_STATE[scope]||1,size=PAGE_SIZES[scope]||10;return items.slice((page-1)*size,page*size);}
+function sliceForPage(items,scope){const size=PAGE_SIZES[scope]||10;const pages=Math.max(1,Math.ceil(items.length/size));let page=PAGE_STATE[scope]||1;if(page<1)page=1;if(page>pages)page=pages;PAGE_STATE[scope]=page;return items.slice((page-1)*size,page*size);}
+function pageCountText(scope,total,unit='건'){const size=PAGE_SIZES[scope]||10;const pages=Math.max(1,Math.ceil(total/size));const page=PAGE_STATE[scope]||1;return `${total}${unit} (${page}/${pages})`;}
 function renderPager(id,scope,total,renderFn){
   const el=document.getElementById(id);if(!el)return;
   const size=PAGE_SIZES[scope]||10;const pages=Math.max(1,Math.ceil(total/size));
@@ -753,34 +794,64 @@ function forceLogout(){localStorage.removeItem('engr_user');localStorage.removeI
 function logout(){if(!confirm('로그아웃 하시겠어요?'))return;forceLogout();}
 
 // ── AI 사용량 ──────────────────────────────────────
-async function loadAIUsage(){
-  const todayEl=document.getElementById('ai-today');
-  const monthEl=document.getElementById('ai-month');
+function setAIUsageText(id,text){const el=document.getElementById(id);if(el)el.textContent=text;}
+function fmtUsageCount(v){return `${Number(v||0)}회`;}
+function fmtClock(ts){
+  try{return new Date(ts||Date.now()).toLocaleTimeString('ko-KR',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'});}catch{return '-';}
+}
+function setAIUsageLoading(){
+  setAIUsageText('ai-usage-state','계산 중');
+  ['ai-my-today','ai-my-month','ai-team-today','ai-team-month','ai-success-month','ai-fail-month'].forEach(id=>setAIUsageText(id,'계산 중...'));
+  setAIUsageText('ai-usage-updated','조회 중...');
+  const fill=document.getElementById('ai-usage-fill');if(fill){fill.style.width='0%';fill.style.background='';}
+}
+function applyAIUsage(usage){
+  const me=usage.me||{};
+  const team=usage.team||usage||{};
+  setAIUsageText('ai-usage-state','갱신됨');
+  setAIUsageText('ai-my-today',fmtUsageCount(me.today));
+  setAIUsageText('ai-my-month',fmtUsageCount(me.month));
+  setAIUsageText('ai-team-today',fmtUsageCount(team.today));
+  setAIUsageText('ai-team-month',fmtUsageCount(team.month));
+  setAIUsageText('ai-success-month',fmtUsageCount(team.successMonth));
+  setAIUsageText('ai-fail-month',fmtUsageCount(team.failMonth));
+  setAIUsageText('ai-usage-updated',`갱신 ${fmtClock(usage.asOf)} · ${usage.timezone||'Asia/Seoul'}`);
   const fill=document.getElementById('ai-usage-fill');
+  if(fill){
+    const pct=Math.min(Math.round(Number(team.today||0)/200*100),100);
+    fill.style.width=pct+'%';
+    fill.style.background=pct>80?'#ef4444':pct>50?'#fbbf24':'';
+  }
+}
+async function loadAIUsage(options={}){
+  const silent=!!options.silent;
+  if(!silent)setAIUsageLoading();
   try{
     const r=await fetch(`${WORKERS}/kv/usage`,{headers:{'X-User':encUser(CURRENT_USER)}});
     if(!r.ok)throw new Error('usage endpoint unavailable');
     const usage=await r.json();
-    const tc=Number(usage.today||0), mc=Number(usage.month||0);
-    if(todayEl)todayEl.textContent=tc+'회';
-    if(monthEl)monthEl.textContent=mc+'회';
-    const pct=Math.min(Math.round(tc/200*100),100);
-    if(fill){fill.style.width=pct+'%';fill.style.background=pct>80?'#ef4444':pct>50?'#fbbf24':'';}
+    applyAIUsage(usage);
   }catch{
     try{
-      const r=await fetch(`${WORKERS}/kv/audit?filter=AI_REQUEST&limit=200`,{headers:{'X-User':encUser(CURRENT_USER)}});
+      const r=await fetch(`${WORKERS}/kv/audit?filter=AI_REQUEST&limit=500`,{headers:{'X-User':encUser(CURRENT_USER)}});
       const items=r.ok?await r.json():[];
       const now=kstDayParts();
       const kst=a=>kstDayParts(new Date(a.tsNum||a.ts||Date.now()));
-      const tc=items.filter(a=>kst(a).day===now.day).length;
-      const mc=items.filter(a=>kst(a).month===now.month).length;
-      if(todayEl)todayEl.textContent=tc+'회';
-      if(monthEl)monthEl.textContent=mc+'회';
-      if(fill)fill.style.width=Math.min(Math.round(tc/200*100),100)+'%';
+      const isMine=a=>(a.user||'')===CURRENT_USER;
+      const todayItems=items.filter(a=>kst(a).day===now.day);
+      const monthItems=items.filter(a=>kst(a).month===now.month);
+      applyAIUsage({
+        timezone:'Asia/Seoul',
+        asOf:new Date().toISOString(),
+        me:{today:todayItems.filter(isMine).length,month:monthItems.filter(isMine).length},
+        team:{today:todayItems.length,month:monthItems.length,successMonth:0,failMonth:0}
+      });
+      setAIUsageText('ai-usage-updated',`갱신 ${fmtClock()} · 감사 로그 기준`);
     }catch{
-      if(todayEl)todayEl.textContent='0회';
-      if(monthEl)monthEl.textContent='0회';
-      if(fill)fill.style.width='0%';
+      setAIUsageText('ai-usage-state','오류');
+      ['ai-my-today','ai-my-month','ai-team-today','ai-team-month','ai-success-month','ai-fail-month'].forEach(id=>setAIUsageText(id,'0회'));
+      setAIUsageText('ai-usage-updated','사용량 조회 실패');
+      const fill=document.getElementById('ai-usage-fill');if(fill)fill.style.width='0%';
     }
   }
 }
@@ -823,6 +894,26 @@ function resetFilters(){
     if(el)el.value='';
   });
   PAGE=1;renderIssues();
+}
+function resetCaseFilters(){
+  ['case-q','case-stat','case-ass','case-sla'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  PAGE_STATE.cases=1;renderCases();
+}
+function resetCustomerFilters(){
+  ['cust-q','cust-prod'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  PAGE_STATE.customers=1;renderCustomers();
+}
+function resetEosFilters(){
+  ['eos-q','eos-type-filter'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  PAGE_STATE.eos=1;renderEosList();
+}
+function resetLinkFilters(){
+  const el=document.getElementById('links-q');if(el)el.value='';
+  PAGE_STATE.links=1;renderLinks();
+}
+function resetKnowledgeFilters(){
+  ['know-q','know-prod','know-cat'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  PAGE_STATE.knowledge=1;renderKnowledge();
 }
 function renderFilterTags(){
   const tags=[];
@@ -1401,12 +1492,11 @@ function renderCases(){
     if(cSla&&daysSince(c.date)<cSla)return false;
     return true;
   });
-  document.getElementById('case-count').textContent=cases.length+'건';
-  const pageCount=document.getElementById('case-page-count');if(pageCount)pageCount.textContent=`총 ${cases.length}건 · ${PAGE_SIZES.cases}건씩 표시`;
   const cAssEl=document.getElementById('case-ass');
   if(cAssEl){const allCases=getCases();const assignees=[...new Set(allCases.map(c=>c.assignee).filter(a=>a&&a!=='-'))].sort();const curAss=cAssEl.value;cAssEl.innerHTML='<option value="">전체 담당자</option>'+assignees.map(a=>`<option ${a===curAss?'selected':''}>${escapeHtml(a)}</option>`).join('');}
   const wrap=document.getElementById('case-list');
   const pageCases=sliceForPage(cases,'cases');
+  document.getElementById('case-count').textContent=pageCountText('cases',cases.length);
   if(!pageCases.length){wrap.innerHTML=`<div style="text-align:center;padding:40px;color:var(--text3);font-size:13px">케이스 번호가 포함된 이슈가 없습니다</div>`;renderPager('case-pager','cases',cases.length,'renderCases');return;}
   wrap.innerHTML=pageCases.map((c,idx)=>{const days=daysSince(c.date);const slaBg=days>=7?'rgba(248,113,113,.2)':days>=5?'rgba(251,191,36,.2)':days>=3?'rgba(251,191,36,.12)':'rgba(34,211,165,.15)';const slaColor=days>=7?'#f87171':days>=5?'#fbbf24':days>=3?'#fbbf24':'#22d3a5';const sc=SC[c.status]||'#94a3b8';let t=c.title.replace(new RegExp('\[?\s*'+c.caseNum+'\s*\]?'),'').replace(/\[\s*\]/g,'').replace(/\s+/g,' ').trim();return `<div class="case-card${CASE_SEL&&CASE_SEL.caseNum===c.caseNum&&CASE_SEL.key===c.key?' selected':''}" style="--lc:${sc}" data-idx="${idx}"><div class="irow-top"><span class="case-num">📦 ${c.caseNum}</span><span class="badge" style="background:${sc}22;color:${sc}">${c.status}</span><span class="sla-badge" style="background:${slaBg};color:${slaColor}">${days}일 경과</span><span class="ititle">${escapeHtml(t)}</span><span class="imeta">${escapeHtml(c.customer||'-')}</span></div><div class="irow-bot">${c.labels.map(l=>`<span class="badge" style="background:${labelColor(l)}22;color:${labelColor(l)}">${escapeHtml(l)}</span>`).join('')}<span class="imeta">@${escapeHtml(c.assignee)}</span><span class="imeta">${fd(c.date)}</span></div></div>`;}).join('');
   wrap.querySelectorAll('.case-card').forEach((el,idx)=>{el.onclick=()=>{CASE_SEL=pageCases[idx];renderCases();renderCaseRight();};});
@@ -1560,9 +1650,8 @@ function renderEosList(){
     const db=b.expireDate?new Date(b.expireDate).getTime():Infinity;
     return da-db;
   });
-  document.getElementById('eos-count').textContent=list.length+'건';
-  const pageCount=document.getElementById('eos-page-count');if(pageCount)pageCount.textContent=`총 ${list.length}건 · ${PAGE_SIZES.eos}건씩 표시`;
   const pageList=sliceForPage(list,'eos');
+  document.getElementById('eos-count').textContent=pageCountText('eos',list.length);
   const tbody=document.getElementById('eos-tbody');
   if(!pageList.length){tbody.innerHTML=`<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--text3)">등록된 항목이 없습니다</td></tr>`;renderPager('eos-pager','eos',list.length,'renderEosList');return;}
   tbody.innerHTML=pageList.map(it=>{
@@ -1682,8 +1771,8 @@ async function loadLinks(){
 function renderLinks(){
   const q=(document.getElementById('links-q')||{}).value?.toLowerCase()||'';
   const list=LINKS.filter(l=>!q||(l.title||'').toLowerCase().includes(q)||(l.desc||'').toLowerCase().includes(q)||(l.url||'').toLowerCase().includes(q)||(l.category||'').toLowerCase().includes(q));
-  const cnt=document.getElementById('links-count');if(cnt)cnt.textContent=`총 ${list.length}건 · ${PAGE_SIZES.links}건씩 표시`;
   const pageLinks=sliceForPage(list,'links');
+  const cnt=document.getElementById('links-count');if(cnt)cnt.textContent=pageCountText('links',list.length);
   const wrap=document.getElementById('links-grid');
   if(!pageLinks.length){wrap.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text3);font-size:13px">등록된 링크가 없습니다</div>`;renderPager('links-pager','links',list.length,'renderLinks');return;}
   wrap.innerHTML=pageLinks.map(l=>`<div class="link-card" onclick="window.open('${escapeHtml(normalizeExternalUrl(l.url))}','_blank')"><div style="position:absolute;top:8px;right:8px;display:flex;gap:4px;opacity:0;transition:opacity .15s" class="link-actions"><button onclick="event.stopPropagation();openLinkEditModal('${l.id}')" style="background:var(--card2);border:1px solid var(--border2);border-radius:6px;color:var(--text3);cursor:pointer;font-size:10px;padding:2px 8px;font-family:inherit">✎</button><button onclick="event.stopPropagation();deleteLink('${l.id}')" style="background:var(--card2);border:1px solid var(--border2);border-radius:6px;color:var(--danger);cursor:pointer;font-size:12px;padding:2px 7px;font-family:inherit">×</button></div><span class="link-cat">${escapeHtml(l.category||'기타')}</span><div class="link-title">${escapeHtml(l.title||'')}</div>${l.desc?`<div class="link-desc">${escapeHtml(l.desc)}</div>`:''}<div class="link-url">${escapeHtml(l.url||'')}</div><div class="link-meta"><span>by ${escapeHtml(l.createdBy||'-')}</span><span>${l.createdAt?fd(l.createdAt):''}</span></div></div>`).join('');
@@ -1920,7 +2009,7 @@ function renderVTHistory(){
   if(!wrap)return;
   if(!VT_HISTORY.length){wrap.innerHTML='';return;}
   const pageHistory=sliceForPage(VT_HISTORY,'vt');
-  wrap.innerHTML=`<div class="list-toolbar"><span class="muted">최근 조회 이력 ${VT_HISTORY.length}건 · ${PAGE_SIZES.vt}건씩 표시</span><select onchange="changePageSize(\'vt\',this.value);renderVTHistory()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select></div>
+  wrap.innerHTML=`<div class="filter-row"><span class="filter-count" style="margin-left:0">최근 조회 이력 ${pageCountText('vt',VT_HISTORY.length)}</span><select class="page-size-select" onchange="changePageSize(\'vt\',this.value);renderVTHistory()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select></div>
   ${pageHistory.map(h=>{
     const c=h.mal>=5?'#f87171':h.mal>=1?'#fbbf24':'#22d3a5';
     const bg=h.mal>=5?'rgba(248,113,113,.15)':h.mal>=1?'rgba(251,191,36,.15)':'rgba(34,211,165,.15)';
@@ -2146,14 +2235,13 @@ function renderCustomers(){
   let custs=buildCustomers();
   if(q)custs=custs.filter(c=>c.name.toLowerCase().includes(q));
   if(prod)custs=custs.filter(c=>c.products.has(prod));
-  document.getElementById("cust-count").textContent=custs.length+"개 고객사";
-  const pageCount=document.getElementById("cust-page-count");if(pageCount)pageCount.textContent=`총 ${custs.length}개 · ${PAGE_SIZES.customers}건씩 표시`;
   const allProds=new Set();
   buildCustomers().forEach(c=>c.products.forEach(p=>allProds.add(p)));
   const pdSel=document.getElementById("cust-prod");
   if(pdSel){const cur=pdSel.value;pdSel.innerHTML='<option value="">전체 제품</option>'+Array.from(allProds).sort().map(p=>`<option ${p===cur?"selected":""}>${p}</option>`).join("");}
   const wrap=document.getElementById("cust-list");
   const pageCusts=sliceForPage(custs,'customers');
+  document.getElementById("cust-count").textContent=pageCountText('customers',custs.length,'개');
   if(!pageCusts.length){wrap.innerHTML=`<div style="text-align:center;padding:40px;color:var(--text3);font-size:13px">Jira 동기화 후 자동 집계됩니다</div>`;renderPager('cust-pager','customers',custs.length,'renderCustomers');return;}
   wrap.innerHTML=pageCusts.map((c,idx)=>{
     const done=c.issues.filter(i=>i.status==="완료").length;
