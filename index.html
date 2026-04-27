@@ -607,6 +607,14 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
         </div>
       </div>
       <div class="admin-card">
+        <h3>📥 초기 데이터</h3>
+        <p style="font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.7">
+          SEP, DLP, ProxySG 관련 Broadcom KB 및 포털 링크 <strong style="color:#f0f4ff">30건</strong>을 업무 링크에 자동 등록합니다.<br>
+          최초 세팅 시 한 번만 실행하세요. (중복 체크 없음)
+        </p>
+        <button id="kb-seed-btn" class="btn btn-green" onclick="importKBSeed()" style="width:auto;padding:10px 20px">📥 KB 초기 데이터 가져오기 (30건)</button>
+      </div>
+      <div class="admin-card">
         <h3>ℹ 권한 안내</h3>
         <div style="font-size:12px;color:var(--text2);line-height:2">
           <div>• <strong>일반 사용자</strong> — 대시보드, 이슈, 케이스 트래커, EOS, 로그 분석, VT, 업무 링크 (등록/수정/삭제 포함)</div>
@@ -2244,6 +2252,142 @@ function showStorageInfo(tab){
   };
   if(!info[tab])return;
   openGenModal("📦 데이터 저장 안내",`<div style="font-size:13px;color:var(--text2);line-height:2.2">${info[tab]}</div>`,"<button class='btn btn-ghost' onclick='closeGenModal()' style='width:auto;padding:8px 18px'>닫기</button>");
+}
+
+
+// ── KB 시드 데이터 자동 등록 ─────────────────────────────
+const KB_SEED = [
+  // ── SEP/SEPM ──────────────────────────────────────────
+  {category:'KB-SEP', title:'Versions, system requirements, release dates - SEP/SES 14.3.x',
+   url:'https://knowledge.broadcom.com/external/article/154575',
+   desc:'SEP 14.3.x 버전별 릴리스 날짜, 빌드번호, 시스템 요구사항, RU별 수정사항 종합'},
+  {category:'KB-SEP', title:'Versions, system requirements, release dates - SEP/SES 16.x',
+   url:'https://knowledge.broadcom.com/external/article/397614',
+   desc:'SEP 16.x 버전별 릴리스 날짜, 빌드번호, 시스템 요구사항'},
+  {category:'KB-SEP', title:'New fixes and component versions in SEP 14.3 RU10',
+   url:'https://knowledge.broadcom.com/external/article/386578',
+   desc:'SEP 14.3 RU10 (14.3.12154.10000) 수정 사항 및 컴포넌트 버전 목록'},
+  {category:'KB-SEP', title:'New fixes and component versions in SEP 14.4',
+   url:'https://knowledge.broadcom.com/external/article/430629',
+   desc:'SEP 14.4 (14.4.115.0000) 수정 사항 및 컴포넌트 버전 목록'},
+  {category:'KB-SEP', title:"What's new for all releases of Symantec Endpoint Protection 14.x",
+   url:'https://knowledge.broadcom.com/external/article/185214',
+   desc:'SEP 14.x 전 릴리스 신규 기능 요약'},
+  {category:'KB-SEP', title:'Windows compatibility with Symantec Endpoint Protection clients',
+   url:'https://knowledge.broadcom.com/external/article/163625',
+   desc:'Windows OS별 SEP 클라이언트 호환성 매트릭스 (Windows 10/11/Server 포함)'},
+  {category:'KB-SEP', title:'Product guides for Symantec Endpoint Protection',
+   url:'https://knowledge.broadcom.com/external/article/185213',
+   desc:'SEP 전 버전 설치 가이드, 관리 가이드, 릴리스 노트 다운로드 링크'},
+  {category:'KB-SEP', title:'End of Service dates for Symantec Endpoint Protection',
+   url:'https://support.broadcom.com/web/ecx/support-content-notification/-/external/content/product-advisories/End-of-Service-Dates-for-Symantec-Endpoint-Protection/7637',
+   desc:'SEP 버전별 EOS 날짜 공식 표'},
+  {category:'KB-SEP', title:'Download the latest version of Endpoint Protection',
+   url:'https://knowledge.broadcom.com/external/article/157395',
+   desc:'SEP 최신 버전 다운로드 방법 및 Broadcom 포털 접근 가이드'},
+  {category:'KB-SEP', title:'SEP CVE/취약점 보안 권고 포털',
+   url:'https://knowledge.broadcom.com/external/article/225891',
+   desc:'Broadcom/Symantec 제품 CVE, 취약점, 보안 권고 통합 검색 포털'},
+
+  // ── DLP ──────────────────────────────────────────────
+  {category:'KB-DLP', title:'End of Service dates for Symantec Data Loss Prevention',
+   url:'https://support.broadcom.com/web/ecx/support-content-notification/-/external/content/product-advisories/End-of-Service-dates-for-Symantec-Data-Loss-Prevention/16164',
+   desc:'DLP 버전별 EOS 날짜 공식 표 (16.0, 16.1, 25.1 등)'},
+  {category:'KB-DLP', title:'DLP Endpoint Agent build numbers and latest hotfix information',
+   url:'https://knowledge.broadcom.com/external/article/185118',
+   desc:'DLP 에이전트 브랜치별 최신 빌드번호 및 핫픽스 정보 (16.0 RU1 MP1 등)'},
+  {category:'KB-DLP', title:'Symantec Data Loss Prevention - Release types',
+   url:'https://knowledge.broadcom.com/external/article/164993',
+   desc:'DLP Major/Minor/RU/MP/Hotfix 릴리스 유형별 특성 및 업그레이드 순서'},
+  {category:'KB-DLP', title:'DLP Quick Upgrade Guides',
+   url:'https://knowledge.broadcom.com/external/article/270589',
+   desc:'DLP 버전별 업그레이드 가이드 링크 모음 (16.x → 25.1 포함)'},
+  {category:'KB-DLP', title:'High Level Steps for Upgrading DLP',
+   url:'https://knowledge.broadcom.com/external/article/247415',
+   desc:'DLP 업그레이드 전체 절차 (Oracle 포함), 주의사항, URT 실행 순서'},
+  {category:'KB-DLP', title:'DLP Release Cadence',
+   url:'https://knowledge.broadcom.com/external/article/211665',
+   desc:'DLP 릴리스 주기 및 MP 배포 일정 정책'},
+  {category:'KB-DLP', title:'You want to see a list of recent DLP Product Advisories',
+   url:'https://knowledge.broadcom.com/external/article/269358',
+   desc:'DLP 최신 제품 권고, 릴리스 공지, 크리티컬 알림 목록 찾는 방법'},
+  {category:'KB-DLP', title:'DLP CVE-2025-22228 - Spring Security 취약점 영향 여부',
+   url:'https://knowledge.broadcom.com/external/article/430578',
+   desc:'RHEL DLP Detection 서버 취약점 스캔 CVE-2025-22228 영향 분석 (2026.02)'},
+  {category:'KB-DLP', title:'DLP CVE-2025-41249 - Spring Framework 취약점 영향 여부',
+   url:'https://knowledge.broadcom.com/external/article/417005',
+   desc:'DLP spring-web CVE-2025-41249 취약점 영향 여부 분석'},
+  {category:'KB-DLP', title:'DLP CVE-2025-21587 - AdoptOpenJRE 취약점 영향 여부',
+   url:'https://knowledge.broadcom.com/external/article/404445',
+   desc:'Enforce 서버 CVE-2025-21587 취약점 영향 없음 공식 확인'},
+  {category:'KB-DLP', title:'DLP CVE-2025-22233 - Spring 취약점 영향 여부',
+   url:'https://knowledge.broadcom.com/external/article/404795',
+   desc:'DLP CVE-2025-22233 비영향 확인'},
+  {category:'KB-DLP', title:'Is DLP vulnerable to CVE-2025-48976',
+   url:'https://knowledge.broadcom.com/external/article/417030',
+   desc:'Apache Commons FileUpload CVE-2025-48976 DLP 비영향 확인'},
+
+  // ── ProxySG / Edge SWG ──────────────────────────────
+  {category:'KB-ProxySG', title:'End of life and product lifecycle for Edge SWG (ProxySG) and ASG',
+   url:'https://knowledge.broadcom.com/external/article/151102',
+   desc:'ProxySG/ASG EOL 날짜 및 2024~2026 유지보수 릴리스 일정'},
+  {category:'KB-ProxySG', title:'Edge SWG (ProxySG) - Network Web Prevent DLP integration',
+   url:'https://knowledge.broadcom.com/external/article/230914',
+   desc:'ProxySG + DLP Network Prevent ICAP 연동 트래픽 흐름, 액세스 로깅 설명'},
+  {category:'KB-ProxySG', title:'Secure ICAP between DLP detection server and ProxySG',
+   url:'https://knowledge.broadcom.com/external/article/383826',
+   desc:'DLP Detection 서버와 ProxySG 간 Secure ICAP 설정 절차'},
+  {category:'KB-ProxySG', title:'Is ISG, MC, SGOS, Reporter vulnerable to CVE-2025-32728',
+   url:'https://knowledge.broadcom.com/external/article/400771',
+   desc:'ProxySG(SGOS)/ISG/MC/CAS/Reporter CVE-2025-32728 취약점 영향 여부'},
+
+  // ── 포털 / 공통 ─────────────────────────────────────
+  {category:'포털', title:'Broadcom Support Portal',
+   url:'https://support.broadcom.com',
+   desc:'케이스 오픈, 제품 다운로드, 라이선스 관리, KB 검색 통합 포털'},
+  {category:'포털', title:'My Broadcom',
+   url:'https://my.broadcom.com',
+   desc:'Broadcom 제품 등록, 라이선스 활성화, 계정 관리'},
+  {category:'포털', title:'Broadcom Software Downloads',
+   url:'https://support.broadcom.com/group/ecx/productdownloads',
+   desc:'SEP, DLP, ProxySG 등 최신 버전 바이너리 다운로드'},
+  {category:'포털', title:'Product Lifecycle (EOS/EOL 조회)',
+   url:'https://support.broadcom.com/group/ecx/productlifecycle',
+   desc:'제품/버전별 EOS, EOL 날짜 공식 조회. Cyber Security Software 선택 후 제품명 검색'},
+  {category:'포털', title:'Broadcom CVE/Security Advisory 포털',
+   url:'https://knowledge.broadcom.com/external/article/225891',
+   desc:'Broadcom/Symantec/VMware 전 제품 CVE, 취약점, 보안 권고 통합 검색'},
+  {category:'포털', title:'VirusTotal',
+   url:'https://www.virustotal.com',
+   desc:'파일 해시(MD5/SHA1/SHA256) 악성 여부 조회'},
+  {category:'포털', title:'Symantec False Positive 신청',
+   url:'https://symsubmit.symantec.com',
+   desc:'Symantec 제품 오탐 신고 및 화이트리스트 신청 포털'},
+];
+
+async function importKBSeed(){
+  if(!confirm(`총 ${KB_SEED.length}개 KB 링크를 업무 링크에 등록합니다.\n기존 링크와 중복되는 것은 별도 체크하지 않습니다.\n\n계속하시겠어요?`))return;
+  const btn=document.getElementById('kb-seed-btn');
+  btn.disabled=true;
+  let ok=0,fail=0;
+  for(const item of KB_SEED){
+    try{
+      const r=await fetch(`${WORKERS}/links`,{
+        method:'POST',
+        headers:{'Content-Type':'application/json','X-User':encUser(CURRENT_USER)},
+        body:JSON.stringify({title:item.title,url:item.url,category:item.category,desc:item.desc})
+      });
+      const d=await r.json();
+      if(d.ok)ok++;else fail++;
+    }catch{fail++;}
+    btn.textContent=`등록 중... (${ok+fail}/${KB_SEED.length})`;
+    await new Promise(r=>setTimeout(r,120)); // rate limit 방지
+  }
+  btn.disabled=false;
+  btn.textContent=`📥 KB 초기 데이터 가져오기 (${KB_SEED.length}건)`;
+  toast(`완료: 성공 ${ok}건 / 실패 ${fail}건`);
+  await loadLinks();
+  if(document.getElementById('page-links').classList.contains('active'))renderLinks();
 }
 
 // ── AI CALL ───────────────────────────────────────
