@@ -92,6 +92,14 @@ main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
 @media(max-width:1200px){.two-col{grid-template-columns:1fr}}
 .issue-list{display:flex;flex-direction:column;gap:6px}
+.list-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 0 8px;flex-wrap:wrap}
+.list-toolbar .muted{font-size:11px;color:var(--text3)}
+.pager{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:12px;flex-wrap:wrap}
+.pager button{background:#262b40;border:1px solid var(--border2);color:var(--text2);border-radius:8px;padding:6px 10px;font-size:11px;font-family:inherit;cursor:pointer}
+.pager button:disabled{opacity:.4;cursor:not-allowed}
+.pager span{font-size:11px;color:var(--text3);font-weight:700}
+.sync-meta{margin-top:6px;font-size:10px;color:var(--text3);line-height:1.45}
+.sync-banner{background:rgba(99,102,241,.10);border:1px solid rgba(99,102,241,.22);border-radius:14px;padding:10px 12px;font-size:12px;color:var(--text2);margin-bottom:12px;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
 .irow{background:#222638;border:1px solid var(--border);border-left:3px solid var(--lc,#475569);border-radius:12px;padding:13px 15px;cursor:pointer;transition:all .15s}
 .irow:hover{background:#282d45;border-color:var(--border2);box-shadow:0 2px 12px rgba(0,0,0,.2)}
 .irow.selected{background:rgba(99,102,241,.1);border-color:var(--accent)}
@@ -305,7 +313,7 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
     <div class="sb-top">
       <div class="sb-brand">
         <div class="sb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-        <div><div class="sb-name">ENGR AI</div><div class="sb-sub">Security Hub <span style="background:rgba(99,102,241,.25);color:var(--accent3);font-size:9px;padding:1px 6px;border-radius:8px;font-weight:700;letter-spacing:.5px">v1.3</span></div></div>
+        <div><div class="sb-name">ENGR AI</div><div class="sb-sub">Security Hub <span style="background:rgba(99,102,241,.25);color:var(--accent3);font-size:9px;padding:1px 6px;border-radius:8px;font-weight:700;letter-spacing:.5px">v1.4</span></div></div>
       </div>
       <div class="sb-section">메뉴</div>
       <div class="sb-nav">
@@ -340,6 +348,7 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
         <div class="sb-status-row"><span>Jira</span><span id="jira-dot"><span class="dot dot-gray"></span>대기중</span></div>
         <div class="sb-status-row"><span>AI</span><span id="ai-dot"><span class="dot dot-gray"></span>대기중</span></div>
         <div class="sb-status-row"><span>이슈</span><span id="issue-count" style="color:var(--text2)">-</span></div>
+        <div class="sync-meta" id="jira-sync-meta">동기화 범위 확인 중...</div>
       </div>
       <button class="sb-sync-btn" onclick="syncJira()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>Jira 새로고침</button>
       <div class="session-timer" id="session-timer"></div>
@@ -381,7 +390,7 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
         <select id="f-pri" onchange="PAGE=1;renderIssues()"><option value="">전체 우선순위</option><option>Highest</option><option>High</option><option>Medium</option><option>Low</option></select>
         <select id="f-lab" onchange="PAGE=1;renderIssues()"><option value="">전체 레이블</option></select>
         <select id="f-ass" onchange="PAGE=1;renderIssues()"><option value="">전체 담당자</option></select>
-        <select id="f-pg" onchange="PAGE=1;renderIssues()"><option value="20">20개</option><option value="50">50개</option><option value="100">100개</option><option value="200">200개</option></select>
+        <select id="f-pg" onchange="PAGE=1;renderIssues()"><option value="10" selected>10개</option><option value="20">20개</option><option value="30">30개</option><option value="50">50개</option><option value="100">100개</option><option value="200">200개</option></select>
         <button onclick="resetFilters()" style="background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);border-radius:10px;padding:7px 14px;color:#e8edff;font-size:11px;cursor:pointer;font-family:inherit;white-space:nowrap;font-weight:600">✕ 초기화</button>
         <span class="filter-count" id="f-count">0건</span>
       </div>
@@ -415,7 +424,7 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
             </select>
             <span class="filter-count" id="case-count">0건</span>
           </div>
-          <div id="case-list"></div>
+          <div class="list-toolbar"><span class="muted" id="case-page-count"></span><select id="case-pg" onchange="changePageSize('cases',this.value);renderCases()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select></div><div id="case-list"></div><div id="case-pager" class="pager"></div>
         </div>
         <div id="case-right"><div class="rpanel"><div class="rp-empty"><p style="font-size:13px;color:var(--text3)">케이스를 선택하세요</p></div></div></div>
       </div>
@@ -433,7 +442,7 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
         <span class="filter-count" id="cust-count">0개 고객사</span>
       </div>
       <div class="two-col">
-        <div id="cust-list" style="display:flex;flex-direction:column;gap:6px"></div>
+        <div class="list-toolbar"><span class="muted" id="cust-page-count"></span><select id="cust-pg" onchange="changePageSize('customers',this.value);renderCustomers()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select></div><div id="cust-list" style="display:flex;flex-direction:column;gap:6px"></div><div id="cust-pager" class="pager"></div>
         <div id="cust-right">
           <div class="rpanel"><div class="rp-empty"><p style="font-size:13px;color:var(--text3)">고객사를 선택하면<br>상세 현황이 표시됩니다</p></div></div>
         </div>
@@ -464,6 +473,7 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
           </td></tr>
         </tbody>
       </table>
+      <div class="list-toolbar"><span class="muted" id="eos-page-count"></span><select id="eos-pg" onchange="changePageSize('eos',this.value);renderEosList()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select></div><div id="eos-pager" class="pager"></div>
     </div>
 
     <div class="page" id="page-log">
@@ -512,7 +522,7 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
         <button class="btn btn-indigo" id="links-add-btn" onclick="openLinkModal()" style="width:auto;padding:9px 18px">+ 링크 등록</button>
         <input id="links-q" placeholder="검색..." oninput="renderLinks()" style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:7px 12px;color:var(--text);font-size:12px;flex:1;font-family:inherit;outline:none">
       </div>
-      <div id="links-grid" class="link-grid"></div>
+      <div class="list-toolbar"><span class="muted" id="links-count">0건</span><div style="display:flex;gap:8px;align-items:center"><button class="btn btn-ghost" onclick="importRecentKBLinks()" style="width:auto;padding:8px 12px;font-size:11px">최근 5년 KB 링크 자동등록</button><select id="links-pg" onchange="changePageSize('links',this.value);renderLinks()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select></div></div><div id="links-grid" class="link-grid"></div><div id="links-pager" class="pager"></div>
     </div>
 
     <!-- KNOWLEDGE -->
@@ -539,7 +549,7 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
         <input id="know-q" placeholder="검색..." oninput="renderKnowledge()" style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:8px 12px;color:#f0f4ff;font-size:12px;flex:1;font-family:inherit;outline:none">
         <span class="filter-count" id="know-count">0건</span>
       </div>
-      <div id="knowledge-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px"></div>
+      <div class="list-toolbar"><span class="muted" id="know-page-count"></span><select id="know-pg" onchange="changePageSize('knowledge',this.value);renderKnowledge()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select></div><div id="knowledge-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px"></div><div id="know-pager" class="pager"></div>
     </div>
 
     <div class="page" id="page-audit">
@@ -552,7 +562,7 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
           <option value="EOS_ADD">EOS 등록</option>
         </select>
         <select id="audit-limit" onchange="loadAudit()" style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 12px;color:var(--text);font-size:12px;outline:none">
-          <option value="50">50건</option><option value="100" selected>100건</option><option value="200">200건</option><option value="500">500건</option>
+          <option value="10" selected>10건</option><option value="20">20건</option><option value="30">30건</option><option value="50">50건</option><option value="100">100건</option><option value="200">200건</option>
         </select>
         <button onclick="loadAudit()" class="btn btn-ghost" style="width:auto;padding:7px 14px">새로고침</button>
         <span id="audit-count" style="font-size:12px;color:var(--text3);margin-left:auto"></span>
@@ -638,6 +648,40 @@ let LINKS=[],EOS_ITEMS=[],TEAM_NAMES=[];
 let EOS_WARN_DAYS=[60,30,7];
 let LOG_FILES=[];
 
+const PAGE_SIZES={issues:10,cases:10,customers:10,eos:10,links:10,knowledge:10,vt:10};
+const PAGE_STATE={issues:1,cases:1,customers:1,eos:1,links:1,knowledge:1,vt:1};
+let SYNC_META=null;
+function changePageSize(scope,val){PAGE_SIZES[scope]=parseInt(val,10)||10;PAGE_STATE[scope]=1;if(scope==='issues')PAGE=1;}
+function sliceForPage(items,scope){const page=PAGE_STATE[scope]||1,size=PAGE_SIZES[scope]||10;return items.slice((page-1)*size,page*size);}
+function renderPager(id,scope,total,renderFn){
+  const el=document.getElementById(id);if(!el)return;
+  const size=PAGE_SIZES[scope]||10;const pages=Math.max(1,Math.ceil(total/size));
+  if((PAGE_STATE[scope]||1)>pages)PAGE_STATE[scope]=pages;
+  const page=PAGE_STATE[scope]||1;
+  if(total<=size){el.innerHTML='';return;}
+  el.innerHTML=`<button ${page<=1?'disabled':''} onclick="PAGE_STATE['${scope}']--;${renderFn}()">이전</button><span>${page} / ${pages}</span><button ${page>=pages?'disabled':''} onclick="PAGE_STATE['${scope}']++;${renderFn}()">다음</button>`;
+}
+function kstDayParts(date=new Date()){
+  const parts=new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(date);
+  const get=t=>parts.find(p=>p.type===t)?.value;
+  return {day:`${get('year')}-${get('month')}-${get('day')}`,month:`${get('year')}-${get('month')}`};
+}
+function updateSyncMeta(meta=SYNC_META){
+  SYNC_META=meta||SYNC_META||{};
+  const range=SYNC_META.rangeMonths||localStorage.getItem('jira_range_months')||'-';
+  const count=SYNC_META.count!=null?`${SYNC_META.count}건`:(ISSUES.length?`${ISSUES.length}건`:'-');
+  const when=SYNC_META.syncedAt?fdt(SYNC_META.syncedAt):'-';
+  const by=SYNC_META.syncedBy||'';
+  const text=`최근 ${range}개월 기준 · ${count} · ${when}${by?' · '+escapeHtml(by):''}`;
+  const side=document.getElementById('jira-sync-meta');if(side)side.innerHTML=text;
+  const banner=document.getElementById('jira-sync-banner');
+  if(banner){banner.style.display='flex';banner.innerHTML=`<span><b>Jira 동기화 기준</b> ${text}</span><button class="btn btn-ghost" onclick="syncJira()" style="width:auto;padding:7px 12px;font-size:11px">새로고침</button>`;}
+}
+async function loadSyncMeta(){
+  try{const r=await fetch(`${WORKERS}/config/public`);if(r.ok){const d=await r.json();if(d.rangeMonths)localStorage.setItem('jira_range_months',d.rangeMonths);updateSyncMeta(d.lastSync?{...d.lastSync,rangeMonths:d.rangeMonths}:{rangeMonths:d.rangeMonths});return;}}catch{}
+  updateSyncMeta();
+}
+
 const SC={'완료':'#22d3a5','진행 중':'#818cf8','미해결':'#94a3b8','보류':'#fbbf24'};
 const PC={'Highest':'#f87171','High':'#fb923c','Medium':'#fbbf24','Low':'#4ade80'};
 const LC_MAP={'DLP':'#f87171','PP':'#f472b6','SEP':'#22d3a5','SEPM':'#22d3a5','ProxySG':'#22d3ee','CloudSWG':'#818cf8','CASB':'#a78bfa'};
@@ -679,7 +723,7 @@ function enterApp(){
   if(IS_SUPER)document.getElementById('nav-settings').style.display='flex';
   // 링크 등록은 전체 팀원 가능
   startSessionTimer();
-  syncJira();loadAIUsage();renderVTHistory();bindFileUpload();
+  syncJira();loadAIUsage();loadSyncMeta();renderVTHistory();bindFileUpload();
   loadEOS();loadLinks();loadEosWarnDays();
 }
 function startSessionTimer(){
@@ -699,25 +743,34 @@ function logout(){if(!confirm('로그아웃 하시겠어요?'))return;forceLogou
 
 // ── AI 사용량 ──────────────────────────────────────
 async function loadAIUsage(){
+  const todayEl=document.getElementById('ai-today');
+  const monthEl=document.getElementById('ai-month');
+  const fill=document.getElementById('ai-usage-fill');
   try{
-    const r=await fetch(`${WORKERS}/kv/audit?filter=AI_REQUEST&limit=500`,{headers:{'X-User':encUser(CURRENT_USER)}});
-    if(!r.ok)return;
-    const items=await r.json();
-    const now=new Date();
-    const todayStr=now.toISOString().slice(0,10);
-    const monthStr=now.toISOString().slice(0,7);
-    const tc=items.filter(a=>(a.ts||'').startsWith(todayStr)).length;
-    const mc=items.filter(a=>(a.ts||'').startsWith(monthStr)).length;
-    document.getElementById('ai-today').textContent=tc+'회';
-    document.getElementById('ai-month').textContent=mc+'회';
+    const r=await fetch(`${WORKERS}/kv/usage`,{headers:{'X-User':encUser(CURRENT_USER)}});
+    if(!r.ok)throw new Error('usage endpoint unavailable');
+    const usage=await r.json();
+    const tc=Number(usage.today||0), mc=Number(usage.month||0);
+    if(todayEl)todayEl.textContent=tc+'회';
+    if(monthEl)monthEl.textContent=mc+'회';
     const pct=Math.min(Math.round(tc/200*100),100);
-    document.getElementById('ai-usage-fill').style.width=pct+'%';
-    document.getElementById('ai-usage-fill').style.background=pct>80?'#ef4444':pct>50?'#fbbf24':'';
+    if(fill){fill.style.width=pct+'%';fill.style.background=pct>80?'#ef4444':pct>50?'#fbbf24':'';}
   }catch{
-    // 실패해도 0회로 표시 (로그인 직후 '-' 방지)
-    document.getElementById('ai-today').textContent='0회';
-    document.getElementById('ai-month').textContent='0회';
-    document.getElementById('ai-usage-fill').style.width='0%';
+    try{
+      const r=await fetch(`${WORKERS}/kv/audit?filter=AI_REQUEST&limit=200`,{headers:{'X-User':encUser(CURRENT_USER)}});
+      const items=r.ok?await r.json():[];
+      const now=kstDayParts();
+      const kst=a=>kstDayParts(new Date(a.tsNum||a.ts||Date.now()));
+      const tc=items.filter(a=>kst(a).day===now.day).length;
+      const mc=items.filter(a=>kst(a).month===now.month).length;
+      if(todayEl)todayEl.textContent=tc+'회';
+      if(monthEl)monthEl.textContent=mc+'회';
+      if(fill)fill.style.width=Math.min(Math.round(tc/200*100),100)+'%';
+    }catch{
+      if(todayEl)todayEl.textContent='0회';
+      if(monthEl)monthEl.textContent='0회';
+      if(fill)fill.style.width='0%';
+    }
   }
 }
 
@@ -783,7 +836,7 @@ function onGlobalSearch(q){showPage('issues',document.getElementById('nav-issues
 async function syncJira(){
   document.getElementById('jira-dot').innerHTML='<span class="dot" style="background:var(--warn)"></span>동기화중...';
   try{
-    const r=await fetch(`${WORKERS}/jira/search/jql`);
+    const r=await fetch(`${WORKERS}/jira/search/jql`,{headers:{'X-User':encUser(CURRENT_USER)}});
     if(!r.ok)throw new Error('응답 오류: '+r.status);
     const d=await r.json();
     if(!d.issues)throw new Error('이슈 데이터 없음');
@@ -805,6 +858,7 @@ async function syncJira(){
     }));
     document.getElementById('jira-dot').innerHTML='<span class="dot dot-green"></span><span style="color:var(--success)">연결됨</span>';
     document.getElementById('issue-count').textContent=ISSUES.length+'건';
+    updateSyncMeta(d.sync||{rangeMonths:d.rangeMonths,count:ISSUES.length,syncedAt:new Date().toISOString(),syncedBy:CURRENT_USER});
     refreshFilters();
     renderDash();
     toast('Jira 동기화 완료! '+ISSUES.length+'건');
@@ -1337,38 +1391,15 @@ function renderCases(){
     return true;
   });
   document.getElementById('case-count').textContent=cases.length+'건';
-  // 담당자 드롭다운 갱신
+  const pageCount=document.getElementById('case-page-count');if(pageCount)pageCount.textContent=`총 ${cases.length}건 · ${PAGE_SIZES.cases}건씩 표시`;
   const cAssEl=document.getElementById('case-ass');
-  if(cAssEl){
-    const allCases=getCases();
-    const assignees=[...new Set(allCases.map(c=>c.assignee).filter(a=>a&&a!=='-'))].sort();
-    const curAss=cAssEl.value;
-    cAssEl.innerHTML='<option value="">전체 담당자</option>'+assignees.map(a=>`<option ${a===curAss?'selected':''}>${escapeHtml(a)}</option>`).join('');
-  }
+  if(cAssEl){const allCases=getCases();const assignees=[...new Set(allCases.map(c=>c.assignee).filter(a=>a&&a!=='-'))].sort();const curAss=cAssEl.value;cAssEl.innerHTML='<option value="">전체 담당자</option>'+assignees.map(a=>`<option ${a===curAss?'selected':''}>${escapeHtml(a)}</option>`).join('');}
   const wrap=document.getElementById('case-list');
-  if(!cases.length){wrap.innerHTML=`<div style="text-align:center;padding:40px;color:var(--text3);font-size:13px">케이스 번호가 포함된 이슈가 없습니다</div>`;return;}
-  wrap.innerHTML=cases.map((c,idx)=>{
-    const days=daysSince(c.date);
-    const slaBg=days>=7?'rgba(248,113,113,.2)':days>=5?'rgba(251,191,36,.2)':days>=3?'rgba(251,191,36,.12)':'rgba(34,211,165,.15)';
-    const slaColor=days>=7?'#f87171':days>=5?'#fbbf24':days>=3?'#fbbf24':'#22d3a5';
-    const sc=SC[c.status]||'#94a3b8';
-    let t=c.title.replace(new RegExp('\\[?\\s*'+c.caseNum+'\\s*\\]?'),'').replace(/\[\s*\]/g,'').replace(/\s+/g,' ').trim();
-    return `<div class="case-card${CASE_SEL&&CASE_SEL.caseNum===c.caseNum&&CASE_SEL.key===c.key?' selected':''}" style="--lc:${sc}" data-idx="${idx}">
-      <div class="irow-top">
-        <span class="case-num">📦 ${c.caseNum}</span>
-        <span class="badge" style="background:${sc}22;color:${sc}">${c.status}</span>
-        <span class="sla-badge" style="background:${slaBg};color:${slaColor}">${days}일 경과</span>
-        <span class="ititle">${escapeHtml(t)}</span>
-        <span class="imeta">${escapeHtml(c.customer||'-')}</span>
-      </div>
-      <div class="irow-bot">
-        ${c.labels.map(l=>`<span class="badge" style="background:${labelColor(l)}22;color:${labelColor(l)}">${escapeHtml(l)}</span>`).join('')}
-        <span class="imeta">@${escapeHtml(c.assignee)}</span>
-        <span class="imeta">${fd(c.date)}</span>
-      </div>
-    </div>`;
-  }).join('');
-  wrap.querySelectorAll('.case-card').forEach((el,idx)=>{el.onclick=()=>{CASE_SEL=cases[idx];renderCases();renderCaseRight();};});
+  const pageCases=sliceForPage(cases,'cases');
+  if(!pageCases.length){wrap.innerHTML=`<div style="text-align:center;padding:40px;color:var(--text3);font-size:13px">케이스 번호가 포함된 이슈가 없습니다</div>`;renderPager('case-pager','cases',cases.length,'renderCases');return;}
+  wrap.innerHTML=pageCases.map((c,idx)=>{const days=daysSince(c.date);const slaBg=days>=7?'rgba(248,113,113,.2)':days>=5?'rgba(251,191,36,.2)':days>=3?'rgba(251,191,36,.12)':'rgba(34,211,165,.15)';const slaColor=days>=7?'#f87171':days>=5?'#fbbf24':days>=3?'#fbbf24':'#22d3a5';const sc=SC[c.status]||'#94a3b8';let t=c.title.replace(new RegExp('\[?\s*'+c.caseNum+'\s*\]?'),'').replace(/\[\s*\]/g,'').replace(/\s+/g,' ').trim();return `<div class="case-card${CASE_SEL&&CASE_SEL.caseNum===c.caseNum&&CASE_SEL.key===c.key?' selected':''}" style="--lc:${sc}" data-idx="${idx}"><div class="irow-top"><span class="case-num">📦 ${c.caseNum}</span><span class="badge" style="background:${sc}22;color:${sc}">${c.status}</span><span class="sla-badge" style="background:${slaBg};color:${slaColor}">${days}일 경과</span><span class="ititle">${escapeHtml(t)}</span><span class="imeta">${escapeHtml(c.customer||'-')}</span></div><div class="irow-bot">${c.labels.map(l=>`<span class="badge" style="background:${labelColor(l)}22;color:${labelColor(l)}">${escapeHtml(l)}</span>`).join('')}<span class="imeta">@${escapeHtml(c.assignee)}</span><span class="imeta">${fd(c.date)}</span></div></div>`;}).join('');
+  wrap.querySelectorAll('.case-card').forEach((el,idx)=>{el.onclick=()=>{CASE_SEL=pageCases[idx];renderCases();renderCaseRight();};});
+  renderPager('case-pager','cases',cases.length,'renderCases');
 }
 function renderCaseRight(){
   if(!CASE_SEL)return;
@@ -1519,9 +1550,11 @@ function renderEosList(){
     return da-db;
   });
   document.getElementById('eos-count').textContent=list.length+'건';
+  const pageCount=document.getElementById('eos-page-count');if(pageCount)pageCount.textContent=`총 ${list.length}건 · ${PAGE_SIZES.eos}건씩 표시`;
+  const pageList=sliceForPage(list,'eos');
   const tbody=document.getElementById('eos-tbody');
-  if(!list.length){tbody.innerHTML=`<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--text3)">등록된 항목이 없습니다</td></tr>`;return;}
-  tbody.innerHTML=list.map(it=>{
+  if(!pageList.length){tbody.innerHTML=`<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--text3)">등록된 항목이 없습니다</td></tr>`;renderPager('eos-pager','eos',list.length,'renderEosList');return;}
+  tbody.innerHTML=pageList.map(it=>{
     const days=daysUntil(it.expireDate);
     let rowClass='',badgeBg,badgeColor,badgeText;
     if(days<0){rowClass='eos-warn';badgeBg='rgba(248,113,113,.2)';badgeColor='#f87171';badgeText='만료';}
@@ -1543,6 +1576,7 @@ function renderEosList(){
       </td>
     </tr>`;
   }).join('');
+  renderPager('eos-pager','eos',list.length,'renderEosList');
 }
 function openEosModal(){
   const today=new Date().toISOString().slice(0,10);
@@ -1637,20 +1671,12 @@ async function loadLinks(){
 function renderLinks(){
   const q=(document.getElementById('links-q')||{}).value?.toLowerCase()||'';
   const list=LINKS.filter(l=>!q||(l.title||'').toLowerCase().includes(q)||(l.desc||'').toLowerCase().includes(q)||(l.url||'').toLowerCase().includes(q)||(l.category||'').toLowerCase().includes(q));
+  const cnt=document.getElementById('links-count');if(cnt)cnt.textContent=`총 ${list.length}건 · ${PAGE_SIZES.links}건씩 표시`;
+  const pageLinks=sliceForPage(list,'links');
   const wrap=document.getElementById('links-grid');
-  if(!list.length){wrap.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text3);font-size:13px">등록된 링크가 없습니다</div>`;return;}
-  wrap.innerHTML=list.map(l=>`
-  <div class="link-card" onclick="window.open('${escapeHtml(l.url)}','_blank')">
-    <div style="position:absolute;top:8px;right:8px;display:flex;gap:4px;opacity:0;transition:opacity .15s" class="link-actions">
-      <button onclick="event.stopPropagation();openLinkEditModal('${l.id}')" style="background:var(--card2);border:1px solid var(--border2);border-radius:6px;color:var(--text3);cursor:pointer;font-size:10px;padding:2px 8px;font-family:inherit">✎</button>
-      <button onclick="event.stopPropagation();deleteLink('${l.id}')" style="background:var(--card2);border:1px solid var(--border2);border-radius:6px;color:var(--danger);cursor:pointer;font-size:12px;padding:2px 7px;font-family:inherit">×</button>
-    </div>
-    <span class="link-cat">${escapeHtml(l.category||'기타')}</span>
-    <div class="link-title">${escapeHtml(l.title||'')}</div>
-    ${l.desc?`<div class="link-desc">${escapeHtml(l.desc)}</div>`:''}
-    <div class="link-url">${escapeHtml(l.url||'')}</div>
-    <div class="link-meta"><span>by ${escapeHtml(l.createdBy||'-')}</span><span>${l.createdAt?fd(l.createdAt):''}</span></div>
-  </div>`).join('');
+  if(!pageLinks.length){wrap.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text3);font-size:13px">등록된 링크가 없습니다</div>`;renderPager('links-pager','links',list.length,'renderLinks');return;}
+  wrap.innerHTML=pageLinks.map(l=>`<div class="link-card" onclick="window.open('${escapeHtml(l.url)}','_blank')"><div style="position:absolute;top:8px;right:8px;display:flex;gap:4px;opacity:0;transition:opacity .15s" class="link-actions"><button onclick="event.stopPropagation();openLinkEditModal('${l.id}')" style="background:var(--card2);border:1px solid var(--border2);border-radius:6px;color:var(--text3);cursor:pointer;font-size:10px;padding:2px 8px;font-family:inherit">✎</button><button onclick="event.stopPropagation();deleteLink('${l.id}')" style="background:var(--card2);border:1px solid var(--border2);border-radius:6px;color:var(--danger);cursor:pointer;font-size:12px;padding:2px 7px;font-family:inherit">×</button></div><span class="link-cat">${escapeHtml(l.category||'기타')}</span><div class="link-title">${escapeHtml(l.title||'')}</div>${l.desc?`<div class="link-desc">${escapeHtml(l.desc)}</div>`:''}<div class="link-url">${escapeHtml(l.url||'')}</div><div class="link-meta"><span>by ${escapeHtml(l.createdBy||'-')}</span><span>${l.createdAt?fd(l.createdAt):''}</span></div></div>`).join('');
+  renderPager('links-pager','links',list.length,'renderLinks');
 }
 function openLinkModal(){
   if(!CURRENT_USER){toast('로그인이 필요합니다',true);return;}
@@ -1880,9 +1906,11 @@ async function vtAIAnalysis(hash,mal,total){
 }
 function renderVTHistory(){
   const wrap=document.getElementById('vt-history-wrap');
-  if(!wrap||!VT_HISTORY.length)return;
-  wrap.innerHTML=`<div class="sec-title" style="margin-bottom:8px">최근 조회 이력 (${VT_HISTORY.length})</div>
-  ${VT_HISTORY.map(h=>{
+  if(!wrap)return;
+  if(!VT_HISTORY.length){wrap.innerHTML='';return;}
+  const pageHistory=sliceForPage(VT_HISTORY,'vt');
+  wrap.innerHTML=`<div class="list-toolbar"><span class="muted">최근 조회 이력 ${VT_HISTORY.length}건 · ${PAGE_SIZES.vt}건씩 표시</span><select onchange="changePageSize(\'vt\',this.value);renderVTHistory()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select></div>
+  ${pageHistory.map(h=>{
     const c=h.mal>=5?'#f87171':h.mal>=1?'#fbbf24':'#22d3a5';
     const bg=h.mal>=5?'rgba(248,113,113,.15)':h.mal>=1?'rgba(251,191,36,.15)':'rgba(34,211,165,.15)';
     return `<div class="vt-hist-row" onclick="document.getElementById('vt-input').value='${h.hash}';vtLookup()">
@@ -1894,7 +1922,8 @@ function renderVTHistory(){
       <span style="color:var(--text3);font-size:10px">${fdt(h.ts)}</span>
       <span style="color:var(--text3);font-size:14px;cursor:pointer" onclick="event.stopPropagation();copyText('${h.hash}')" title="해시 복사">📋</span>
     </div>`;
-  }).join('')}`;
+  }).join('')}<div id="vt-pager" class="pager"></div>`;
+  renderPager('vt-pager','vt',VT_HISTORY.length,'renderVTHistory');
 }
 
 // ── MONTHLY/PATTERN ───────────────────────────────
@@ -2107,13 +2136,15 @@ function renderCustomers(){
   if(q)custs=custs.filter(c=>c.name.toLowerCase().includes(q));
   if(prod)custs=custs.filter(c=>c.products.has(prod));
   document.getElementById("cust-count").textContent=custs.length+"개 고객사";
+  const pageCount=document.getElementById("cust-page-count");if(pageCount)pageCount.textContent=`총 ${custs.length}개 · ${PAGE_SIZES.customers}건씩 표시`;
   const allProds=new Set();
   buildCustomers().forEach(c=>c.products.forEach(p=>allProds.add(p)));
   const pdSel=document.getElementById("cust-prod");
   if(pdSel){const cur=pdSel.value;pdSel.innerHTML='<option value="">전체 제품</option>'+Array.from(allProds).sort().map(p=>`<option ${p===cur?"selected":""}>${p}</option>`).join("");}
   const wrap=document.getElementById("cust-list");
-  if(!custs.length){wrap.innerHTML=`<div style="text-align:center;padding:40px;color:var(--text3);font-size:13px">Jira 동기화 후 자동 집계됩니다</div>`;return;}
-  wrap.innerHTML=custs.map((c,idx)=>{
+  const pageCusts=sliceForPage(custs,'customers');
+  if(!pageCusts.length){wrap.innerHTML=`<div style="text-align:center;padding:40px;color:var(--text3);font-size:13px">Jira 동기화 후 자동 집계됩니다</div>`;renderPager('cust-pager','customers',custs.length,'renderCustomers');return;}
+  wrap.innerHTML=pageCusts.map((c,idx)=>{
     const done=c.issues.filter(i=>i.status==="완료").length;
     const open=c.issues.filter(i=>i.status!=="완료").length;
     const rate=c.issues.length?Math.round(done/c.issues.length*100):0;
@@ -2132,6 +2163,7 @@ function renderCustomers(){
       </div>
     </div>`;
   }).join("");
+  renderPager('cust-pager','customers',custs.length,'renderCustomers');
 }
 function selectCustomer(idx,name){
   CUST_SEL=buildCustomers().find(c=>c.name===name)||buildCustomers()[idx];
@@ -2174,37 +2206,15 @@ async function loadKnowledge(){
   try{const r=await fetch(`${WORKERS}/knowledge`);const d=await r.json();KNOWLEDGE=d.items||[];}catch{}
 }
 function renderKnowledge(){
-  const q=(document.getElementById("know-q")||{}).value?.toLowerCase()||"";
-  const prod=(document.getElementById("know-prod")||{}).value||"";
-  const cat=(document.getElementById("know-cat")||{}).value||"";
-  let list=[...KNOWLEDGE].filter(k=>{
-    if(q&&!(k.title||"").toLowerCase().includes(q)&&!(k.content||"").toLowerCase().includes(q))return false;
-    if(prod&&k.product!==prod)return false;
-    if(cat&&k.category!==cat)return false;
-    return true;
-  }).sort((a,b)=>new Date(b.createdAt||0)-new Date(a.createdAt||0));
-  document.getElementById("know-count").textContent=list.length+"건";
+  const prod=document.getElementById("know-prod")?.value||"";
+  const q=(document.getElementById("know-q")?.value||"").toLowerCase();
+  let list=KNOWLEDGE.filter(k=>(!prod||k.product===prod)&&(!q||[k.title,k.content,k.category,k.link].join(" ").toLowerCase().includes(q)));
+  const cnt=document.getElementById('know-page-count');if(cnt)cnt.textContent=`총 ${list.length}건 · ${PAGE_SIZES.knowledge}건씩 표시`;
+  const pageKnowledge=sliceForPage(list,'knowledge');
   const wrap=document.getElementById("knowledge-grid");
-  if(!list.length){wrap.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text3);font-size:13px"><div style="margin-bottom:8px">💡 아직 등록된 노하우가 없습니다</div><div style="font-size:11px">Known Issue, 워크어라운드, 설정 팁 등을 자유롭게 공유해주세요</div></div>`;return;}
-  const catColors={"Known Issue":"#fc8181","워크어라운드":"#fcd34d","설치/설정":"#2de6b8","KB/문서":"#67e8f9","팁":"#c4b5fd"};
-  wrap.innerHTML=list.map(k=>`
-  <div style="background:#262d47;border:1.5px solid var(--border);border-radius:12px;padding:16px;position:relative;display:flex;flex-direction:column;gap:8px" onmouseenter="this.querySelector('.know-act').style.opacity='1'" onmouseleave="this.querySelector('.know-act').style.opacity='0'">
-    <div class="know-act" style="position:absolute;top:10px;right:10px;display:flex;gap:4px;opacity:0;transition:opacity .15s">
-      <button onclick="openKnowledgeModal('${k.id}')" style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:6px;color:#c5cee8;cursor:pointer;font-size:10px;padding:2px 8px;font-family:inherit">✎</button>
-      <button onclick="deleteKnowledge('${k.id}')" style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:6px;color:#fc8181;cursor:pointer;font-size:12px;padding:2px 7px;font-family:inherit">×</button>
-    </div>
-    <div style="display:flex;gap:6px;flex-wrap:wrap">
-      <span style="font-size:10px;padding:2px 8px;border-radius:12px;background:${(LC_MAP[k.product]||"#6366f1")}22;color:${(LC_MAP[k.product]||"#c4ceff")};font-weight:700">${escapeHtml(k.product||"기타")}</span>
-      <span style="font-size:10px;padding:2px 8px;border-radius:12px;background:rgba(255,255,255,.08);color:${catColors[k.category]||"#c4ceff"};font-weight:700">${escapeHtml(k.category||"팁")}</span>
-    </div>
-    <div style="font-size:13px;font-weight:700;color:#f0f4ff;line-height:1.4;padding-right:60px">${escapeHtml(k.title||"")}</div>
-    ${k.content?`<div style="font-size:12px;color:#c5cee8;line-height:1.7;white-space:pre-wrap">${escapeHtml(k.content)}</div>`:""}
-    ${k.link?`<a href="${escapeHtml(k.link)}" target="_blank" style="font-size:11px;color:#67e8f9;text-decoration:none">🔗 KB 링크 →</a>`:""}
-    <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between">
-      <span>by ${escapeHtml(k.updatedBy||k.createdBy||"-")}</span>
-      <span>${fd(k.updatedAt||k.createdAt)}</span>
-    </div>
-  </div>`).join("");
+  if(!pageKnowledge.length){wrap.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text3);font-size:13px">등록된 노하우가 없습니다</div>`;renderPager('know-pager','knowledge',list.length,'renderKnowledge');return;}
+  wrap.innerHTML=pageKnowledge.map(k=>`<div class="card" style="padding:14px;position:relative"><div style="position:absolute;top:10px;right:10px;display:flex;gap:4px"><button onclick="openKnowledgeModal('${k.id}')" style="background:transparent;border:0;color:var(--text3);cursor:pointer">✎</button><button onclick="deleteKnowledge('${k.id}')" style="background:transparent;border:0;color:var(--danger);cursor:pointer">×</button></div><div style="display:flex;gap:6px;margin-bottom:8px"><span class="badge" style="background:${labelColor(k.product||'기타')}22;color:${labelColor(k.product||'기타')}">${escapeHtml(k.product||'기타')}</span><span class="badge" style="background:rgba(196,206,255,.12);color:#c4ceff">${escapeHtml(k.category||'')}</span></div><div style="font-size:14px;font-weight:800;color:#f0f4ff;margin-bottom:8px;padding-right:40px">${escapeHtml(k.title||'')}</div>${k.content?`<div style="font-size:12px;color:var(--text2);line-height:1.6;white-space:pre-wrap;margin-bottom:10px">${escapeHtml(k.content)}</div>`:''}${k.link?`<a href="${escapeHtml(k.link)}" target="_blank" style="font-size:11px;color:var(--cyan);text-decoration:none">참고 링크 ↗</a>`:''}<div style="font-size:10px;color:var(--text3);margin-top:10px">${escapeHtml(k.createdBy||'-')} · ${k.updatedAt?'수정 '+fd(k.updatedAt):fd(k.createdAt)}</div></div>`).join("");
+  renderPager('know-pager','knowledge',list.length,'renderKnowledge');
 }
 function openKnowledgeModal(id){
   const ex=id?KNOWLEDGE.find(k=>k.id===id):null;
@@ -2221,7 +2231,7 @@ function openKnowledgeModal(id){
     <div class="full"><label>KB/참고 링크</label><input id="know-form-link" value="${escapeHtml(ex?.link||"")}" placeholder="https://knowledge.broadcom.com/..."></div>
   </div>`,
   `<button class="btn btn-ghost" onclick="closeGenModal()" style="width:auto;padding:8px 18px">취소</button>
-   <button class="btn btn-indigo" onclick="${ex?`updateKnowledge("${id}")`:"saveKnowledge()"}" style="width:auto;padding:8px 18px">저장</button>`);
+   <button class="btn btn-indigo" onclick="${ex?`updateKnowledge('${id}')`:"saveKnowledge()"}" style="width:auto;padding:8px 18px">저장</button>`);
 }
 async function saveKnowledge(){
   const title=document.getElementById("know-form-title").value.trim();
@@ -2365,6 +2375,14 @@ const KB_SEED = [
    desc:'Symantec 제품 오탐 신고 및 화이트리스트 신청 포털'},
 ];
 
+async function importRecentKBLinks(){
+  if(!confirm('Broadcom KB 검색 링크를 최근 5년 기준으로 업무 링크에 자동 등록할까요?'))return;
+  try{
+    const r=await fetch(`${WORKERS}/links/kb/import?years=5`,{method:'POST',headers:{'X-User':encUser(CURRENT_USER)}});
+    if(r.ok){const d=await r.json();await loadLinks();toast(`KB 링크 자동등록 완료: 신규 ${d.added||0}건 / 중복 ${d.skipped||0}건`);return;}
+  }catch{}
+  toast('Worker 업데이트 후 사용 가능합니다',true);
+}
 async function importKBSeed(){
   if(!confirm(`총 ${KB_SEED.length}개 KB 링크를 업무 링크에 등록합니다.\n기존 링크와 중복되는 것은 별도 체크하지 않습니다.\n\n계속하시겠어요?`))return;
   const btn=document.getElementById('kb-seed-btn');
