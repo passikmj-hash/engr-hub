@@ -442,7 +442,11 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
         <span class="filter-count" id="cust-count">0개 고객사</span>
       </div>
       <div class="two-col">
-        <div class="list-toolbar"><span class="muted" id="cust-page-count"></span><select id="cust-pg" onchange="changePageSize('customers',this.value);renderCustomers()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select></div><div id="cust-list" style="display:flex;flex-direction:column;gap:6px"></div><div id="cust-pager" class="pager"></div>
+        <div>
+          <div class="list-toolbar"><span class="muted" id="cust-page-count"></span><select id="cust-pg" onchange="changePageSize('customers',this.value);renderCustomers()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select></div>
+          <div id="cust-list" style="display:flex;flex-direction:column;gap:6px"></div>
+          <div id="cust-pager" class="pager"></div>
+        </div>
         <div id="cust-right">
           <div class="rpanel"><div class="rp-empty"><p style="font-size:13px;color:var(--text3)">고객사를 선택하면<br>상세 현황이 표시됩니다</p></div></div>
         </div>
@@ -522,7 +526,7 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
         <button class="btn btn-indigo" id="links-add-btn" onclick="openLinkModal()" style="width:auto;padding:9px 18px">+ 링크 등록</button>
         <input id="links-q" placeholder="검색..." oninput="renderLinks()" style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:7px 12px;color:var(--text);font-size:12px;flex:1;font-family:inherit;outline:none">
       </div>
-      <div class="list-toolbar"><span class="muted" id="links-count">0건</span><div style="display:flex;gap:8px;align-items:center"><button class="btn btn-ghost" onclick="importRecentKBLinks()" style="width:auto;padding:8px 12px;font-size:11px">최근 5년 KB 링크 자동등록</button><select id="links-pg" onchange="changePageSize('links',this.value);renderLinks()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select></div></div><div id="links-grid" class="link-grid"></div><div id="links-pager" class="pager"></div>
+      <div class="list-toolbar"><span class="muted" id="links-count">0건</span><select id="links-pg" onchange="changePageSize('links',this.value);renderLinks()"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option><option>200</option></select></div><div id="links-grid" class="link-grid"></div><div id="links-pager" class="pager"></div>
     </div>
 
     <!-- KNOWLEDGE -->
@@ -619,10 +623,10 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
       <div class="admin-card">
         <h3>📥 초기 데이터</h3>
         <p style="font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.7">
-          SEP, DLP, ProxySG 관련 Broadcom KB 및 포털 링크 <strong style="color:#f0f4ff">30건</strong>을 업무 링크에 자동 등록합니다.<br>
-          최초 세팅 시 한 번만 실행하세요. (중복 체크 없음)
+          SEP, DLP, ProxySG, Cloud SWG, CloudSOC 관련 Broadcom KB 검색 링크를 <strong style="color:#f0f4ff">최근 5년 기준</strong>으로 업무 링크에 자동 등록합니다.<br>
+          최초 세팅 시 한 번만 실행하세요. 기존 링크와 중복되는 항목은 건너뜁니다.
         </p>
-        <button id="kb-seed-btn" class="btn btn-green" onclick="importKBSeed()" style="width:auto;padding:10px 20px">📥 KB 초기 데이터 가져오기 (30건)</button>
+        <button id="kb-seed-btn" class="btn btn-green" onclick="importRecentKBLinks()" style="width:auto;padding:10px 20px">📥 KB 최근 5년 초기 데이터 가져오기</button>
       </div>
       <div class="admin-card">
         <h3>ℹ 권한 안내</h3>
@@ -695,6 +699,13 @@ function toast(msg,err){const t=document.getElementById('toast');t.textContent=m
 function copyText(text){navigator.clipboard.writeText(text).then(()=>toast('복사됐어요!')).catch(()=>{});}
 function encUser(n){try{return btoa(unescape(encodeURIComponent(n)));}catch{return btoa(n);}}
 function escapeHtml(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function normalizeExternalUrl(url){
+  const raw=(url||'').trim();
+  if(!raw)return '';
+  if(/^(https?:|mailto:|tel:)/i.test(raw))return raw;
+  if(/^\/\//.test(raw))return 'https:'+raw;
+  return 'https://'+raw.replace(/^\/+/, '');
+}
 
 // ── AUTH ──────────────────────────────────────────
 async function login(){
@@ -1675,7 +1686,7 @@ function renderLinks(){
   const pageLinks=sliceForPage(list,'links');
   const wrap=document.getElementById('links-grid');
   if(!pageLinks.length){wrap.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text3);font-size:13px">등록된 링크가 없습니다</div>`;renderPager('links-pager','links',list.length,'renderLinks');return;}
-  wrap.innerHTML=pageLinks.map(l=>`<div class="link-card" onclick="window.open('${escapeHtml(l.url)}','_blank')"><div style="position:absolute;top:8px;right:8px;display:flex;gap:4px;opacity:0;transition:opacity .15s" class="link-actions"><button onclick="event.stopPropagation();openLinkEditModal('${l.id}')" style="background:var(--card2);border:1px solid var(--border2);border-radius:6px;color:var(--text3);cursor:pointer;font-size:10px;padding:2px 8px;font-family:inherit">✎</button><button onclick="event.stopPropagation();deleteLink('${l.id}')" style="background:var(--card2);border:1px solid var(--border2);border-radius:6px;color:var(--danger);cursor:pointer;font-size:12px;padding:2px 7px;font-family:inherit">×</button></div><span class="link-cat">${escapeHtml(l.category||'기타')}</span><div class="link-title">${escapeHtml(l.title||'')}</div>${l.desc?`<div class="link-desc">${escapeHtml(l.desc)}</div>`:''}<div class="link-url">${escapeHtml(l.url||'')}</div><div class="link-meta"><span>by ${escapeHtml(l.createdBy||'-')}</span><span>${l.createdAt?fd(l.createdAt):''}</span></div></div>`).join('');
+  wrap.innerHTML=pageLinks.map(l=>`<div class="link-card" onclick="window.open('${escapeHtml(normalizeExternalUrl(l.url))}','_blank')"><div style="position:absolute;top:8px;right:8px;display:flex;gap:4px;opacity:0;transition:opacity .15s" class="link-actions"><button onclick="event.stopPropagation();openLinkEditModal('${l.id}')" style="background:var(--card2);border:1px solid var(--border2);border-radius:6px;color:var(--text3);cursor:pointer;font-size:10px;padding:2px 8px;font-family:inherit">✎</button><button onclick="event.stopPropagation();deleteLink('${l.id}')" style="background:var(--card2);border:1px solid var(--border2);border-radius:6px;color:var(--danger);cursor:pointer;font-size:12px;padding:2px 7px;font-family:inherit">×</button></div><span class="link-cat">${escapeHtml(l.category||'기타')}</span><div class="link-title">${escapeHtml(l.title||'')}</div>${l.desc?`<div class="link-desc">${escapeHtml(l.desc)}</div>`:''}<div class="link-url">${escapeHtml(l.url||'')}</div><div class="link-meta"><span>by ${escapeHtml(l.createdBy||'-')}</span><span>${l.createdAt?fd(l.createdAt):''}</span></div></div>`).join('');
   renderPager('links-pager','links',list.length,'renderLinks');
 }
 function openLinkModal(){
@@ -2213,7 +2224,10 @@ function renderKnowledge(){
   const pageKnowledge=sliceForPage(list,'knowledge');
   const wrap=document.getElementById("knowledge-grid");
   if(!pageKnowledge.length){wrap.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text3);font-size:13px">등록된 노하우가 없습니다</div>`;renderPager('know-pager','knowledge',list.length,'renderKnowledge');return;}
-  wrap.innerHTML=pageKnowledge.map(k=>`<div class="card" style="padding:14px;position:relative"><div style="position:absolute;top:10px;right:10px;display:flex;gap:4px"><button onclick="openKnowledgeModal('${k.id}')" style="background:transparent;border:0;color:var(--text3);cursor:pointer">✎</button><button onclick="deleteKnowledge('${k.id}')" style="background:transparent;border:0;color:var(--danger);cursor:pointer">×</button></div><div style="display:flex;gap:6px;margin-bottom:8px"><span class="badge" style="background:${labelColor(k.product||'기타')}22;color:${labelColor(k.product||'기타')}">${escapeHtml(k.product||'기타')}</span><span class="badge" style="background:rgba(196,206,255,.12);color:#c4ceff">${escapeHtml(k.category||'')}</span></div><div style="font-size:14px;font-weight:800;color:#f0f4ff;margin-bottom:8px;padding-right:40px">${escapeHtml(k.title||'')}</div>${k.content?`<div style="font-size:12px;color:var(--text2);line-height:1.6;white-space:pre-wrap;margin-bottom:10px">${escapeHtml(k.content)}</div>`:''}${k.link?`<a href="${escapeHtml(k.link)}" target="_blank" style="font-size:11px;color:var(--cyan);text-decoration:none">참고 링크 ↗</a>`:''}<div style="font-size:10px;color:var(--text3);margin-top:10px">${escapeHtml(k.createdBy||'-')} · ${k.updatedAt?'수정 '+fd(k.updatedAt):fd(k.createdAt)}</div></div>`).join("");
+  wrap.innerHTML=pageKnowledge.map(k=>{
+    const href=normalizeExternalUrl(k.link||'');
+    return `<div class="card" style="padding:14px;position:relative"><div style="position:absolute;top:10px;right:10px;display:flex;gap:4px"><button onclick="openKnowledgeModal('${k.id}')" style="background:transparent;border:0;color:var(--text3);cursor:pointer">✎</button><button onclick="deleteKnowledge('${k.id}')" style="background:transparent;border:0;color:var(--danger);cursor:pointer">×</button></div><div style="display:flex;gap:6px;margin-bottom:8px"><span class="badge" style="background:${labelColor(k.product||'기타')}22;color:${labelColor(k.product||'기타')}">${escapeHtml(k.product||'기타')}</span><span class="badge" style="background:rgba(196,206,255,.12);color:#c4ceff">${escapeHtml(k.category||'')}</span></div><div style="font-size:14px;font-weight:800;color:#f0f4ff;margin-bottom:8px;padding-right:40px">${escapeHtml(k.title||'')}</div>${k.content?`<div style="font-size:12px;color:var(--text2);line-height:1.6;white-space:pre-wrap;margin-bottom:10px">${escapeHtml(k.content)}</div>`:''}${href?`<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer" style="font-size:11px;color:var(--cyan);text-decoration:none">참고 링크 ↗</a>`:''}<div style="font-size:10px;color:var(--text3);margin-top:10px">${escapeHtml(k.createdBy||'-')} · ${k.updatedAt?'수정 '+fd(k.updatedAt):fd(k.createdAt)}</div></div>`;
+  }).join("");
   renderPager('know-pager','knowledge',list.length,'renderKnowledge');
 }
 function openKnowledgeModal(id){
@@ -2236,13 +2250,13 @@ function openKnowledgeModal(id){
 async function saveKnowledge(){
   const title=document.getElementById("know-form-title").value.trim();
   if(!title){toast("제목은 필수입니다",true);return;}
-  const body={product:document.getElementById("know-form-prod").value,category:document.getElementById("know-form-cat").value,title,content:document.getElementById("know-form-content").value.trim(),link:document.getElementById("know-form-link").value.trim()};
+  const body={product:document.getElementById("know-form-prod").value,category:document.getElementById("know-form-cat").value,title,content:document.getElementById("know-form-content").value.trim(),link:normalizeExternalUrl(document.getElementById("know-form-link").value.trim())};
   try{const r=await fetch(`${WORKERS}/knowledge`,{method:"POST",headers:{"Content-Type":"application/json","X-User":encUser(CURRENT_USER)},body:JSON.stringify(body)});const d=await r.json();if(!d.ok){toast(d.message||"저장 실패",true);return;}toast("등록 완료");closeGenModal();await loadKnowledge();renderKnowledge();}catch(e){toast("오류: "+e.message,true);}
 }
 async function updateKnowledge(id){
   const title=document.getElementById("know-form-title").value.trim();
   if(!title){toast("제목은 필수입니다",true);return;}
-  const body={product:document.getElementById("know-form-prod").value,category:document.getElementById("know-form-cat").value,title,content:document.getElementById("know-form-content").value.trim(),link:document.getElementById("know-form-link").value.trim()};
+  const body={product:document.getElementById("know-form-prod").value,category:document.getElementById("know-form-cat").value,title,content:document.getElementById("know-form-content").value.trim(),link:normalizeExternalUrl(document.getElementById("know-form-link").value.trim())};
   try{const r=await fetch(`${WORKERS}/knowledge/${id}`,{method:"PUT",headers:{"Content-Type":"application/json","X-User":encUser(CURRENT_USER)},body:JSON.stringify(body)});const d=await r.json();if(!d.ok){toast(d.message||"수정 실패",true);return;}toast("수정 완료");closeGenModal();await loadKnowledge();renderKnowledge();}catch(e){toast("오류: "+e.message,true);}
 }
 async function deleteKnowledge(id){
@@ -2376,12 +2390,22 @@ const KB_SEED = [
 ];
 
 async function importRecentKBLinks(){
-  if(!confirm('Broadcom KB 검색 링크를 최근 5년 기준으로 업무 링크에 자동 등록할까요?'))return;
+  if(!confirm('Broadcom KB 검색 링크를 최근 5년 기준으로 초기 데이터에 자동 등록할까요?'))return;
+  const btn=document.getElementById('kb-seed-btn');
+  const oldText=btn?btn.textContent:'';
+  if(btn){btn.disabled=true;btn.textContent='등록 중...';}
   try{
     const r=await fetch(`${WORKERS}/links/kb/import?years=5`,{method:'POST',headers:{'X-User':encUser(CURRENT_USER)}});
-    if(r.ok){const d=await r.json();await loadLinks();toast(`KB 링크 자동등록 완료: 신규 ${d.added||0}건 / 중복 ${d.skipped||0}건`);return;}
-  }catch{}
-  toast('Worker 업데이트 후 사용 가능합니다',true);
+    if(r.ok){
+      const d=await r.json();
+      await loadLinks();
+      if(document.getElementById('page-links')?.classList.contains('active'))renderLinks();
+      toast(`KB 최근 5년 초기 데이터 등록 완료: 신규 ${d.added||0}건 / 중복 ${d.skipped||0}건`);
+      return;
+    }
+    toast('Worker 업데이트 후 사용 가능합니다',true);
+  }catch(e){toast('오류: '+e.message,true);}
+  finally{if(btn){btn.disabled=false;btn.textContent=oldText||'📥 KB 최근 5년 초기 데이터 가져오기';}}
 }
 async function importKBSeed(){
   if(!confirm(`총 ${KB_SEED.length}개 KB 링크를 업무 링크에 등록합니다.\n기존 링크와 중복되는 것은 별도 체크하지 않습니다.\n\n계속하시겠어요?`))return;
