@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ENGR AI v1.4.3 — ESCARE 보안기술팀</title>
+<title>ENGR AI v1.5.2 — ESCARE 보안기술팀</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -369,7 +369,7 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
     <div class="sb-top">
       <div class="sb-brand">
         <div class="sb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-        <div><div class="sb-name">ENGR AI</div><div class="sb-sub">Security Hub <span style="background:rgba(99,102,241,.25);color:var(--accent3);font-size:9px;padding:1px 6px;border-radius:8px;font-weight:700;letter-spacing:.5px">v1.4.2</span></div></div>
+        <div><div class="sb-name">ENGR AI</div><div class="sb-sub">Security Hub <span style="background:rgba(99,102,241,.25);color:var(--accent3);font-size:9px;padding:1px 6px;border-radius:8px;font-weight:700;letter-spacing:.5px">v1.5.2</span></div></div>
       </div>
       <div class="sb-section">메뉴</div>
       <div class="sb-nav">
@@ -3120,36 +3120,9 @@ function filteredIssues(){
   return list;
 }
 
-function renderDash(){
-  const general=getGeneralIssues();
-  const cases=getCases();
-  const total=general.length, done=general.filter(i=>isDoneStatus(i.status)).length, open=total-done;
-  const cTotal=cases.length, cDone=cases.filter(c=>isDoneStatus(c.status)).length, cOpen=cTotal-cDone;
-  const high=general.filter(i=>['Highest','High'].includes(i.pri)).length;
-  const overdue=general.filter(i=>isOpenStatus(i.status)&&daysSince(i.date)>=7).length;
-  const rates=total?Math.round(done/total*100):0;
-  document.getElementById('kpi-grid').innerHTML=`
-    <div class="kpi clickable" onclick="setIssueNavigationFilter()"><div class="kpi-label">일반 이슈 전체</div><div class="kpi-val">${total}</div><div class="kpi-sub">케이스 제외</div></div>
-    <div class="kpi clickable" onclick="setIssueNavigationFilter({preset:{kind:'done',label:'완료 이슈'}})"><div class="kpi-label">일반 이슈 완료</div><div class="kpi-val" style="color:var(--success)">${done}</div><div class="kpi-sub">완료율 ${rates}%</div></div>
-    <div class="kpi clickable" onclick="setIssueNavigationFilter({preset:{kind:'open',label:'미완료 이슈'}})"><div class="kpi-label">일반 이슈 미완료</div><div class="kpi-val" style="color:var(--accent3)">${open}</div><div class="kpi-sub">진행/미해결 포함</div></div>
-    <div class="kpi clickable" onclick="setCaseNavigationFilter()"><div class="kpi-label">케이스 전체</div><div class="kpi-val" style="color:var(--cyan)">${cTotal}</div><div class="kpi-sub">제목 [숫자8자리]</div></div>
-    <div class="kpi clickable" onclick="setCaseNavigationFilter({preset:{kind:'done',label:'완료 케이스'}})"><div class="kpi-label">케이스 완료</div><div class="kpi-val" style="color:var(--success)">${cDone}</div><div class="kpi-sub">케이스 기준</div></div>
-    <div class="kpi clickable" onclick="setCaseNavigationFilter({preset:{kind:'open',label:'미완료 케이스'}})"><div class="kpi-label">케이스 미완료</div><div class="kpi-val" style="color:var(--warn)">${cOpen}</div><div class="kpi-sub">진행/미해결 포함</div></div>`;
-  const months={};
-  general.forEach(i=>{const m=(i.date||'').slice(0,7)||'미상';months[m]=(months[m]||0)+1;});
-  const sorted=Object.entries(months).sort().slice(-6);
-  document.getElementById('trend-chart').innerHTML=sorted.length?`<div style="display:flex;align-items:end;gap:10px;height:150px;padding-top:10px">${sorted.map(([m,c])=>`<div style="flex:1;text-align:center"><div style="height:${Math.max(12,c/Math.max(...sorted.map(x=>x[1]))*110)}px;background:linear-gradient(180deg,var(--accent),var(--accent2));border-radius:6px 6px 0 0;margin-bottom:8px"></div><div style="font-size:10px;color:var(--text3)">${m.slice(5)}</div><div style="font-size:11px;color:var(--text2);font-weight:700">${c}</div></div>`).join('')}</div>`:'<div class="loading">데이터 없음</div>';
-  const cust={};
-  general.forEach(i=>{const c=i.customer||'미분류';cust[c]=(cust[c]||0)+1;});
-  const top=Object.entries(cust).sort((a,b)=>b[1]-a[1]).slice(0,5);
-  document.getElementById('cust-chart').innerHTML=top.length?top.map(([c,n])=>`<div style="margin-bottom:10px;cursor:pointer" onclick="setIssueNavigationFilter({preset:{kind:'customer',customer:${jsAttr(c)},label:${jsAttr('고객사: '+c)}}})"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--text2)">${escapeHtml(c)}</span><b>${n}</b></div><div style="height:6px;background:var(--panel);border-radius:10px;overflow:hidden"><div style="width:${n/Math.max(...top.map(x=>x[1]))*100}%;height:100%;background:var(--accent3)"></div></div></div>`).join(''):'<div class="loading">데이터 없음</div>';
-  document.getElementById('recent-list').innerHTML=general.slice(0,8).map(i=>issueRow(i)).join('')||'<div class="loading">이슈 없음</div>';
-  document.querySelectorAll('#recent-list .irow').forEach((el,idx)=>el.onclick=()=>selectIssue(general[idx]));
-  renderEosBanner();
-  renderOverdueBanner();
-  renderOpsFocus();
-}
-
+// v1.5.2 hotfix: dashboard renderDash override removed.
+// Reason: the v1.5.1 override referenced non-existing dashboard DOM IDs such as kpi-grid, cust-chart, recent-list.
+// The original renderDash above uses the actual IDs: kpi-wrap, chart-section, dash-list.
 function issueRow(i){
   const sc=SC[i.status]||'#94a3b8',pc=PC[i.pri]||'#94a3b8';
   const active=SEL&&SEL.key===i.key?' selected':'';
