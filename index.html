@@ -3964,7 +3964,7 @@ function showPage(name,btn){
   const desc=document.getElementById('page-desc'); if(desc)desc.textContent=descMap[name]||'';
   renderCurrent();
 }
-injectV154Style();injectV155Style();
+injectV154Style();injectV155Style();try{renderSidebarCompact();}catch(e){console.warn('sidebar init failed',e);}
 
 </script>
 </body>
