@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ENGR AI v1.5.2 — ESCARE 보안기술팀</title>
+<title>ENGR AI v1.5.4 — ESCARE 보안기술팀</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -369,7 +369,7 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:po
     <div class="sb-top">
       <div class="sb-brand">
         <div class="sb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-        <div><div class="sb-name">ENGR AI</div><div class="sb-sub">Security Hub <span style="background:rgba(99,102,241,.25);color:var(--accent3);font-size:9px;padding:1px 6px;border-radius:8px;font-weight:700;letter-spacing:.5px">v1.5.2</span></div></div>
+        <div><div class="sb-name">ENGR AI</div><div class="sb-sub">Security Hub <span style="background:rgba(99,102,241,.25);color:var(--accent3);font-size:9px;padding:1px 6px;border-radius:8px;font-weight:700;letter-spacing:.5px">v1.5.4</span></div></div>
       </div>
       <div class="sb-section">메뉴</div>
       <div class="sb-nav">
@@ -3294,6 +3294,342 @@ function renderCustomerRight(){
   document.getElementById("cust-right").innerHTML=`<div class="rpanel"><div style="font-size:16px;font-weight:800;color:#f0f4ff;margin-bottom:14px">${escapeHtml(c.name)}</div><div class="rp-meta"><div class="rp-row"><span>제품</span><span style="flex-wrap:wrap;display:flex;gap:4px">${[...c.products].map(p=>`<span class="badge" style="background:${(LC_MAP[p]||"#94a3b8")}22;color:${(LC_MAP[p]||"#94a3b8")}">${escapeHtml(p)}</span>`).join("")||"-"}</span></div><div class="rp-row"><span>담당자</span><span>${escapeHtml([...c.assignees].join(", ")||"-")}</span></div><div class="rp-row"><span>일반 이슈</span><span>${c.general.length}건 (완료 ${done.length} / 미완료 ${open.length})</span></div><div class="rp-row"><span>케이스</span><span>${c.cases.length}건 (완료 ${caseDone.length} / 미완료 ${caseOpen.length})</span></div><div class="rp-row"><span>일반 이슈 완료율</span><span style="color:${rate>=80?"#2de6b8":rate>=50?"#fcd34d":"#fc8181"};font-weight:700">${rate}%</span></div></div><div class="jump-row"><button class="btn btn-ghost" onclick="setIssueNavigationFilter({preset:{kind:'customer',customer:${jsAttr(c.name)},label:${jsAttr('고객사: '+c.name)}}})">일반 이슈 보기</button><button class="btn btn-ghost" onclick="setCaseNavigationFilter({preset:{kind:'customer',customer:${jsAttr(c.name)},label:${jsAttr('고객사 케이스: '+c.name)}}})">케이스 보기</button></div>${eosForCust.length?`<div style="margin:12px 0"><div style="font-size:10px;color:#fcd34d;font-weight:700;margin-bottom:6px">⏰ EOS / 라이선스 (${eosForCust.length})</div>${eosForCust.map(e=>{const d2=daysUntil(e.expireDate);const col=d2<0?"#fc8181":d2<=30?"#fcd34d":"#2de6b8";return`<div style="display:flex;justify-content:space-between;padding:6px 10px;background:rgba(255,255,255,.04);border-radius:8px;font-size:11px;margin-bottom:4px"><span style="color:#c5cee8">${escapeHtml(e.product)} ${escapeHtml(e.version||"")}</span><span style="color:${col};font-weight:700">${d2<0?"만료":"D-"+d2}</span></div>`;}).join("")}</div>`:""}<div style="font-size:10px;color:var(--text3);font-weight:700;margin:12px 0 8px;text-transform:uppercase">최근 일반 이슈 (최대 8건)</div>${recent.map(i=>{const col=SC[i.status]||"#94a3b8";return`<div style="padding:8px 10px;background:rgba(255,255,255,.04);border-left:3px solid ${col};border-radius:0 8px 8px 0;margin-bottom:5px;cursor:pointer" onclick="setIssueNavigationFilter({q:${jsAttr(i.key)}})"><div style="font-size:11px;font-weight:700;color:${col}">${i.key} <span style="color:var(--text3);font-weight:400">${fd(i.date)}</span></div><div style="font-size:12px;color:#c5cee8;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHtml(cleanTitle(i.title))}</div></div>`;}).join("")||'<div style="font-size:11px;color:var(--text3);padding:8px">최근 일반 이슈 없음</div>'}</div>`;
 }
 
+/* ── v1.5.4: case/customer/status/dashboard/sidebar stability patch ───────────── */
+function applyV153Dom(){
+  try{
+    if(document.getElementById('v153-style'))return;
+    const s=document.createElement('style');
+    s.id='v153-style';
+    s.textContent=`
+      .kpi-grid{display:grid;grid-template-columns:repeat(6,minmax(120px,1fr));gap:10px;margin-bottom:12px}
+      .kpi{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:12px;min-height:76px;cursor:pointer;transition:.15s}
+      .kpi:hover{border-color:var(--accent2);transform:translateY(-1px)}
+      .kpi .num{font-size:24px;font-weight:900;color:#f4f7ff;line-height:1}
+      .kpi .label{font-size:11px;color:#c5cee8;margin-top:7px;font-weight:700}
+      .kpi .sub{font-size:10px;color:var(--text3);margin-top:5px}
+      .dash-alert{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px;padding:13px 16px;border-radius:14px;border:1px solid rgba(251,191,36,.35);background:linear-gradient(90deg,rgba(251,191,36,.1),rgba(124,58,237,.08))}
+      .dash-section{margin-top:14px}
+      .dash-section .sec-title{font-size:11px;color:#9fb3ff;font-weight:800;margin:7px 0 9px;display:flex;align-items:center;gap:8px}
+      .dash-section .sec-title:after{content:'';height:1px;background:var(--border);flex:1}
+      .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+      .mini-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px;min-height:140px;overflow:hidden}
+      .dash-list-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:12px;cursor:pointer}
+      .dash-list-row:last-child{border-bottom:0}
+      .dash-list-row:hover .title{color:#fff}
+      .case-chip{display:inline-flex;align-items:center;gap:4px;border:1px solid rgba(251,191,36,.32);background:rgba(251,191,36,.1);color:#fcd34d;border-radius:999px;padding:2px 7px;font-size:10px;font-weight:800;margin-left:6px;white-space:nowrap}
+      .case-chip.done{border-color:rgba(45,230,184,.32);background:rgba(45,230,184,.1);color:#2de6b8}
+      .case-chip.open{border-color:rgba(129,140,248,.32);background:rgba(129,140,248,.1);color:#a5b4fc}
+      .sb-bottom{gap:7px!important;padding-bottom:8px!important}
+      .usage-card,.health-card{padding:9px 11px!important;border-radius:12px!important}
+      .usage-card .u-head,.health-card .h-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px!important}
+      .usage-card .u-title,.health-card .h-title{font-size:11px!important;font-weight:800;color:#a5b4fc}
+      .usage-card .u-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:4px 10px;font-size:10px!important}
+      .usage-card .u-muted,.health-card .u-muted{color:var(--text3)}
+      .usage-card .u-val,.health-card .u-val{color:#f4f7ff;font-weight:800;text-align:right}
+      .usage-card .u-ok{color:#2de6b8;font-weight:900}.usage-card .u-bad{color:#fc8181;font-weight:900}
+      .usage-card .u-foot{font-size:9px;color:var(--text3);text-align:right;margin-top:5px}
+      .health-card .h-row{display:flex;align-items:center;justify-content:space-between;font-size:10px;margin:3px 0;color:#a8b3d6}
+      .health-card .h-state{font-weight:800}.health-card .ok{color:#2de6b8}.health-card .bad{color:#fc8181}.health-card .warn{color:#fcd34d}
+      .health-card .sync-mini{margin-top:6px;width:100%;padding:6px 8px!important;font-size:10px!important}
+      @media(max-height:880px){.usage-card .u-hide-compact,.health-card .u-hide-compact{display:none!important}.usage-card,.health-card{padding:8px 10px!important}.sb-bottom{gap:6px!important}}
+      @media(max-width:1400px){.kpi-grid{grid-template-columns:repeat(3,1fr)}.mini-grid{grid-template-columns:1fr}}
+    `;
+    document.head.appendChild(s);
+  }catch(e){console.warn('applyV153Dom failed',e);}
+}
+
+function renderSidebarCompact(){
+  const box=document.querySelector('.sb-bottom');
+  if(!box || box.dataset.v153==='1')return;
+  box.dataset.v153='1';
+  box.innerHTML=`
+    <div class="usage-card">
+      <div class="u-head"><div class="u-title">◎ AI 사용량</div><button class="pill-btn" onclick="refreshAIUsage()">↻ 갱신</button></div>
+      <div class="u-grid">
+        <span class="u-muted">내 오늘</span><span class="u-val" id="ai-my-today">-</span>
+        <span class="u-muted">내 월간</span><span class="u-val" id="ai-my-month">-</span>
+        <span class="u-muted u-hide-compact">팀 오늘</span><span class="u-val u-hide-compact" id="ai-team-today">-</span>
+        <span class="u-muted u-hide-compact">성공/실패</span><span class="u-val u-hide-compact"><b class="u-ok" id="ai-ok">-</b> / <b class="u-bad" id="ai-fail">-</b></span>
+      </div>
+      <div class="u-foot" id="ai-updated">필요 시 갱신</div>
+    </div>
+    <div class="health-card">
+      <div class="h-head"><div class="h-title">연결/동기화</div><span id="issue-count" style="font-size:10px;color:var(--text3)">-</span></div>
+      <div class="h-row"><span>접속자</span><span class="h-state">${escapeHtml(CURRENT_USER||'-')}</span></div>
+      <div class="h-row"><span>Jira</span><span class="h-state" id="jira-dot"><span class="dot" style="background:var(--warn)"></span>대기</span></div>
+      <div class="h-row"><span>AI</span><span class="h-state ok" id="ai-status">준비됨</span></div>
+      <button class="btn btn-ghost sync-mini" onclick="syncJira()">↻ Jira 새로고침</button>
+      <div class="u-foot u-hide-compact" id="sync-meta" style="font-size:9px;color:var(--text3);margin-top:5px">-</div>
+    </div>`;
+}
+
+function getCasePrefixNum(title){
+  const m=String(title||'').match(/^\s*\[(\d{8})\]/);
+  return m?m[1]:'';
+}
+function extractCaseNums(text){
+  const s=String(text||'');
+  const out=[];
+  let m;
+  const bracket=/\[(\d{8})\]/g;
+  while((m=bracket.exec(s)))out.push(m[1]);
+  return [...new Set(out)];
+}
+function isCaseIssue(i){return !!getCasePrefixNum(i&&i.title);}
+function getCaseIssueBase(){return (ISSUES||[]).filter(isCaseIssue);}
+function getGeneralIssues(){return (ISSUES||[]).filter(i=>!isCaseIssue(i));}
+function normText(s){return String(s||'').toLowerCase().replace(/\s+/g,'').trim();}
+function isDoneStatus(status){
+  const s=normText(status);
+  return ['완료','done','closed','resolved','해결','종료'].some(x=>s.includes(normText(x)));
+}
+function isOpenStatus(status){return !isDoneStatus(status);}
+function isMyIssue(i){
+  const me=normText(CURRENT_USER||'');
+  const ass=normText(i&&i.assignee);
+  return !!me && !!ass && ass.includes(me);
+}
+function issueDateValue(i){return new Date((i&&i.date)||0).getTime()||0;}
+function cleanTitle(t){return String(t||'').replace(/^\s*\[\d{8}\]\s*/,'').trim();}
+function parentSummaryOf(fields){
+  const p=fields&&fields.parent;
+  return (p&&p.fields&&p.fields.summary)||p&&p.summary||'';
+}
+function parentStatusOf(fields){
+  const p=fields&&fields.parent;
+  return (p&&p.fields&&p.fields.status&&p.fields.status.name)||'';
+}
+function normalizeJiraIssue(i){
+  const f=i.fields||{};
+  const title=f.summary||'';
+  const parentTitle=parentSummaryOf(f);
+  const caseNum=getCasePrefixNum(title);
+  const customer=extractCustomer(title)||extractCustomer(parentTitle)||'';
+  return {
+    key:i.key,
+    title,
+    status:f.status?f.status.name:'-',
+    pri:f.priority?f.priority.name:'Medium',
+    assignee:f.assignee?f.assignee.displayName:'-',
+    reporter:f.reporter?f.reporter.displayName:'-',
+    labels:f.labels||[],
+    date:f.created?f.created.slice(0,10):'',
+    updated:f.updated?f.updated.slice(0,10):'',
+    desc:'',descPlain:'',comments:[],attachments:[],
+    type:f.issuetype?f.issuetype.name:'작업',
+    customer,
+    caseNum,
+    caseNums:caseNum?[caseNum]:extractCaseNums(title),
+    parentKey:f.parent?f.parent.key:'',
+    parentTitle,
+    parentStatus:parentStatusOf(f),
+    _detailLoaded:false
+  };
+}
+function normalizeCustomerFallback(){
+  const byKey=new Map((ISSUES||[]).map(i=>[i.key,i]));
+  (ISSUES||[]).forEach(i=>{
+    if(!i.customer && i.parentKey && byKey.has(i.parentKey))i.customer=byKey.get(i.parentKey).customer||'';
+    if(!i.parentTitle && i.parentKey && byKey.has(i.parentKey))i.parentTitle=byKey.get(i.parentKey).title||'';
+  });
+}
+function casesForIssue(issue){
+  if(!issue)return [];
+  const nums=new Set(issue.caseNums||[]);
+  return getCaseIssueBase().filter(c=>c.parentKey===issue.key || (c.caseNum&&nums.has(c.caseNum)));
+}
+function caseChipsForIssue(issue){
+  const cases=casesForIssue(issue);
+  if(!cases.length)return '';
+  const done=cases.filter(c=>isDoneStatus(c.status));
+  const open=cases.filter(c=>isOpenStatus(c.status));
+  const chips=[];
+  if(open.length)chips.push(`<span class="case-chip open">케이스 진행 ${open.map(c=>c.caseNum||c.key).join(', ')}</span>`);
+  if(done.length)chips.push(`<span class="case-chip done">케이스 완료 ${done.map(c=>c.caseNum||c.key).join(', ')}</span>`);
+  return chips.join('');
+}
+
+async function syncJira(){
+  applyV153Dom();renderSidebarCompact();
+  const dot=document.getElementById('jira-dot');
+  if(dot)dot.innerHTML='<span class="dot" style="background:var(--warn)"></span><span class="warn">동기화중...</span>';
+  try{
+    const r=await fetch(`${WORKERS}/jira/search/jql`,{headers:{'X-User':encUser(CURRENT_USER)}});
+    if(!r.ok)throw new Error('응답 오류: '+r.status);
+    const d=await r.json();
+    if(!d.issues)throw new Error('이슈 데이터 없음');
+    ISSUES=d.issues.map(normalizeJiraIssue);
+    normalizeCustomerFallback();
+    const gi=getGeneralIssues().length, ci=getCaseIssueBase().length;
+    if(dot)dot.innerHTML='<span class="dot dot-green"></span><span class="ok">연결됨</span>';
+    const ic=document.getElementById('issue-count');
+    if(ic)ic.textContent=`일반 ${gi} / 케이스 ${ci}`;
+    updateSyncMeta(d.sync||{rangeMonths:d.rangeMonths,count:ISSUES.length,syncedAt:new Date().toISOString(),syncedBy:CURRENT_USER});
+    try{refreshFilters();}catch(e){console.warn('refreshFilters failed',e);}
+    try{renderCurrent();}catch(e){console.error('render failed',e);toast('화면 렌더링 오류: '+(e.message||e),true);}
+    toast(`Jira 동기화 완료! 일반 이슈 ${gi}건 · 케이스 ${ci}건`);
+  }catch(e){
+    if(dot)dot.innerHTML='<span class="dot" style="background:var(--danger)"></span><span class="bad">오류</span>';
+    toast('Jira 연결 실패: '+(e.message||e),true);
+  }
+}
+
+async function fetchIssueDetail(key){
+  const fields=['summary','status','priority','assignee','reporter','created','updated','description','labels','issuetype','attachment','comment','parent'].join(',');
+  const r=await fetch(`${WORKERS}/jira/issue/${encodeURIComponent(key)}?fields=${encodeURIComponent(fields)}`,{headers:{'X-User':encUser(CURRENT_USER)}});
+  if(!r.ok)throw new Error('상세 조회 오류: '+r.status);
+  const i=await r.json();
+  const base=normalizeJiraIssue(i);
+  const f=i.fields||{};
+  const descPlain=extractADFPlain(f.description);
+  const comments=extractCommentsArr(f.comment);
+  const text=[base.title,base.parentTitle,descPlain,comments.map(c=>c.bodyPlain||'').join(' ')].join(' ');
+  const caseNum=getCasePrefixNum(base.title);
+  return Object.assign(base,{
+    desc:extractADF(f.description),
+    descPlain,
+    comments,
+    attachments:extractAttachments(f.attachment),
+    customer:base.customer||extractCustomer(text)||'',
+    caseNum,
+    caseNums:caseNum?[caseNum]:extractCaseNums(text),
+    _detailLoaded:true
+  });
+}
+
+function filterByPreset(list,preset){
+  if(!preset)return list;
+  let out=list;
+  if(preset.kind==='status')out=out.filter(i=>preset.status==='done'?isDoneStatus(i.status):preset.status==='open'?isOpenStatus(i.status):true);
+  if(preset.kind==='my')out=out.filter(isMyIssue);
+  if(preset.kind==='stale'||preset.kind==='overdue')out=out.filter(i=>isOpenStatus(i.status)&&age(i.date)>=7);
+  if(preset.kind==='high')out=out.filter(i=>isOpenStatus(i.status)&&String(i.pri||'').toLowerCase().includes('high'));
+  if(preset.kind==='customer')out=out.filter(i=>(i.customer||'')===preset.customer || (i.parentTitle&&extractCustomer(i.parentTitle)===preset.customer));
+  if(preset.kind==='priority')out=out.filter(i=>String(i.pri||'').toLowerCase().includes('high'));
+  return out;
+}
+
+function issueRowHTML(i){
+  const col=SC[i.status]||'#94a3b8';
+  const priCol=i.pri==='High'?'#fc8181':i.pri==='Medium'?'#fcd34d':'#a5b4fc';
+  const labels=(i.labels||[]).slice(0,3).map(l=>`<span class="badge" style="background:${(LC_MAP[l]||'#818cf8')}22;color:${(LC_MAP[l]||'#818cf8')}">${escapeHtml(l)}</span>`).join('');
+  return `<div class="issue-card ${SEL&&SEL.key===i.key?'sel':''}" onclick="selectIssue(ISSUES.find(x=>x.key===${jsAttr(i.key)}))">
+    <div class="issue-main">
+      <span class="key">${escapeHtml(i.key)}</span>
+      <span class="st" style="background:${col}22;color:${col}">${escapeHtml(i.status)}</span>
+      <span class="pri" style="background:${priCol}22;color:${priCol}">${escapeHtml(i.pri)}</span>
+      <span class="title">${escapeHtml(cleanTitle(i.title))}</span>
+      ${caseChipsForIssue(i)}
+      <span class="date">${fd(i.date)}</span>
+    </div>
+    <div class="issue-sub">${labels}<span>@${escapeHtml(i.assignee||'-')}</span>${i.attachments&&i.attachments.length?`<span>📎 ${i.attachments.length}</span>`:''}${i.comments&&i.comments.length?`<span>💬 ${i.comments.length}</span>`:''}</div>
+  </div>`;
+}
+
+function getFilteredIssues(){
+  let arr=getGeneralIssues();
+  arr=filterByPreset(arr,ISSUE_PRESET);
+  const q=(document.getElementById('f-q')?.value||'').toLowerCase();
+  const st=document.getElementById('f-stat')?.value||'';
+  const pri=document.getElementById('f-pri')?.value||'';
+  const lab=document.getElementById('f-lab')?.value||'';
+  const ass=document.getElementById('f-ass')?.value||'';
+  const date=document.getElementById('f-date')?.value||'';
+  if(q)arr=arr.filter(i=>[i.key,i.title,i.customer,i.assignee,i.reporter,...(i.labels||[]),...(i.caseNums||[]),...casesForIssue(i).map(c=>c.caseNum)].join(' ').toLowerCase().includes(q));
+  if(st)arr=arr.filter(i=>st==='완료'?isDoneStatus(i.status):st==='진행 중'?isOpenStatus(i.status)&&String(i.status).includes('진행'):st==='미해결'?isOpenStatus(i.status):i.status===st);
+  if(pri)arr=arr.filter(i=>i.pri===pri);
+  if(lab)arr=arr.filter(i=>(i.labels||[]).includes(lab));
+  if(ass)arr=arr.filter(i=>i.assignee===ass);
+  if(date){const days=parseInt(date,10);arr=arr.filter(i=>age(i.date)<=days);}
+  return arr.sort((a,b)=>issueDateValue(b)-issueDateValue(a));
+}
+
+function getFilteredCases(){
+  let arr=getCaseIssueBase();
+  arr=filterByPreset(arr,CASE_PRESET);
+  const q=(document.getElementById('case-q')?.value||'').toLowerCase();
+  const st=document.getElementById('case-stat')?.value||'';
+  const ass=document.getElementById('case-ass')?.value||'';
+  const sla=document.getElementById('case-sla')?.value||'';
+  const date=document.getElementById('case-date')?.value||'';
+  if(q)arr=arr.filter(i=>[i.key,i.caseNum,i.title,i.customer,i.assignee,i.parentKey,i.parentTitle,...(i.labels||[])].join(' ').toLowerCase().includes(q));
+  if(st)arr=arr.filter(i=>st==='완료'?isDoneStatus(i.status):st==='진행 중'?isOpenStatus(i.status)&&String(i.status).includes('진행'):st==='미해결'?isOpenStatus(i.status):i.status===st);
+  if(ass)arr=arr.filter(i=>i.assignee===ass);
+  if(sla)arr=arr.filter(i=>isOpenStatus(i.status)&&age(i.date)>=parseInt(sla,10));
+  if(date){const days=parseInt(date,10);arr=arr.filter(i=>age(i.date)<=days);}
+  return arr.sort((a,b)=>issueDateValue(b)-issueDateValue(a));
+}
+
+function refreshFilters(){
+  applyV153Dom();renderSidebarCompact();
+  const labels=new Set(),assignees=new Set(),caseAssignees=new Set();
+  getGeneralIssues().forEach(i=>{(i.labels||[]).forEach(l=>labels.add(l));if(i.assignee&&i.assignee!=='-')assignees.add(i.assignee);});
+  getCaseIssueBase().forEach(i=>{if(i.assignee&&i.assignee!=='-')caseAssignees.add(i.assignee);});
+  const labSel=document.getElementById('f-lab');
+  if(labSel){const cur=labSel.value;labSel.innerHTML='<option value="">전체 레이블</option>'+[...labels].sort().map(l=>`<option ${l===cur?'selected':''}>${escapeHtml(l)}</option>`).join('');}
+  const assSel=document.getElementById('f-ass');
+  if(assSel){const cur=assSel.value;assSel.innerHTML='<option value="">전체 담당자</option>'+[...assignees].sort().map(a=>`<option ${a===cur?'selected':''}>${escapeHtml(a)}</option>`).join('');}
+  const caseAss=document.getElementById('case-ass');
+  if(caseAss){const cur=caseAss.value;caseAss.innerHTML='<option value="">전체 담당자</option>'+[...caseAssignees].sort().map(a=>`<option ${a===cur?'selected':''}>${escapeHtml(a)}</option>`).join('');}
+  if(!document.getElementById('case-date')){
+    const pg=document.getElementById('case-pg');
+    if(pg)pg.insertAdjacentHTML('beforebegin',`<select id="case-date" onchange="PAGE_STATE.cases=1;renderCases()"><option value="">전체 기간</option><option value="7">최근 7일</option><option value="30">최근 1개월</option><option value="90">최근 3개월</option><option value="180">최근 6개월</option><option value="365">최근 1년</option></select>`);
+  }
+  applyV151Dom();
+}
+
+function renderDash(){
+  applyV153Dom();
+  const g=getGeneralIssues();
+  const c=getCaseIssueBase();
+  const done=g.filter(i=>isDoneStatus(i.status));
+  const open=g.filter(i=>isOpenStatus(i.status));
+  const my=g.filter(isMyIssue);
+  const myDone=my.filter(i=>isDoneStatus(i.status));
+  const myOpen=my.filter(i=>isOpenStatus(i.status));
+  const high=g.filter(i=>String(i.pri||'').toLowerCase().includes('high'));
+  const stale=g.filter(i=>isOpenStatus(i.status)&&age(i.date)>=7);
+  const cDone=c.filter(i=>isDoneStatus(i.status));
+  const cOpen=c.filter(i=>isOpenStatus(i.status));
+  const myRate=my.length?Math.round(myDone.length/my.length*100):0;
+  const k=document.getElementById('kpis');
+  if(k)k.innerHTML=`
+    ${stale.length?`<div class="dash-alert" style="grid-column:1/-1"><div><b style="color:#fcd34d">🚨 7일 이상 미완료 일반 이슈 ${stale.length}건</b><div style="font-size:11px;color:var(--text2);margin-top:4px">케이스 제외 · 주요 담당자: ${Object.entries(stale.reduce((m,i)=>(m[i.assignee]=(m[i.assignee]||0)+1,m),{})).sort((a,b)=>b[1]-a[1]).slice(0,4).map(([a,n])=>`${escapeHtml(a)} ${n}건`).join(', ')||'-'}</div></div><button class="btn btn-warn" onclick="setIssueNavigationFilter({preset:{kind:'stale',label:'7일 이상 미완료 일반 이슈'}})">이슈 보기 →</button></div>`:''}
+    <div class="kpi-grid">
+      <div class="kpi" onclick="setIssueNavigationFilter({})"><div class="num">${g.length}</div><div class="label">일반 이슈</div><div class="sub">케이스 제외</div></div>
+      <div class="kpi" onclick="setIssueNavigationFilter({preset:{kind:'status',status:'done',label:'완료 일반 이슈'}})"><div class="num">${done.length}</div><div class="label">완료</div><div class="sub">${g.length?Math.round(done.length/g.length*100):0}% 완료율</div></div>
+      <div class="kpi" onclick="setIssueNavigationFilter({preset:{kind:'status',status:'open',label:'진행/미완료 일반 이슈'}})"><div class="num">${open.length}</div><div class="label">진행/미완료</div><div class="sub">처리 필요</div></div>
+      <div class="kpi" onclick="setCaseNavigationFilter({})"><div class="num">${c.length}</div><div class="label">케이스</div><div class="sub">진행 ${cOpen.length} / 완료 ${cDone.length}</div></div>
+      <div class="kpi" onclick="setIssueNavigationFilter({preset:{kind:'my',label:'내 담당 일반 이슈'}})"><div class="num">${my.length}</div><div class="label">내 담당</div><div class="sub">진행 ${myOpen.length} / 완료 ${myDone.length}</div></div>
+      <div class="kpi" onclick="setIssueNavigationFilter({preset:{kind:'my',label:'내 담당 일반 이슈'}})"><div class="num">${myRate}%</div><div class="label">내 완료율</div><div class="sub">${myDone.length}/${my.length}건</div></div>
+    </div>`;
+  const focus=document.getElementById('focus');
+  if(focus)focus.innerHTML=`<div class="dash-section"><div class="sec-title">운영 포커스</div><div class="mini-grid">
+    <div class="mini-card"><div style="font-size:12px;color:#a5b4fc;font-weight:800;margin-bottom:8px">처리 건수 TOP</div>${topAssigneeRows(g)}</div>
+    <div class="mini-card"><div style="font-size:12px;color:#a5b4fc;font-weight:800;margin-bottom:8px">케이스 진행 TOP</div>${topAssigneeRows(cOpen)}</div>
+    <div class="mini-card"><div style="font-size:12px;color:#a5b4fc;font-weight:800;margin-bottom:8px">월별 추이 (최근 6개월)</div>${monthTrendRows(g,c)}</div>
+  </div></div>`;
+  const recent=document.getElementById('recent');
+  if(recent)recent.innerHTML=`<div class="dash-section"><div class="sec-title">최근 일반 이슈 (10건)</div>${g.sort((a,b)=>issueDateValue(b)-issueDateValue(a)).slice(0,10).map(i=>`<div class="issue-card" onclick="setIssueNavigationFilter({q:${jsAttr(i.key)}})"><div class="issue-main"><span class="key">${escapeHtml(i.key)}</span><span class="st" style="background:${(SC[i.status]||'#94a3b8')}22;color:${SC[i.status]||'#94a3b8'}">${escapeHtml(i.status)}</span><span class="title">${escapeHtml(cleanTitle(i.title))}</span>${caseChipsForIssue(i)}<span class="date">${fd(i.date)}</span></div><div class="issue-sub"><span>@${escapeHtml(i.assignee||'-')}</span><span>${escapeHtml(i.customer||'-')}</span></div></div>`).join('')||'<div class="empty">최근 일반 이슈 없음</div>'}</div>`;
+}
+function topAssigneeRows(list){
+  const rows=Object.entries(list.reduce((m,i)=>(m[i.assignee||'-']=(m[i.assignee||'-']||0)+1,m),{})).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  return rows.map(([a,n])=>`<div class="dash-list-row"><span class="title">${escapeHtml(a)}</span><b>${n}건</b></div>`).join('')||'<div style="font-size:12px;color:var(--text3)">데이터 없음</div>';
+}
+function monthTrendRows(g,c){
+  const m={};
+  [...g.map(x=>({...x,_kind:'이슈'})),...c.map(x=>({...x,_kind:'케이스'}))].forEach(i=>{const k=String(i.date||'').slice(0,7)||'미상';m[k]=m[k]||{g:0,c:0};if(i._kind==='이슈')m[k].g++;else m[k].c++;});
+  return Object.entries(m).sort((a,b)=>a[0].localeCompare(b[0])).slice(-6).map(([mon,v])=>`<div class="dash-list-row"><span class="title">${escapeHtml(mon)}</span><span>이슈 <b>${v.g}</b> · 케이스 <b>${v.c}</b></span></div>`).join('')||'<div style="font-size:12px;color:var(--text3)">데이터 없음</div>';
+}
+
+function buildCustomerData(){
+  const map={};
+  const ensure=(name)=>map[name]||(map[name]={name,products:new Set(),assignees:new Set(),general:[],cases:[]});
+  getGeneralIssues().forEach(i=>{const c=i.customer||'미분류';const obj=ensure(c);obj.general.push(i);(i.labels||[]).forEach(l=>obj.products.add(l));if(i.assignee&&i.assignee!=='-')obj.assignees.add(i.assignee);});
+  getCaseIssueBase().forEach(i=>{const c=i.customer||'미분류';const obj=ensure(c);obj.cases.push(i);(i.labels||[]).forEach(l=>obj.products.add(l));if(i.assignee&&i.assignee!=='-')obj.assignees.add(i.assignee);});
+  return Object.values(map).sort((a,b)=>(b.general.length+b.cases.length)-(a.general.length+a.cases.length));
+}
+
 // ── INIT ──────────────────────────────────────────
 (function init(){
   const su=localStorage.getItem('engr_user');
@@ -3303,6 +3639,199 @@ function renderCustomerRight(){
   if(su&&sp){document.getElementById('l-name').value=su;document.getElementById('l-pin').value=sp;login();}
   else if(su){document.getElementById('l-name').value=su;document.getElementById('l-pin').focus();}
 })();
+
+
+/* =========================================================
+   v1.5.4 안정화 패치
+   - 이슈 상세 자동 선택/표시 보강
+   - 고객사 상세에 일반 이슈 + 케이스 동시 표시
+   - 고객사 상세 항목 클릭 시 해당 건만 필터링 이동
+   - VirusTotal 최근 조회 이력 팀 공유(Worker /vt/history 연동)
+   ========================================================= */
+let VT_HISTORY_SHARED_LOADED=false;
+function injectV154Style(){
+  if(document.getElementById('v154-style'))return;
+  const st=document.createElement('style');
+  st.id='v154-style';
+  st.textContent=`
+    .mini-filter-note{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px 0}
+    .mini-filter-note .tag{border:1px solid rgba(129,140,248,.35);background:rgba(99,102,241,.12);color:#dfe6ff;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:700}
+    .customer-work-row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:9px 10px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.025);cursor:pointer;margin-bottom:7px;transition:.12s ease}
+    .customer-work-row:hover{border-color:rgba(129,140,248,.55);background:rgba(129,140,248,.09);transform:translateY(-1px)}
+    .customer-work-row .k{font-weight:800;color:#cfe1ff;font-size:12px}.customer-work-row .t{font-size:11px;color:var(--text2);margin-top:2px;line-height:1.35}.customer-work-row .m{font-size:10px;color:var(--text3);white-space:nowrap}
+    .vt-history-item{display:grid;grid-template-columns:minmax(150px,1fr) 70px 76px 84px;gap:8px;align-items:center;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08);font-size:11px}
+    .vt-history-item:last-child{border-bottom:0}.vt-history-hash{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:#cfe1ff;overflow:hidden;text-overflow:ellipsis}.vt-history-meta{color:var(--text3);font-size:10px}
+    @media(max-width:1200px){.vt-history-item{grid-template-columns:1fr 62px 66px}.vt-history-item .hide-narrow{display:none}}
+  `;
+  document.head.appendChild(st);
+}
+function escapeAttr(s){return escapeHtml(s).replace(/`/g,'&#96;');}
+function v154LabelOfRange(days){return days?`최근 ${days===7?'7일':days===30?'1개월':days===90?'3개월':days===180?'6개월':days===365?'1년':days+'일'}`:'';}
+function v154ActiveIssueFilterText(){
+  const xs=[];
+  const q=document.getElementById('f-q')?.value?.trim();
+  const stat=document.getElementById('f-stat')?.value; const pri=document.getElementById('f-pri')?.value; const lab=document.getElementById('f-lab')?.value; const ass=document.getElementById('f-ass')?.value; const date=document.getElementById('f-date')?.value;
+  if(q)xs.push('검색: '+q); if(stat)xs.push('상태: '+stat); if(pri)xs.push('우선순위: '+pri); if(lab)xs.push('레이블: '+lab); if(ass)xs.push('담당자: '+ass); if(date)xs.push(v154LabelOfRange(parseInt(date)));
+  return xs;
+}
+function v154ActiveCaseFilterText(){
+  const xs=[]; const q=document.getElementById('case-q')?.value?.trim(); const stat=document.getElementById('case-stat')?.value; const ass=document.getElementById('case-ass')?.value; const sla=document.getElementById('case-sla')?.value; const date=document.getElementById('case-date')?.value;
+  if(q)xs.push('검색: '+q); if(stat)xs.push('상태: '+stat); if(ass)xs.push('담당자: '+ass); if(sla)xs.push(`${sla}일 이상`); if(date)xs.push(v154LabelOfRange(parseInt(date)));
+  return xs;
+}
+function v154FilterNoteHtml(list){return list?.length?`<div class="mini-filter-note">${list.map(x=>`<span class="tag">${escapeHtml(x)}</span>`).join('')}</div>`:'';}
+function v154GetIssueByKey(key){return ISSUES.find(x=>x.key===key)||null;}
+function v154GetCaseByKey(key){return getCases().find(x=>x.key===key)||ISSUES.find(x=>x.key===key)||null;}
+function v154GoIssueExact(key){
+  const q=document.getElementById('f-q'); if(q)q.value=key;
+  ['f-stat','f-pri','f-lab','f-ass','f-date'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  PAGE=1; showPage('issues');
+  setTimeout(()=>{const item=v154GetIssueByKey(key); if(item)selectIssue(item);},20);
+}
+function v154GoCaseExact(key){
+  const q=document.getElementById('case-q'); if(q)q.value=key;
+  ['case-stat','case-ass','case-sla','case-date'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  PAGE_STATE.cases=1; showPage('cases');
+  setTimeout(()=>{const item=v154GetCaseByKey(key); if(item)selectCase(item);},20);
+}
+function setIssueNavigationFilter(opts={}){
+  ['f-q','f-stat','f-pri','f-lab','f-ass','f-date'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  if(opts.exactKey){document.getElementById('f-q').value=opts.exactKey;}
+  else if(opts.q){document.getElementById('f-q').value=opts.q;}
+  if(opts.status)document.getElementById('f-stat').value=opts.status;
+  if(opts.priority)document.getElementById('f-pri').value=opts.priority;
+  if(opts.label)document.getElementById('f-lab').value=opts.label;
+  if(opts.assignee)document.getElementById('f-ass').value=opts.assignee;
+  if(opts.dateDays&&document.getElementById('f-date'))document.getElementById('f-date').value=String(opts.dateDays);
+  PAGE=1;showPage('issues');
+}
+function setCaseNavigationFilter(opts={}){
+  ['case-q','case-stat','case-ass','case-sla','case-date'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  if(opts.exactKey){document.getElementById('case-q').value=opts.exactKey;}
+  else if(opts.q){document.getElementById('case-q').value=opts.q;}
+  if(opts.status)document.getElementById('case-stat').value=opts.status;
+  if(opts.assignee)document.getElementById('case-ass').value=opts.assignee;
+  if(opts.sla)document.getElementById('case-sla').value=String(opts.sla);
+  if(opts.dateDays&&document.getElementById('case-date'))document.getElementById('case-date').value=String(opts.dateDays);
+  PAGE_STATE.cases=1;showPage('cases');
+}
+function renderIssues(){
+  const wrap=document.getElementById('issue-list-wrap'); if(!wrap)return;
+  const arr=getFilteredIssues(); const size=parseInt(document.getElementById('f-pg')?.value||'10');
+  const max=Math.max(1,Math.ceil(arr.length/size)); if(PAGE>max)PAGE=max; if(PAGE<1)PAGE=1;
+  document.getElementById('f-count').textContent=`${arr.length}건`;
+  const selectedStill=SEL&&arr.some(x=>x.key===SEL.key);
+  if(!selectedStill){SEL=arr.length===1?arr[0]:null;}
+  const pageItems=arr.slice((PAGE-1)*size,PAGE*size);
+  wrap.innerHTML=`${v154FilterNoteHtml(v154ActiveIssueFilterText())}`+pageItems.map(i=>{
+    const age=daysOld(i.created); const done=isDoneStatus(i.status);
+    const cases=typeof getIssueCaseRefs==='function'?getIssueCaseRefs(i):[];
+    const caseHtml=cases.length?`<div style="margin-top:6px;display:flex;gap:4px;flex-wrap:wrap">${cases.map(c=>`<span class="case-chip ${c.done?'done':'open'}" onclick="event.stopPropagation();v154GoCaseExact('${escapeAttr(c.key||i.key)}')">${escapeHtml(c.num)} · ${c.done?'완료':'진행'}</span>`).join('')}</div>`:'';
+    return `<div class="issue-item ${SEL&&SEL.key===i.key?'sel':''}" onclick="selectIssue(ISSUES.find(x=>x.key==='${escapeAttr(i.key)}'))">
+      <div class="issue-title"><span class="issue-key">${escapeHtml(i.key)}</span>${escapeHtml(i.summary||'')}</div>
+      <div class="issue-meta"><span>${escapeHtml(i.customer||'고객사 없음')}</span><span>${escapeHtml(i.assignee||'미지정')}</span><span>${fmtDate(i.created)}</span><span>${age}일</span>${done?'<span style="color:var(--ok)">완료</span>':'<span style="color:var(--warn)">진행/미완료</span>'}</div>
+      ${caseHtml}
+    </div>`;
+  }).join('') || `<div class="empty">조건에 맞는 일반 이슈가 없습니다.</div>`;
+  document.getElementById('page-nav').innerHTML=Array.from({length:max},(_,idx)=>`<button class="${PAGE===idx+1?'active':''}" onclick="PAGE=${idx+1};renderIssues()">${idx+1}</button>`).join('');
+  renderIssueFilterTags(); renderRightPanel(false);
+  if(SEL&&!SEL._detailLoaded){ensureIssueDetail(SEL).then(()=>renderRightPanel(false));}
+}
+function renderCases(){
+  const q=(document.getElementById('case-q')||{}).value?.toLowerCase()||'';
+  const cStat=document.getElementById('case-stat')?.value||''; const cAss=document.getElementById('case-ass')?.value||''; const cSla=parseInt(document.getElementById('case-sla')?.value||'0'); const cDate=parseInt(document.getElementById('case-date')?.value||'0');
+  let cases=getCases().filter(c=>{
+    const txt=[c.key,c.caseNum,c.title,c.customer,c.assignee,(c.labels||[]).join(' ')].join(' ').toLowerCase();
+    if(q&&!txt.includes(q))return false; if(cStat&&c.status!==cStat)return false; if(cAss&&c.assignee!==cAss)return false; if(cSla&&c.age<cSla)return false;
+    if(cDate){const t=new Date(c.created||0).getTime(); if(!t||Date.now()-t>cDate*86400000)return false;}
+    return true;
+  });
+  const wrap=document.getElementById('case-list'); if(!wrap)return;
+  const size=PAGE_SIZES.cases||10; const max=Math.max(1,Math.ceil(cases.length/size)); if(PAGE_STATE.cases>max)PAGE_STATE.cases=max; if(PAGE_STATE.cases<1)PAGE_STATE.cases=1;
+  document.getElementById('case-count').textContent=`${cases.length}건`;
+  const selectedStill=CASE_SEL&&cases.some(x=>x.key===CASE_SEL.key);
+  if(!selectedStill){CASE_SEL=cases.length===1?cases[0]:null;}
+  const rows=cases.slice((PAGE_STATE.cases-1)*size,PAGE_STATE.cases*size);
+  wrap.innerHTML=`${v154FilterNoteHtml(v154ActiveCaseFilterText())}`+rows.map(c=>`<div class="issue-item ${CASE_SEL&&CASE_SEL.key===c.key?'sel':''}" onclick="selectCase(v154GetCaseByKey('${escapeAttr(c.key)}'))">
+    <div class="issue-title"><span class="issue-key">${escapeHtml(c.caseNum)}</span>${escapeHtml(c.title||'')}</div>
+    <div class="issue-meta"><span>${escapeHtml(c.key)}</span><span>${escapeHtml(c.customer||'고객사 없음')}</span><span>${escapeHtml(c.assignee||'미지정')}</span><span>${fmtDate(c.created)}</span><span>${c.age}일</span><span>${escapeHtml(c.status)}</span></div>
+  </div>`).join('') || `<div class="empty">조건에 맞는 케이스가 없습니다.</div>`;
+  document.getElementById('case-pager').innerHTML=Array.from({length:max},(_,idx)=>`<button class="${PAGE_STATE.cases===idx+1?'active':''}" onclick="PAGE_STATE.cases=${idx+1};renderCases()">${idx+1}</button>`).join('');
+  renderCaseRight(false);
+  if(CASE_SEL&&!CASE_SEL._detailLoaded){const base=ISSUES.find(x=>x.key===CASE_SEL.key)||CASE_SEL;ensureIssueDetail(base).then(()=>{CASE_SEL=Object.assign(CASE_SEL,base);renderCaseRight(false);});}
+}
+function renderCustomerRight(c){
+  const right=document.getElementById('customer-detail'); if(!right)return;
+  if(!c){right.innerHTML='<div class="empty">고객사를 선택하세요.</div>';return;}
+  const issueRows=ISSUES.filter(i=>!isCaseIssue(i)&&i.customer===c.customer).sort((a,b)=>new Date(b.updated||b.created)-new Date(a.updated||a.created)).slice(0,8);
+  const caseRows=getCases().filter(i=>i.customer===c.customer).sort((a,b)=>new Date(b.updated||b.created)-new Date(a.updated||a.created)).slice(0,8);
+  const openCases=caseRows.filter(x=>!isDoneStatus(x.status)).length;
+  const issueHtml=issueRows.length?issueRows.map(i=>`<div class="customer-work-row" onclick="v154GoIssueExact('${escapeAttr(i.key)}')"><div><div class="k">${escapeHtml(i.key)}</div><div class="t">${escapeHtml(i.summary||'')}</div></div><div class="m">${escapeHtml(i.status||'')} · ${fmtDate(i.updated||i.created)}</div></div>`).join(''):'<div class="empty">일반 이슈 없음</div>';
+  const caseHtml=caseRows.length?caseRows.map(i=>`<div class="customer-work-row" onclick="v154GoCaseExact('${escapeAttr(i.key)}')"><div><div class="k">${escapeHtml(i.caseNum||getCaseNum(i.summary)||i.key)}</div><div class="t">${escapeHtml(i.title||i.summary||'')}</div></div><div class="m">${escapeHtml(i.status||'')} · ${fmtDate(i.updated||i.created)}</div></div>`).join(''):'<div class="empty">케이스 없음</div>';
+  right.innerHTML=`<div class="customer-detail-card">
+    <h2>${escapeHtml(c.customer)}</h2>
+    <div class="cust-summary-grid">
+      <div><span>제품</span><strong>${Array.from(c.products||[]).join(', ')||'-'}</strong></div><div><span>담당자</span><strong>${escapeHtml(c.owner||'-')}</strong></div>
+      <div><span>일반 이슈</span><strong>${c.issueTotal}건 / 미완료 ${c.issueOpen}</strong></div><div><span>케이스</span><strong>${caseRows.length}건 / 진행 ${openCases}</strong></div>
+      <div><span>일반 이슈 완료율</span><strong>${c.issueTotal?Math.round((c.issueDone/c.issueTotal)*100):0}%</strong></div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0"><button onclick="setIssueNavigationFilter({q:'${escapeAttr(c.customer)}'})">일반 이슈 보기</button><button onclick="setCaseNavigationFilter({q:'${escapeAttr(c.customer)}'})">케이스 보기</button></div>
+    <h3 style="font-size:13px;margin:16px 0 8px;color:var(--text2)">최근 일반 이슈</h3>${issueHtml}
+    <h3 style="font-size:13px;margin:16px 0 8px;color:var(--text2)">최근 케이스</h3>${caseHtml}
+  </div>`;
+}
+function renderVTHistory(){
+  const wrap=document.getElementById('vt-history'); if(!wrap)return;
+  const list=Array.isArray(VT_HISTORY)?VT_HISTORY.slice(0,20):[];
+  if(!list.length){wrap.innerHTML='<div class="empty">최근 조회 이력이 없습니다.</div>';return;}
+  wrap.innerHTML=list.map(x=>{
+    const det=(Number(x.mal||0)+Number(x.suspicious||0));
+    const res=det>0?`⚠ ${det}`:'✅ 0';
+    const who=x.user||'-'; const when=x.ts?new Date(x.ts).toLocaleString('ko-KR'):'-';
+    return `<div class="vt-history-item"><div><div class="vt-history-hash">${escapeHtml(x.hash||'')}</div><div class="vt-history-meta">${escapeHtml(x.name||x.type||'')} ${x.size?`· ${Math.round(x.size/1024)}KB`:''}</div></div><div>${res}</div><div class="hide-narrow">${escapeHtml(who)}</div><div class="vt-history-meta">${when}</div></div>`;
+  }).join('');
+}
+async function loadSharedVTHistory(force=false){
+  if(VT_HISTORY_SHARED_LOADED&&!force)return;
+  const wrap=document.getElementById('vt-history'); if(wrap)wrap.innerHTML='<div class="empty">최근 조회 이력 불러오는 중...</div>';
+  try{const res=await api('/vt/history'); VT_HISTORY=res.history||[]; VT_HISTORY_SHARED_LOADED=true;}catch(e){VT_HISTORY=VT_HISTORY||[];}
+  renderVTHistory();
+}
+async function lookupVT(){
+  const input=document.getElementById('vt-hash'); const hash=input.value.trim(); const resBox=document.getElementById('vt-result');
+  if(!hash){resBox.innerHTML='<div class="alert warn">해시값을 입력하세요.</div>';return;}
+  resBox.innerHTML='<div class="empty">VirusTotal 조회 중...</div>';
+  try{
+    const data=await api('/vt/lookup?hash='+encodeURIComponent(hash));
+    const attrs=data.data?.attributes||{}; const stats=attrs.last_analysis_stats||{};
+    const total=(stats.harmless||0)+(stats.malicious||0)+(stats.suspicious||0)+(stats.undetected||0);
+    const danger=(stats.malicious||0)+(stats.suspicious||0);
+    resBox.innerHTML=`<div class="vt-card"><h3>${danger>0?'⚠️ 탐지됨':'✅ 미탐지'}</h3><div class="vt-stats"><div><span>악성</span><b>${stats.malicious||0}</b></div><div><span>의심</span><b>${stats.suspicious||0}</b></div><div><span>정상</span><b>${stats.harmless||0}</b></div><div><span>전체</span><b>${total}</b></div></div><p style="margin-top:12px;color:var(--text2);font-size:12px">${escapeHtml(attrs.meaningful_name||attrs.type_description||'파일 정보 없음')}</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><a class="btn" target="_blank" rel="noopener" href="https://www.virustotal.com/gui/file/${encodeURIComponent(hash)}">VirusTotal에서 보기</a><a class="btn" target="_blank" rel="noopener" href="https://symsubmit.symantec.com/">제조사 신고</a></div></div>`;
+    await loadSharedVTHistory(true);
+  }catch(e){
+    resBox.innerHTML=`<div class="alert error">조회 실패: ${escapeHtml(e.message||String(e))}</div><div style="margin-top:10px"><a class="btn" target="_blank" rel="noopener" href="https://symsubmit.symantec.com/">제조사 신고</a></div>`;
+  }
+}
+function showPage(name){
+  injectV154Style();
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const page=document.getElementById('page-'+name); if(page)page.classList.add('active');
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+  const btn=document.getElementById('nav-'+name); if(btn)btn.classList.add('active');
+  document.querySelector('.page-title').textContent={dashboard:'대시보드',issues:'이슈 관리',cases:'케이스 트래커',customers:'고객사 프로필',eos:'EOS / 라이선스',log:'로그 분석기',vt:'VirusTotal 조회',links:'업무 링크',knowledge:'팀 노하우',audit:'감사 로그',admin:'관리자 설정'}[name]||'HUB';
+  document.querySelector('.page-subtitle').textContent={dashboard:'팀 현황 및 개인별 진행 통계',issues:'Jira 일반 이슈 조회 및 AI 요약',cases:'제조사 케이스 번호 기준 추적',customers:'고객사별 이슈/케이스 현황',eos:'제품 EOS 및 라이선스 체크',log:'로그 업로드 및 증상 기반 AI 분석',vt:'해시 조회 및 제조사 신고',links:'업무 참고 링크 모음',knowledge:'팀 내부 노하우 문서',audit:'사용자 작업 이력',admin:'초기 데이터 및 저장소 관리'}[name]||'';
+  if(name==='dashboard')renderDashboard();
+  if(name==='issues')renderIssues();
+  if(name==='cases')renderCases();
+  if(name==='customers')renderCustomers();
+  if(name==='eos')renderEOS();
+  if(name==='links')renderLinks();
+  if(name==='knowledge')renderKnowledge();
+  if(name==='audit')renderAudit();
+  if(name==='admin')renderStorageAdmin();
+  if(name==='vt')loadSharedVTHistory();
+}
+injectV154Style();
 
 </script>
 </body>
