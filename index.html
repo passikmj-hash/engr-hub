@@ -3842,6 +3842,12 @@ function injectV155Style(){
     .issue-main .date{font-size:11px;color:var(--text3);white-space:nowrap}
     .issue-sub{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:7px;font-size:11px;color:var(--text3)}
     .issue-sub .badge{font-size:9px;border-radius:6px;padding:2px 6px;font-weight:800}
+    .case-chip-wrap{grid-column:1/-1;display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:2px;min-width:0}
+    .case-chip{display:inline-flex;align-items:center;gap:4px;max-width:100%;border-radius:999px;padding:3px 8px;font-size:10px;font-weight:900;line-height:1.2;white-space:nowrap;border:1px solid rgba(255,255,255,.1);cursor:pointer}
+    .case-chip.open{background:rgba(45,212,191,.16);border-color:rgba(45,212,191,.34);color:#5eead4}
+    .case-chip.done{background:rgba(99,102,241,.16);border-color:rgba(129,140,248,.36);color:#c4b5fd}
+    input[type="date"]{color-scheme:dark}
+    input[type="date"]::-webkit-calendar-picker-indicator{opacity:1;cursor:pointer;filter:invert(88%) sepia(55%) saturate(804%) hue-rotate(164deg) brightness(103%) contrast(102%) drop-shadow(0 0 2px rgba(103,232,249,.55))}
     #page-nav,#case-pager{display:flex!important;justify-content:flex-end!important;align-items:center!important;gap:6px!important;background:transparent!important;border:0!important;padding:8px 0!important}
     #page-nav button,#case-pager button{background:#262d47;border:1px solid rgba(129,140,248,.25);color:#dfe6ff;border-radius:7px;padding:6px 10px;font-size:11px;font-weight:800;font-family:inherit;cursor:pointer}
     #page-nav button.active,#case-pager button.active{background:#6366f1;border-color:#818cf8;color:#fff}
@@ -4088,6 +4094,68 @@ function renderCustomerRight(){
     <div style="font-size:10px;color:var(--text3);font-weight:700;margin:12px 0 8px;text-transform:uppercase">최근 일반 이슈</div>${recent.map(i=>row(i,'issue')).join('')||'<div class="empty">최근 일반 이슈 없음</div>'}
     <div style="font-size:10px;color:var(--text3);font-weight:700;margin:14px 0 8px;text-transform:uppercase">최근 케이스</div>${recentCases.map(i=>row(i,'case')).join('')||'<div class="empty">최근 케이스 없음</div>'}
   </div>`;
+}
+function issueCaseMatches(issue,caseIssue){
+  if(!issue||!caseIssue||issue.key===caseIssue.key)return false;
+  const issueParent=issue.parentKey||'';
+  const caseParent=caseIssue.parentKey||'';
+  if(caseParent&&caseParent===issue.key)return true;
+  if(issueParent&&issueParent===caseIssue.key)return true;
+  if(issueParent&&caseParent&&issueParent===caseParent)return true;
+  const text=[issue.title,issue.summary,issue.parentTitle,issue.descPlain,(issue.comments||[]).map(c=>c.bodyPlain||c.body||'').join(' ')].join(' ');
+  const nums=new Set([...(issue.caseNums||[]),...extractCaseNums(text)]);
+  return !!(caseIssue.caseNum&&nums.has(caseIssue.caseNum));
+}
+function casesForIssue(issue){
+  if(!issue)return [];
+  return getCaseIssueBase().filter(c=>issueCaseMatches(issue,c));
+}
+function getIssueCaseRefs(issue){
+  return casesForIssue(issue).map(c=>({
+    key:c.key,
+    num:c.caseNum||getCasePrefixNum(c.title)||c.key,
+    status:c.status,
+    done:isDoneStatus(c.status)
+  }));
+}
+function caseChipsForIssue(issue){
+  const cases=casesForIssue(issue);
+  if(!cases.length)return '';
+  return `<span class="case-chip-wrap">${cases.map(c=>{
+    const done=isDoneStatus(c.status);
+    const label=`${done?'완료':'진행'} ${c.caseNum||getCasePrefixNum(c.title)||c.key}`;
+    return `<span class="case-chip ${done?'done':'open'}" title="${escapeAttr(c.title||c.key)}" onclick="event.stopPropagation();v154GoCaseExact(${jsAttr(c.key)})">${escapeHtml(label)}</span>`;
+  }).join('')}</span>`;
+}
+function issueRowHTML(i){
+  const col=SC[i.status]||'#94a3b8';
+  const priCol=i.pri==='High'?'#fc8181':i.pri==='Medium'?'#fcd34d':'#a5b4fc';
+  const labels=(i.labels||[]).slice(0,3).map(l=>`<span class="badge" style="background:${(LC_MAP[l]||'#818cf8')}22;color:${(LC_MAP[l]||'#818cf8')}">${escapeHtml(l)}</span>`).join('');
+  return `<div class="issue-card ${SEL&&SEL.key===i.key?'sel':''}" onclick="selectIssue(ISSUES.find(x=>x.key===${jsAttr(i.key)}))">
+    <div class="issue-main">
+      <span class="key">${escapeHtml(i.key)}</span>
+      <span class="st" style="background:${col}22;color:${col}">${escapeHtml(i.status)}</span>
+      <span class="pri" style="background:${priCol}22;color:${priCol}">${escapeHtml(i.pri)}</span>
+      <span class="title">${escapeHtml(cleanTitle(i.title||i.summary||''))}</span>
+      <span class="date">${fd(i.date||i.created)}</span>
+      ${caseChipsForIssue(i)}
+    </div>
+    <div class="issue-sub">${labels}<span>@${escapeHtml(i.assignee||'-')}</span>${i.attachments&&i.attachments.length?`<span>첨부 ${i.attachments.length}</span>`:''}${i.comments&&i.comments.length?`<span>댓글 ${i.comments.length}</span>`:''}</div>
+  </div>`;
+}
+function v154GoIssueExact(key){
+  ISSUE_PRESET=null;
+  const q=document.getElementById('f-q'); if(q)q.value=key;
+  ['f-stat','f-pri','f-lab','f-ass','f-date'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  PAGE=1; showPage('issues');
+  setTimeout(()=>{const item=v154GetIssueByKey(key); if(item)selectIssue(item);},20);
+}
+function v154GoCaseExact(key){
+  CASE_PRESET=null;
+  const q=document.getElementById('case-q'); if(q)q.value=key;
+  ['case-stat','case-ass','case-sla','case-date'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  PAGE_STATE.cases=1; showPage('cases');
+  setTimeout(()=>{const item=v154GetCaseByKey(key); if(item)selectCase(item);},20);
 }
 function showPage(name,btn){
   injectV154Style();injectV155Style();renderSidebarCompact();
